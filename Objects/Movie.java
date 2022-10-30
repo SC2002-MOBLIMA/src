@@ -3,6 +3,9 @@ package Objects;
 import java.io.Serializable;
 import java.util.*;
 
+import Enums.MovieType;
+import Enums.MovieStatus;
+
 public class Movie implements Serializable {
   private String title;
   private MovieStatus status;
@@ -119,12 +122,14 @@ public class Movie implements Serializable {
   // }
 
   // public static void main(String args[]) {
-  //   String[] c = { "A", "Iron B" };
-  //   Movie m = new Movie("Spider Man", MovieStatus.COMINGSOON, "Spider Man", "Spider Man", c, 0,
-  //       MovieType.BLOCKBUSTER, "ABC");
-  //   m.addReview("kaijun", 5, "sucks");
-  //   m.addReview("kaijun", 1, "sucks");
-  //   System.out.println(m.getOverallRating());
-  //   System.out.println("works");
+  // ring[] c = { "A", "Iron B" };
+  // vie m = new Movie("Spider Man", MovieStatus.COMINGSOON, "Spider Man",
+  // 
+  // r Man", c, 0,
+  // vieType.BLOCKBUSTER, "ABC");
+  // addReview("kaijun", 5, "sucks");
+  // addReview("kaijun", 1, "sucks");
+  // stem.out.println(m.getOverallRating());
+  // System.out.println("works");
   // }
 }
