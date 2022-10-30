@@ -10,7 +10,9 @@ import java.util.ArrayList;
 // Note : When structure of the Object type (the class file) in the list changed
 // the Serialized file may fail.
 public abstract class SerializeDB {
-    public static ArrayList readSerializedObject(String filename) {
+    protected String filename;
+
+    public ArrayList read() {
         ArrayList data = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
@@ -29,7 +31,7 @@ public abstract class SerializeDB {
         return data;
     }
 
-    public static void writeSerializedObject(String filename, ArrayList data) {
+    public void write(ArrayList data) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {
@@ -37,7 +39,7 @@ public abstract class SerializeDB {
             out = new ObjectOutputStream(fos);
             out.writeObject(data);
             out.close();
-            System.out.println("Object successfully written to DB");
+            System.out.println("Successfully written to DB");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
