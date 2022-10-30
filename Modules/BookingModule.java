@@ -100,6 +100,7 @@ public class BookingModule {
     Cinema cinemaObj = selectCinema();
     cinemaObj.displayAvailableShows();
     Showing showingObj = selectShowing(cinemaObj);
+    Movie movieObj = showingObj.getMovie();
     double price = calculatePrice(cinemaObj, showingObj, movieGoerObj);
     System.out.println("***********************************************");
     System.out.println("Chosen Movie: " + showingObj.getMovieTitle() + " | Price: " + price);
@@ -117,7 +118,7 @@ public class BookingModule {
         String seatId = sc.next();
         if (showingObj.isAssigned(seatId)) {
           System.out.print("Ticket " + i+1 + " | ");
-          System.out.println("Seat already occupied, Please Try Again.\n");
+          System.out.println("Seat already occupied, Please try again.\n");
         } else {
           seatIds.set(i, seatId);
           break;
@@ -143,7 +144,7 @@ public class BookingModule {
       if (confirmInput == 'Y' || confirmInput == 'N') {
         break;
       } else {
-        System.out.println("Invalid input, Please Try Again\n");
+        System.out.println("Invalid input, Please try again\n");
       }
     } while (true);
     if (confirmInput == 'Y') {
@@ -153,6 +154,7 @@ public class BookingModule {
         showingObj.assignSeat(movieGoerObj, seatId);
         MovieTicket movieTicket = new MovieTicket(movieGoerObj, price, showingObj, cineplexObj, cinemaObj, seatId);
         movieGoerObj.addMovieTicket(movieTicket);
+        movieObj.incrementSaleCount();
 
         System.out.println("Movie Ticket " + (seatId + 1) + ": ");
         movieTicket.printTicket();
