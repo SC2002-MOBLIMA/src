@@ -104,7 +104,6 @@ public class BookingModule {
     double price = calculatePrice(cinemaObj, showingObj, movieGoerObj);
     System.out.println("***********************************************");
     System.out.println("Chosen Movie: " + showingObj.getMovieTitle() + " | Price: " + price);
-    // TODO: implement Seat Booking
     System.out.println("Please enter the number of tickets: ");
     int ticketCount = sc.nextInt();
 
