@@ -1,7 +1,7 @@
 package Databases;
 
 public class MovieDB extends SerializeDB {
-    MovieDB() {
-        this.filename = "movie.dat";
+    public MovieDB() {
+        this.filename = "Databases/movie.dat";
     }
 }

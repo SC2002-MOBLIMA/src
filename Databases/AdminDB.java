@@ -1,7 +1,7 @@
 package Databases;
 
 public class AdminDB extends SerializeDB {
-  AdminDB() {
-    this.filename = "admin.dat";
+  public AdminDB() {
+    this.filename = "Databases/admin.dat";
   }
 }

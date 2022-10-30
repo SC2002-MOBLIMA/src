@@ -1,7 +1,7 @@
 package Databases;
 
 public class CineplexDB extends SerializeDB {
-  CineplexDB() {
-    this.filename = "cineplex.dat";
+  public CineplexDB() {
+    this.filename = "Databases/cineplex.dat";
   }
 }

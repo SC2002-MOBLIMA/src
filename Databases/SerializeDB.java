@@ -12,14 +12,14 @@ import java.util.ArrayList;
 public abstract class SerializeDB {
     protected String filename;
 
-    public ArrayList read() {
-        ArrayList data = null;
+    public ArrayList<?> read() {
+        ArrayList<?> data = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
         try {
             fis = new FileInputStream(filename);
             in = new ObjectInputStream(fis);
-            data = (ArrayList) in.readObject();
+            data = (ArrayList<?>) in.readObject();
             // The method readObject is used to read an object from the stream. Java's safe
             // casting should be used to get the desired type.
             in.close();
@@ -31,7 +31,7 @@ public abstract class SerializeDB {
         return data;
     }
 
-    public void write(ArrayList data) {
+    public void write(ArrayList<?> data) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {
