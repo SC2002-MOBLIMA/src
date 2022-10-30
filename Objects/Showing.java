@@ -1,10 +1,12 @@
 package Objects;
 
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.lang.Character;
 import java.lang.String;
 import Enums.DateType;
-// import Enums.*;
+import Enums.MovieType;
+import Enums.*;
 
 public class Showing {
 
@@ -23,7 +25,6 @@ public class Showing {
       for (int j = 0; j < layout[i].length; j++) {
         String seatId = (char) (i + 65) + String.valueOf(j);
         layout[i][j] = new Seat(seatId);
-        // System.out.println(seatId);
       }
     }
     this.seatLayout = layout;
@@ -54,7 +55,7 @@ public class Showing {
           System.out.print("[X]");
         }
         if (j == this.seatLayout[j].length - 1) {
-          System.out.println("\n");
+          System.out.println();
         }
       }
     }
@@ -62,12 +63,8 @@ public class Showing {
 
   public boolean isAvailable(String seatId) {
     int row = (int) seatId.charAt(0) - 65;
-    // System.out.println(row);
     int column = Character.valueOf(seatId.charAt(1)) - 48;
-    // System.out.println(column);
     Seat seat = this.seatLayout[row][column];
-    // System.out.println("Seat is available: " +
-    // seat.isAvailable());
     return seat.isAvailable();
   }
 
@@ -78,29 +75,41 @@ public class Showing {
     seat.assignSeat(movieGoer);
   }
 
-  // TODO:
-  // + getDateType(): String
-  // + getFormattedTime(): String
+  public MovieType getMovieType() {
+    return movie.getType();
+  }
 
-  // // Testing
-  // public Seat[][] getSeatLayout() {
-  //   return this.seatLayout;
-  // }
+  public DateType getDateType() {
+    return this.dateType;
+  }
 
-  // public static void main(String[] args) {
-  //   String[] c = { "A", "Iron B" };
-  //   Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
-  //       "Spider Man", c, 0, MovieType.BLOCKBUSTER,
-  //       "ABC");
-  //   LocalDateTime lTime = LocalDateTime.now();
-  //   Showing showing = new Showing(m, lTime);
-  //   Seat[][] layout = showing.getSeatLayout();
-  //   layout[0][0].assignSeat(new MovieGoer());
-  //   showing.printSeating();
-  //   System.out.println("new");
-  //   showing.isAvailable("A0");
-  //   showing.isAvailable("A1");
-  //   showing.assignSeat(new MovieGoer(), "A1");
-  //   showing.printSeating();
-  // }
+  public String getFormattedTime() {
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+    String formattedDate = showTime.format(myFormatObj);
+    System.out.println(formattedDate);
+    return formattedDate;
+  }
+
+  // Testing
+  public Seat[][] getSeatLayout() {
+    return this.seatLayout;
+  }
+
+  public static void main(String[] args) {
+    String[] c = { "A", "Iron B" };
+    Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
+        "Spider Man", c, 0, MovieType.BLOCKBUSTER,
+        "ABC");
+    LocalDateTime lTime = LocalDateTime.now();
+    Showing showing = new Showing(m, lTime);
+    Seat[][] layout = showing.getSeatLayout();
+    layout[0][0].assignSeat(new MovieGoer());
+    showing.printSeating();
+    System.out.println("new");
+    showing.isAvailable("A0");
+    showing.isAvailable("A1");
+    showing.assignSeat(new MovieGoer(), "A1");
+    showing.printSeating();
+    showing.getFormattedTime();
+  }
 }
