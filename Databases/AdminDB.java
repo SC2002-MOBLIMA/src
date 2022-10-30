@@ -3,13 +3,12 @@ package Databases;
 import java.util.ArrayList;
 import Objects.Admin;
 
-public class AdminDB {
-  public AdminDB() {}
-  public static ArrayList<Admin> getAdminList() {
-    // TODO: change this
-    ArrayList<Admin> temp = new ArrayList<Admin>();
-    temp.add(new Admin("Chualala", "ChualalaPassword"));
-    return temp;
+public class AdminDB extends SerializeDB {
+  public static ArrayList<Admin> read() {
+    return (ArrayList<Admin>) readSerializedObject("admin.dat");
   }
-  public static void setAdminList() {}
+
+  public static void write(ArrayList<Admin> data) {
+    writeSerializedObject("admin.dat", data);
+  }
 }

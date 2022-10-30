@@ -5,16 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
 import java.util.ArrayList;
 
 // Note : When structure of the Object type (the class file) in the list changed
 // the Serialized file may fail.
 public abstract class SerializeDB {
-    public static List getSerializedObject(String filename) {
-        // we return a un-resizable List bcos we don't want the other parts of app to be
-        // able to add on to this List on their own, but rather to call the setFunction
-        List data = null;
+    public static ArrayList readSerializedObject(String filename) {
+        ArrayList data = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
         try {
@@ -32,13 +29,13 @@ public abstract class SerializeDB {
         return data;
     }
 
-    public static void setSerializedObject(String filename, List list) {
+    public static void writeSerializedObject(String filename, ArrayList data) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {
             fos = new FileOutputStream(filename);
             out = new ObjectOutputStream(fos);
-            out.writeObject(list);
+            out.writeObject(data);
             out.close();
             System.out.println("Object successfully written to DB");
         } catch (IOException ex) {
