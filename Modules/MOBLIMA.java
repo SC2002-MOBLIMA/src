@@ -10,10 +10,13 @@ public class MOBLIMA {
     System.out.println("************* WELCOME TO MOBLIMA **************");
     System.out.println("***********************************************");
     int choice;
-    do {
+    boolean running = true;
+    while (running) {
+
       System.out.println("MOBLIMA -- Main Menu:");
       System.out.println("[1] Movie Goer");
       System.out.println("[2] Admin");
+      System.out.println("[3] Exit");
       System.out.print("Please Select Target Role: ");
       choice = sc.nextInt();
       System.out.println("***********************************************");
@@ -27,12 +30,16 @@ public class MOBLIMA {
           AdminModule adminModule = new AdminModule(sc);
           adminModule.run();
           break;
+
+        case 3:
+          System.out.println("Bye Bye!");
+          running = false;
+          break;
       
         default:
           System.out.println("Invalid Choice, Please Try Again!\n");
           break;
       }
-    } while (choice != 1 && choice != 2);
-    
+    }
   }
 }
