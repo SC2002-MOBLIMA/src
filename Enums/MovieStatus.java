@@ -1,7 +1,7 @@
 package Objects;
 
 public enum MovieStatus {
-  COMINGSOON, 
+  COMING_SOON, 
   PREVIEW,
-  NOWSHOWING
+  NOW_SHOWING
 }
