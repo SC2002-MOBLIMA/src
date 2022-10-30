@@ -1,5 +1,6 @@
 package Modules;
 
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,15 +8,19 @@ import Databases.CineplexDB;
 import Objects.Cineplex;
 import Objects.Cinema;
 import Objects.Showing;
+import Objects.MovieGoer;
+import Objects.MovieTicket;
 
 public class BookingModule {
   private Scanner sc;
-  private Cineplex cineplexObj;
   private ArrayList<Cineplex> cineplexList;
   private ArrayList<Cinema> cinemaList;
+  private Cineplex cineplexObj;
+  private MovieGoer movieGoerObj;
 
-  public BookingModule(Scanner sc) {
+  public BookingModule(Scanner sc, MovieGoer movieGoer) {
     this.sc = sc;
+    this.movieGoerObj = movieGoer;
   }
 
   public void run() {
@@ -85,14 +90,74 @@ public class BookingModule {
 
   private void checkSeatAvailability() {
     Cinema cinemaObj = selectCinema();
+    cinemaObj.displayAvailableShows();
+
     Showing showingObj = selectShowing(cinemaObj);
     showingObj.printSeating();
   }
 
   private void bookSeat() {
     Cinema cinemaObj = selectCinema();
+    cinemaObj.displayAvailableShows();
     Showing showingObj = selectShowing(cinemaObj);
+    double price = calculatePrice(cinemaObj, showingObj, movieGoerObj);
+    System.out.println("***********************************************");
+    System.out.println("Chosen Movie: " + showingObj.getMovieTitle() + " | Price: " + price);
     // TODO: implement Seat Booking
+    System.out.println("Please enter the number of tickets: ");
+    int ticketCount = sc.nextInt();
+
+    ArrayList<String> seatIds = new ArrayList<String>();
+    for (int i = 0; i<ticketCount; i++) {
+      boolean seatChosen = false;
+      do {
+        showingObj.printSeating();
+        System.out.print("Ticket " + i+1 + " | ");
+        System.out.print("Please enter seat to book (eg. A1): ");
+        String seatId = sc.next();
+        if (showingObj.isAssigned(seatId)) {
+          System.out.print("Ticket " + i+1 + " | ");
+          System.out.println("Seat already occupied, Please Try Again.\n");
+        } else {
+          seatIds.set(i, seatId);
+          break;
+        }
+      } while (true);
+    }
+
+    System.out.println("Please confirm the details of your booking: ");
+    System.out.println("Movie: " + showingObj.getMovieTitle());
+    System.out.println("Cineplex: " + cineplexObj.getCineplexName());
+    System.out.println("Cinema: " + cinemaObj.getCinemaNumber());
+    System.out.println("Price: " + price);
+    System.out.println("Time: " + showingObj.getFormattedTime());
+    System.out.print("Seats: ");
+    for (String seatId: seatIds) {
+      System.out.print(seatId + " ");
+    }
+    System.out.println("");
+    char confirmInput;
+    do {
+      System.out.print("Confirm (Y/N): ");
+      confirmInput = Character.toUpperCase(sc.next().charAt(0));
+      if (confirmInput == 'Y' || confirmInput == 'N') {
+        break;
+      } else {
+        System.out.println("Invalid input, Please Try Again\n");
+      }
+    } while (true);
+    if (confirmInput == 'Y') {
+      System.out.println("Booking Successful! Here are the details of your Movie Tickets.");
+      for (int i = 0; i<seatIds.size(); i++) {
+        String seatId = seatIds.get(i);
+        showingObj.assignSeat(movieGoerObj, seatId);
+        MovieTicket movieTicket = new MovieTicket(movieGoerObj, price, showingObj, cineplexObj, cinemaObj, seatId);
+        movieGoerObj.addMovieTicket(movieTicket);
+
+        System.out.println("Movie Ticket " + (seatId + 1) + ": ");
+        movieTicket.printTicket();
+      }
+    }
   }
 
   // SELECTION HELPERS
@@ -111,8 +176,10 @@ public class BookingModule {
       choice = choice < 1 || choice > cineplexSize ? 0 : choice;
       if (choice == 0) {
         System.out.println("Invalid choice, Please try again.\n");
+      } else {
+        break;
       }
-    } while (choice == 0);
+    } while (true);
     cineplexObj = cineplexList.get(choice-1);
     cinemaList = cineplexObj.getListOfCinemas();
   }
@@ -126,8 +193,10 @@ public class BookingModule {
       cinemaChoice = cinemaChoice < 1 || cinemaChoice > cinemaSize ? 0 : cinemaChoice;
       if (cinemaChoice == 0) {
         System.out.println("Invalid choice, Please try again.\n");
+      } else {
+        break;
       }
-    } while (cinemaChoice == 0);
+    } while (true);
     Cinema cinema = cinemaList.get(cinemaChoice);
     return cinema;
   }
@@ -140,9 +209,23 @@ public class BookingModule {
       showing = cinema.searchShow(showingId);
       if (showing == null) {
         System.out.println("Invalid Showing ID, Please try again. \n");
+      } else {
+        break;
       }
-    } while (showing == null);
+    } while (true);
 
     return showing;
+  }
+
+  // PRICE HELPER
+
+  private double calculatePrice(Cinema cinema, Showing showing, MovieGoer movieGoer) {
+    // Factors for price calculation
+    // a. type of movie (3D, Blockbuster, etc.) -> showing.getMovieType() // TODO
+    // b. class of cinema (e.g. Platinum Movie Suites) -> cinema.getCinemaType()
+    // c. age of movie-goer (e.g. adult, senior citizen, child) -> movieGoer.getAgeType() // TODO
+    // d. day of the week or public holiday -> showing.getShowTime()
+    double price = 1;
+    return Math.round(price * 100) / 100;
   }
 }
