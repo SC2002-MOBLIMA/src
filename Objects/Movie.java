@@ -115,21 +115,17 @@ public class Movie implements Serializable {
   }
 
   // TODO:
-  // public int compareTo() {
-  // }
+  // public int compareTo() {}
+  // public boolean equals(Object o) {}
 
-  // public boolean equals(Object o) {
-  // }
-
+  // // Testing
   // public static void main(String args[]) {
-  // ring[] c = { "A", "Iron B" };
-  // vie m = new Movie("Spider Man", MovieStatus.COMINGSOON, "Spider Man",
-  // 
-  // r Man", c, 0,
-  // vieType.BLOCKBUSTER, "ABC");
-  // addReview("kaijun", 5, "sucks");
-  // addReview("kaijun", 1, "sucks");
-  // stem.out.println(m.getOverallRating());
-  // System.out.println("works");
+  //   String[] c = { "A", "Iron B" };
+  //   Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man", "Spider Man", c, 0, MovieType.BLOCKBUSTER,
+  //       "ABC");
+  //   m.addReview("kaijun", 5, "sucks");
+  //   m.addReview("kaijun", 1, "sucks");
+  //   System.out.println(m.getOverallRating());
+  //   System.out.println("works");
   // }
 }
