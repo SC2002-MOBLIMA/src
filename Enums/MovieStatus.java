@@ -1,4 +1,4 @@
-package Objects;
+package Enums;
 
 public enum MovieStatus {
   COMING_SOON, 
