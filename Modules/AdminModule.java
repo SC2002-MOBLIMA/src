@@ -19,7 +19,8 @@ public class AdminModule {
   public void run() {
     System.out.println("***********************************************");
     System.out.println("MOBLIMA -- Admin Module:");
-    ArrayList<Admin> adminList = AdminDB.getAdminList();
+    AdminDB adminDB = new AdminDB();
+    ArrayList<Admin> adminList = (ArrayList<Admin>) adminDB.read();
     
     while (!isLoggedIn) {
       System.out.print("Please enter your username: ");

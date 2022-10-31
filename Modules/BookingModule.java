@@ -26,8 +26,8 @@ public class BookingModule {
   public void run() {
     System.out.println("***********************************************");
     System.out.println("MOBLIMA -- Booking Module:");
-
-    cineplexList = CineplexDB.getCineplexList();
+    CineplexDB cineplexDB = new CineplexDB();
+    cineplexList = (ArrayList<Cineplex>) cineplexDB.read();
     selectCineplex();
 
     boolean running = true;
