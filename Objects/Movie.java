@@ -11,13 +11,14 @@ public class Movie implements Serializable {
   private MovieStatus status;
   private String synopsis;
   private String director;
-  private String[] cast;
+  private ArrayList<String> cast;
   private ArrayList<Review> reviewList = new ArrayList<Review>(); // Always initialized
   private int saleCount;
   private MovieType type;
   private String endOfShowingDate;
 
-  public Movie(String title, MovieStatus status, String synopsis, String director, String[] cast, int saleCount,
+  public Movie(String title, MovieStatus status, String synopsis, String director, ArrayList<String> cast,
+      int saleCount,
       MovieType type, String endOfShowingDate) {
     this.title = title;
     this.status = status;
@@ -61,11 +62,11 @@ public class Movie implements Serializable {
     this.director = director;
   }
 
-  public String[] getCast() {
+  public ArrayList<String> getCast() {
     return this.cast;
   }
 
-  public void setCast(String[] cast) {
+  public void setCast(ArrayList<String> cast) {
     this.cast = cast;
   }
 
@@ -120,12 +121,13 @@ public class Movie implements Serializable {
 
   // // Testing
   // public static void main(String args[]) {
-  //   String[] c = { "A", "Iron B" };
-  //   Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man", "Spider Man", c, 0, MovieType.BLOCKBUSTER,
-  //       "ABC");
-  //   m.addReview("kaijun", 5, "sucks");
-  //   m.addReview("kaijun", 1, "sucks");
-  //   System.out.println(m.getOverallRating());
-  //   System.out.println("works");
+  // String[] c = { "A", "Iron B" };
+  // Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
+  // "Spider Man", c, 0, MovieType.BLOCKBUSTER,
+  // "ABC");
+  // m.addReview("kaijun", 5, "sucks");
+  // m.addReview("kaijun", 1, "sucks");
+  // System.out.println(m.getOverallRating());
+  // System.out.println("works");
   // }
 }

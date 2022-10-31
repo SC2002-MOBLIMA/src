@@ -1,7 +1,8 @@
 package Enums;
 
 public enum MovieStatus {
-  COMING_SOON, 
+  COMING_SOON,
   PREVIEW,
-  NOW_SHOWING
+  NOW_SHOWING,
+  END_OF_SHOWING // added by aaron
 }

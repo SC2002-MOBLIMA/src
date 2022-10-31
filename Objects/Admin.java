@@ -1,6 +1,8 @@
 package Objects;
 
-public class Admin {
+import java.io.Serializable;
+
+public class Admin implements Serializable {
   private String username;
   private String password;
 
@@ -9,7 +11,7 @@ public class Admin {
     this.password = password;
   }
 
-  public String getUsername()  {
+  public String getUsername() {
     return username;
   }
 
