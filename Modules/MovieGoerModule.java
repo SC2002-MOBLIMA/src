@@ -32,12 +32,21 @@ public class MovieGoerModule implements Comparator<Movie> {
     }
   }
 
-  public void printMovieByRating(ArrayList<Movie> movies) {
+  public void printMovieByRating() {
     allmovies = MoviesDB.getMovies();
+    Collections.sort(allmovies);
   }
 
   public void run() {
     System.out.println("MovieGoer Module Running...");
+    System.out.println("(1)-Search Movies\n"
+        + "(2)-List movies\n"
+        + "(3)- View movie details\n"
+        + "(4)-Check seat availability\n"
+        + "(5)-Book Seats\n"
+        + "(6)-View Booking history\n"
+        + "(7)-List top 5 movies based on sales\n"
+        + "(8)-List top 5 movies based on ratings\n");
   }
 
 }
