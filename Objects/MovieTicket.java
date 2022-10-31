@@ -10,30 +10,37 @@ public class MovieTicket {
   private Cineplex cineplex;
   private Cinema cinema;
   private String seatId;
-  private LocalDateTime showingTime;
   private String TID;
 
-  public MovieTicket(MovieGoer movieGoer, double price, Showing showing, Cineplex cineplex, Cinema cinema, String seatId, LocalDateTime showingTime) {
+  public MovieTicket(MovieGoer movieGoer, double price, Showing showing, Cineplex cineplex, Cinema cinema, String seatId) {
     this.movieGoer = movieGoer;
     this.price = price;
     this.showing = showing;
     this.cineplex = cineplex;
     this.cinema = cinema;
     this.seatId = seatId;
-    this.showingTime = showingTime;
 
+    LocalDateTime showTime = showing.getShowTime();
     DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
-    this.TID = "AAA" + showingTime.format(dtFormatter);
+
+    this.TID = cinema.getCinemaCode() + showTime.format(dtFormatter);
   }
 
   public void printTicket() {
     System.out.println("***********************************************");
     System.out.println("Booking Information for TID " + TID);
-    // TODO: Remove hardcoded values
-    System.out.println("Cineplex: " + "PlaceholderCineplex");
-    System.out.println("Cinema: " + "PlaceholderCinema");
-    System.out.println("MovieGoer: " + "IvanLoke");
-    System.out.println("Price: " + price);
+    System.out.println("***********************************************");
+    System.out.println("Personal Particulars: ");
+    System.out.println("Name: " + movieGoer.getName());
+    System.out.println("Mobile: " + movieGoer.getMobile());
+    System.out.println("Email: " + movieGoer.getEmail());
+    System.out.println("***********************************************");
+    System.out.println("Movie Information: ");
+    System.out.println("Movie: " + showing.getMovieTitle());
+    System.out.println("Cineplex: " + cineplex.getCineplexName());
+    System.out.println("Cinema: " + cinema.getCinemaNumber());
+    System.out.println("Price: " + price + " | Time: " + showing.getFormattedTime() + " | Seat: " + seatId);
+    System.out.println("***********************************************");
   }
 
 }
