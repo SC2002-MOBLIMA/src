@@ -129,7 +129,7 @@ public class BookingModule {
     }
 
     System.out.println("Please confirm the details of your booking: ");
-    System.out.println("Movie: " + showingObj.getMovieTitle());
+    System.out.println("Movie: " + movieObj.getTitle());
     System.out.println("Cineplex: " + cineplexObj.getCineplexName());
     System.out.println("Cinema: " + cinemaObj.getCinemaNum());
     System.out.println("Price: " + price);

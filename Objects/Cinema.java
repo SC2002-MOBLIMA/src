@@ -37,7 +37,9 @@ public class Cinema {
 
     public void displayShowList(){
         for(int i=0; i<showList.size(); i++){
-            System.out.println("[" + (i+1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getFormattedTime());
+            Showing show = showList.get(i);
+            Movie movie = show.getMovie();
+            System.out.println("[" + (i+1) + "]: " + movie.getTitle() + " " + show.getFormattedTime());
             // System.out.println(showList.get(i).getMovieTitle());
             // System.out.println("Show Timte: " + showList.get(i).getShowTime());
         }
