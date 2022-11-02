@@ -128,7 +128,7 @@ public class CineplexModule {
         LocalDateTime dateTime = LocalDateTime.parse(input, myFormatObj);
 
         System.out.println("************************************************************");
-        System.out.println("Key in the DateType (WEEKEND,WEEKDAY,PUBLIC_HOLIDAY): ");
+        System.out.println("Key in the DateType (Weekend,Weekday,Public Holiday): ");
         String dateString = sc.next();
         System.out.println("************************************************************");
 
