@@ -52,19 +52,14 @@ public class Cinema {
         }
     }
 
-    public void searchShow(String keyword){
-        int counter = 0;
+    public Showing searchShow(int id){
         for(int i=0; i<showList.size(); i++){
-            String movietitle = showList.get(i).getMovieTitle();
-            if(movietitle.contains(keyword)){
-                System.out.println("[" + (i+1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getFormattedTime());
-                counter+=1;
-                // System.out.println("Show Time: " + showList.get(i).getFormattedTime() + "\n");
-            }
-            if(counter==0){
-                System.out.println("No movies found");
+            int check = showList.get(i).getId();
+            if(check == id){
+               return showList.get(i);
             }
         }
+        return null;
     }
 
     public void addShow(Movie movie, LocalDateTime showTime, MovieStatus status){
