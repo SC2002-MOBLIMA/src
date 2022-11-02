@@ -2,16 +2,22 @@ package Modules;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
+import Databases.MovieDB;
 import Objects.Cineplex;
 import Objects.Cinema;
 import Objects.Showing;
+import Objects.Movie;
 
 public class CineplexModule {
   private Scanner sc;
   private ArrayList<Cineplex> cineplexList;
   private Cineplex cineplexReq;
   private Cinema cinemaReq;
-  private Showing showReq;
+  // private Showing showReq;
+  private Movie movieReq;
 
   public CineplexModule(Scanner sc) {
     this.sc = sc;
@@ -86,6 +92,43 @@ public class CineplexModule {
 
   public void addShow(){
     
+    boolean main = true;
+    while(main){
+      ArrayList<Movie> movieList = MovieDB.getMovieList(); //Resolve tomorrow
+      System.out.println("************************************************************");
+      System.out.println("Key in the number of the movie that you would like to add");
+      for(int i=0; i<movieList.size(); i++){
+        System.out.println("[" + (i+1) + "] " + movieList.get(i).getTitle());
+      }
+      int selection = sc.nextInt();
+      System.out.println("************************************************************");
+      if(!(selection<1 || selection>movieList.size()+1)){
+        main = false;
+        movieReq = movieList.get(selection-1);
+        break;
+      }
+      else{
+        System.out.println("Error: Key in a valid value");
+      }
+    }
+
+    boolean main_next = true;
+    while(main_next){
+      ArrayList<Showing> showList = cinemaReq.getShowList();
+      System.out.println("************************************************************");
+      System.out.println("Key in the Date and Time of the show in the following format (yyyyMMddHHmm): ");
+      String input = sc.next();
+      System.out.println("************************************************************");
+      
+      DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+      LocalDateTime dateTime = LocalDateTime.parse(input, myFormatObj);
+
+      //Find out how to validate tomorrow
+      Showing show = new Showing(movieReq, dateTime);
+      showList.add(show);
+      System.out.println("Show has been sucessfully added");
+      main_next = false;
+    }
   }
 
   public void removeShow(){

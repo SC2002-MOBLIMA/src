@@ -35,7 +35,7 @@ public class Cinema {
 
     public void displayShowList(){
         for(int i=0; i<showList.size(); i++){
-            System.out.println("[" + (i+1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getShowTime());
+            System.out.println("[" + (i+1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getFormattedTime());
             // System.out.println(showList.get(i).getMovieTitle());
             // System.out.println("Show Timte: " + showList.get(i).getShowTime());
         }
@@ -44,7 +44,7 @@ public class Cinema {
     public void displayAvailableShows(){ //Come back to finish this
         for(int i=0;i<showList.size(); i++){
             if((showList.get(i).getMovie()).getStatus() == 3){
-                System.out.println("[" + (i+1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getShowTime());
+                System.out.println("[" + (i+1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getFormattedTime());
                 // System.out.println(showList.get(i).getMovieTitle());
                 // System.out.println("Show Timte: " + showList.get(i).getShowTime());
 
@@ -57,11 +57,9 @@ public class Cinema {
         for(int i=0; i<showList.size(); i++){
             String movietitle = showList.get(i).getMovieTitle();
             if(movietitle.contains(keyword)){
-                System.out.println("[" + (i+1) + "]: " );
-                System.out.println(showList.get(i).getMovieTitle() + "\n");
+                System.out.println("[" + (i+1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getFormattedTime());
                 counter+=1;
-                System.out.println("Show Time: " + showList.get(i).getShowTime() + "\n");
-
+                // System.out.println("Show Time: " + showList.get(i).getFormattedTime() + "\n");
             }
             if(counter==0){
                 System.out.println("No movies found");
