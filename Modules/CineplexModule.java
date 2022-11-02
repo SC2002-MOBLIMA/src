@@ -104,7 +104,7 @@ public class CineplexModule {
       }
       int selection = sc.nextInt();
       System.out.println("************************************************************");
-      if(!(selection<1 || selection>movieList.size()+1)){
+      if(!(selection<1 || selection>movieList.size())){
         main = false;
         movieReq = movieList.get(selection-1);
         break;
@@ -123,13 +123,16 @@ public class CineplexModule {
       System.out.println("************************************************************");
       
       DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
-      LocalDateTime dateTime = LocalDateTime.parse(input, myFormatObj);
-
-      //Find out how to validate tomorrow
-      Showing show = new Showing(movieReq, dateTime);
-      showList.add(show);
-      System.out.println("Show has been sucessfully added");
-      main_next = false;
+      try {
+        // TODO: Find out how to validate 
+        LocalDateTime dateTime = LocalDateTime.parse(input, myFormatObj);
+        Showing show = new Showing(movieReq, dateTime);
+        showList.add(show);
+        System.out.println("Show has been sucessfully added");
+        main_next = false;
+      } catch (Exception e) {
+        System.out.println("Error: Invalid date format. Please try again");
+      }
     }
   }
 
@@ -143,7 +146,7 @@ public class CineplexModule {
       cinemaReq.displayShowList();
       int selection = sc.nextInt();
       System.out.println("************************************************************");
-      if(!(selection<1 || selection>showList.size()+1)){
+      if(!(selection<1 || selection>showList.size())){
         showList.remove(selection-1);
         main = false;
         System.out.println("Selection has been sucessfully removed");
@@ -161,8 +164,8 @@ public class CineplexModule {
     cinemaReq.displayShowList();
     int selection = sc.nextInt();
     System.out.println("************************************************************");
-    if(!(selection<1 || selection>showList.size()+1)){
-      //Discuss tomorrow
+    if(!(selection<1 || selection>showList.size())){
+      // TODO: Discuss tomorrow
     }
     else{
       System.out.println("Error: Key in a valid value");
