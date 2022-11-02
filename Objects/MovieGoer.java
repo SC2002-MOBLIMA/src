@@ -15,16 +15,16 @@ public class MovieGoer {
     private Agetype agetype;
     private String email;
     private int customerID;
-    private ArrayList<MovieTicket> TransactionList;
+    private ArrayList<MovieTicket> movieTicketList;
 
     public MovieGoer(String name, String mobile, Agetype agetype, String email, int customerID,
-            ArrayList<MovieTicket> TransactionList) {
+            ArrayList<MovieTicket> movieTicketList) {
         this.name = name;
         this.mobile = mobile;
         this.agetype = agetype;
         this.email = email;
         this.customerID = customerID;
-        this.TransactionList = TransactionList;
+        this.movieTicketList = movieTicketList;
     }
 
     public String getName() {
@@ -47,11 +47,11 @@ public class MovieGoer {
         return this.agetype;
     }
 
-    public ArrayList<MovieTicket> getTransactionList() {
-        return this.TransactionList;
+    public ArrayList<MovieTicket> getmovieTicketList() {
+        return this.movieTicketList;
     }
 
     public void addTransaction(MovieTicket movieTicket) {
-        TransactionList.add(movieTicket);
+        movieTicketList.add(movieTicket);
     }
 }
