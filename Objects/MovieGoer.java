@@ -14,16 +14,16 @@ public class MovieGoer {
     private String mobile;
     private Agetype agetype;
     private String email;
-    private int customerID;
+    private int movieGoerID;
     private ArrayList<MovieTicket> movieTicketList;
 
-    public MovieGoer(String name, String mobile, Agetype agetype, String email, int customerID,
+    public MovieGoer(String name, String mobile, Agetype agetype, String email, int movieGoerID,
             ArrayList<MovieTicket> movieTicketList) {
         this.name = name;
         this.mobile = mobile;
         this.agetype = agetype;
         this.email = email;
-        this.customerID = customerID;
+        this.movieGoerID = movieGoerID;
         this.movieTicketList = movieTicketList;
     }
 
@@ -39,8 +39,8 @@ public class MovieGoer {
         return this.mobile;
     }
 
-    public int getCustomerID() {
-        return this.customerID;
+    public int getMovieGoerID() {
+        return this.movieGoerID;
     }
 
     public Agetype getAgeType() {
