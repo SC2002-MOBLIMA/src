@@ -1,78 +1,80 @@
 package Objects;
-import java.util.ArrayList;
-import Enums.CinemaType;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import Enums.CinemaType;
+import Enums.DateType;
 import Enums.MovieStatus;
 
-import java.util.ArrayList;
-
 public class Cinema {
-  
-    private int cinemaNum;
-    private String cinemaCode;
-    private CinemaType cinemaType;
-    private ArrayList<Showing> showList;
 
-    public Cinema(int cinemaNum, String cinemaCode, CinemaType cinemaType){
-        this.cinemaNum = cinemaNum;
-        this.cinemaCode  = cinemaCode;
-        this.cinemaType = cinemaType;
+  private int cinemaNum;
+  private String cinemaCode;
+  private CinemaType cinemaType;
+  private ArrayList<Showing> showList;
+
+  public Cinema(int cinemaNum, String cinemaCode, CinemaType cinemaType) {
+    this.cinemaNum = cinemaNum;
+    this.cinemaCode = cinemaCode;
+    this.cinemaType = cinemaType;
+  }
+
+  public ArrayList<Showing> getShowList() {
+    return this.showList;
+  }
+
+  public int getCinemaNum() {
+    return this.cinemaNum;
+  }
+
+  public String getCinemaCode() {
+    return this.cinemaCode;
+  }
+
+  public CinemaType getCinemaType() {
+    return this.cinemaType;
+  }
+
+  public void displayShowList() {
+    for (int i = 0; i < showList.size(); i++) {
+      Showing show = showList.get(i);
+      Movie movie = show.getMovie();
+      System.out.println("[" + (i + 1) + "]: " + movie.getTitle() + " " + show.getFormattedTime());
+      // System.out.println(showList.get(i).getMovieTitle());
+      // System.out.println("Show Timte: " + showList.get(i).getShowTime());
     }
+  }
 
-    public ArrayList<Showing> getShowList(){
-        return showList;
+  public void displayAvailableShows() { // Come back to finish this
+    for (int i = 0; i < showList.size(); i++) {
+      if ((this.showList.get(i).getMovie()).getStatus() == MovieStatus.NOW_SHOWING) {
+        System.out.println(
+            "[" + (i + 1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getFormattedTime());
+        // System.out.println(showList.get(i).getMovieTitle());
+        // System.out.println("Show Timte: " + showList.get(i).getShowTime());
+
+      }
     }
+  }
 
-    public int getCinemaNum(){
-        return cinemaNum;
+  public Showing searchShow(int id) {
+    for (int i = 0; i < showList.size(); i++) {
+      int check = showList.get(i).getId();
+      if (check == id) {
+        return showList.get(i);
+      }
     }
+    return null;
+  }
 
-    public String getCinemaCode(){
-        return cinemaCode;
-    }
+  public void addShow(Movie movie, LocalDateTime showTime, MovieStatus status, DateType dateType) {
+    Showing show = new Showing(movie, showTime, dateType);
+    showList.add(show);
+  }
 
-    public CinemaType getCinemaType(){
-        return cinemaType;
-    }
-
-    public void displayShowList(){
-        for(int i=0; i<showList.size(); i++){
-            Showing show = showList.get(i);
-            Movie movie = show.getMovie();
-            System.out.println("[" + (i+1) + "]: " + movie.getTitle() + " " + show.getFormattedTime());
-            // System.out.println(showList.get(i).getMovieTitle());
-            // System.out.println("Show Timte: " + showList.get(i).getShowTime());
-        }
-    }
-
-    public void displayAvailableShows(){ //Come back to finish this
-        for(int i=0;i<showList.size(); i++){
-            if((showList.get(i).getMovie()).getStatus() == 3){
-                System.out.println("[" + (i+1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getFormattedTime());
-                // System.out.println(showList.get(i).getMovieTitle());
-                // System.out.println("Show Timte: " + showList.get(i).getShowTime());
-
-            }
-        }
-    }
-
-    public Showing searchShow(int id){
-        for(int i=0; i<showList.size(); i++){
-            int check = showList.get(i).getId();
-            if(check == id){
-               return showList.get(i);
-            }
-        }
-        return null;
-    }
-
-    public void addShow(Movie movie, LocalDateTime showTime, MovieStatus status){
-        Showing show = new Showing(movie, showTime);
-        showList.add(show);
-    }
-
-    public void removeShow(Showing show){
-        showList.remove(show);
-    }
+  public void removeShow(Showing show) {
+    showList.remove(show);
+  }
 
 }

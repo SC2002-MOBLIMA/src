@@ -45,6 +45,10 @@ public class Showing {
     return this.movie;
   }
 
+  public String getMovieTitle() {
+    return this.movie.getTitle();
+  }
+
   public DateType getDateType() {
     return this.dateType;
   }
@@ -94,30 +98,30 @@ public class Showing {
   }
 
   // public static void main(String[] args) {
-  //   ArrayList<String> cast = new ArrayList<>();
-  //   cast.add("ABC");
-  //   cast.add("ABC");
-  //   String[] c = { "A", "Iron B" };
-  //   Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
-  //       "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
-  //   LocalDateTime lTime = LocalDateTime.now();
-  //   DateType dateType = DateType.WEEKEND;
-  //   Showing showing = new Showing(m, lTime, dateType);
+  // ArrayList<String> cast = new ArrayList<>();
+  // cast.add("ABC");
+  // cast.add("ABC");
+  // String[] c = { "A", "Iron B" };
+  // Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
+  // "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
+  // LocalDateTime lTime = LocalDateTime.now();
+  // DateType dateType = DateType.WEEKEND;
+  // Showing showing = new Showing(m, lTime, dateType);
 
-  //   showing.getFormattedTime();
-  //   showing.printSeating();
-  //   System.out.println();
+  // showing.getFormattedTime();
+  // showing.printSeating();
+  // System.out.println();
 
-  //   ArrayList<MovieTicket> TransactionList = new ArrayList<MovieTicket>();
-  //   MovieGoer movieGoer = new MovieGoer("null", "null", Agetype.ADULT, "null", 0,
-  //       TransactionList);
-  //   Seat[][] layout = showing.getSeatLayout();
-  //   layout[0][0].assignSeat(movieGoer);
-  //   showing.printSeating();
-  //   System.out.println(showing.isAvailable("A0"));
-  //   System.out.println(showing.isAvailable("A1"));
+  // ArrayList<MovieTicket> TransactionList = new ArrayList<MovieTicket>();
+  // MovieGoer movieGoer = new MovieGoer("null", "null", Agetype.ADULT, "null", 0,
+  // TransactionList);
+  // Seat[][] layout = showing.getSeatLayout();
+  // layout[0][0].assignSeat(movieGoer);
+  // showing.printSeating();
+  // System.out.println(showing.isAvailable("A0"));
+  // System.out.println(showing.isAvailable("A1"));
 
-  //   showing.assignSeat(movieGoer, "A1");
-  //   showing.printSeating();
+  // showing.assignSeat(movieGoer, "A1");
+  // showing.printSeating();
   // }
 }

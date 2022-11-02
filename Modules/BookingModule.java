@@ -1,15 +1,15 @@
 package Modules;
 
-import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import Databases.CineplexDB;
-import Objects.Cineplex;
 import Objects.Cinema;
-import Objects.Showing;
+import Objects.Cineplex;
+import Objects.Movie;
 import Objects.MovieGoer;
 import Objects.MovieTicket;
+import Objects.Showing;
 
 public class BookingModule {
   private Scanner sc;
@@ -29,7 +29,7 @@ public class BookingModule {
 
     CineplexDB cineplexDB = new CineplexDB();
     @SuppressWarnings("unchecked")
-    ArrayList<Cineplex> readList = (ArrayList<Cineplex>)cineplexDB.read();
+    ArrayList<Cineplex> readList = (ArrayList<Cineplex>) cineplexDB.read();
     cineplexList = readList;
     selectCineplex();
 
@@ -43,33 +43,33 @@ public class BookingModule {
       System.out.println("[4] Select, Book & Purchase Tickets");
       System.out.println("[5] Reselect Cineplex");
       System.out.println("[6] Back");
-  
+
       int choice = sc.nextInt();
       switch (choice) {
         case 1:
           displayAllCinemaShowings();
           break;
-  
+
         case 2:
           displayCinemaShowings();
           break;
-          
+
         case 3:
           checkSeatAvailability();
           break;
-  
+
         case 4:
           bookSeat();
           break;
-  
+
         case 5:
           selectCineplex();
           break;
-  
+
         case 6:
           running = false;
           break;
-  
+
         default:
           System.out.println("Invalid Choice, Please try again.\n");
           break;
@@ -78,7 +78,7 @@ public class BookingModule {
   }
 
   private void displayAllCinemaShowings() {
-    for (Cinema cinema: cinemaList) {
+    for (Cinema cinema : cinemaList) {
       System.out.println("Cinema " + cinema.getCinemaNum() + ":");
       cinema.displayAvailableShows();
       System.out.println("");
@@ -111,15 +111,15 @@ public class BookingModule {
     int ticketCount = sc.nextInt();
 
     ArrayList<String> seatIds = new ArrayList<String>();
-    for (int i = 0; i<ticketCount; i++) {
+    for (int i = 0; i < ticketCount; i++) {
       boolean seatChosen = false;
       do {
         showingObj.printSeating();
-        System.out.print("Ticket " + i+1 + " | ");
+        System.out.print("Ticket " + i + 1 + " | ");
         System.out.print("Please enter seat to book (eg. A1): ");
         String seatId = sc.next();
         if (showingObj.isAvailable(seatId)) {
-          System.out.print("Ticket " + i+1 + " | ");
+          System.out.print("Ticket " + i + 1 + " | ");
           System.out.println("Seat already occupied, Please try again.\n");
         } else {
           seatIds.set(i, seatId);
@@ -135,7 +135,7 @@ public class BookingModule {
     System.out.println("Price: " + price);
     System.out.println("Time: " + showingObj.getFormattedTime());
     System.out.print("Seats: ");
-    for (String seatId: seatIds) {
+    for (String seatId : seatIds) {
       System.out.print(seatId + " ");
     }
     System.out.println("");
@@ -151,7 +151,7 @@ public class BookingModule {
     } while (true);
     if (confirmInput == 'Y') {
       System.out.println("Booking Successful! Here are the details of your Movie Tickets.");
-      for (int i = 0; i<seatIds.size(); i++) {
+      for (int i = 0; i < seatIds.size(); i++) {
         String seatId = seatIds.get(i);
         showingObj.assignSeat(movieGoerObj, seatId);
         MovieTicket movieTicket = new MovieTicket(movieGoerObj, price, showingObj, cineplexObj, cinemaObj, seatId);
@@ -171,7 +171,7 @@ public class BookingModule {
     do {
       System.out.println("Please select your cineplex of choice: ");
       int index = 0;
-      for (Cineplex cineplex: cineplexList) {
+      for (Cineplex cineplex : cineplexList) {
         index++;
         System.out.println("[" + index + "]: " + cineplex.getCineplexName());
       }
@@ -184,7 +184,7 @@ public class BookingModule {
         break;
       }
     } while (true);
-    cineplexObj = cineplexList.get(choice-1);
+    cineplexObj = cineplexList.get(choice - 1);
     cinemaList = cineplexObj.getListOfCinemas();
   }
 
@@ -227,7 +227,8 @@ public class BookingModule {
     // Factors for price calculation
     // a. type of movie (3D, Blockbuster, etc.) -> showing.getMovieType() // TODO
     // b. class of cinema (e.g. Platinum Movie Suites) -> cinema.getCinemaType()
-    // c. age of movie-goer (e.g. adult, senior citizen, child) -> movieGoer.getAgeType() // TODO
+    // c. age of movie-goer (e.g. adult, senior citizen, child) ->
+    // movieGoer.getAgeType() // TODO
     // d. day of the week or public holiday -> showing.getShowTime()
     double price = 1;
     return Math.round(price * 100) / 100;
