@@ -107,7 +107,7 @@ public class MovieGoerModule {
             bookingModule.run();
             break;
           case 5:
-            System.out.println(movieGoerObject.getTransactionList());
+            System.out.println(movieGoerObject.getMovieTicketList());
             break;
           case 6:
             printMovieBySales();

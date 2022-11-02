@@ -47,11 +47,11 @@ public class MovieGoer {
         return this.agetype;
     }
 
-    public ArrayList<MovieTicket> getmovieTicketList() {
+    public ArrayList<MovieTicket> getMovieTicketList() {
         return this.movieTicketList;
     }
 
-    public void addTransaction(MovieTicket movieTicket) {
+    public void addMovieTicket(MovieTicket movieTicket) {
         movieTicketList.add(movieTicket);
     }
 }
