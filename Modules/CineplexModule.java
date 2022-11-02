@@ -34,7 +34,7 @@ public class CineplexModule {
       String name = sc.next();
       System.out.println("************************************************************");
       for(int i=0; i<cineplexList.size(); i++){
-        if(cineplexList.get(i).getNameCineplex() == name){
+        if(cineplexList.get(i).getCineplexName() == name){
           cineplexReq = cineplexList.get(i);
           main = false;
         }
@@ -94,7 +94,9 @@ public class CineplexModule {
     
     boolean main = true;
     while(main){
-      ArrayList<Movie> movieList = MovieDB.getMovieList(); //Resolve tomorrow
+      MovieDB movieDB = new MovieDB();
+      @SuppressWarnings("unchecked")
+      ArrayList<Movie> movieList = (ArrayList<Movie>)movieDB.read(); //Resolve tomorrow
       System.out.println("************************************************************");
       System.out.println("Key in the number of the movie that you would like to add");
       for(int i=0; i<movieList.size(); i++){

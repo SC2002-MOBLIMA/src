@@ -10,7 +10,7 @@ public class CineplexDB extends SerializeDB {
   }
 
   public static String generateCinemaCode(Cineplex cnp, Cinema cnm) {
-    String code = cnp.getCineplexName()[0] + cnp.getCineplexName()[1] + cnm.getCinemaNum().toString();
+    String code = cnp.getCineplexName().charAt(0) + cnp.getCineplexName().charAt(1) + cnm.getCinemaNum().toString();
     return code;
   }
 

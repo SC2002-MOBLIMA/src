@@ -38,7 +38,7 @@ public class MovieTicket {
     System.out.println("Movie Information: ");
     System.out.println("Movie: " + showing.getMovieTitle());
     System.out.println("Cineplex: " + cineplex.getCineplexName());
-    System.out.println("Cinema: " + cinema.getCinemaNumber());
+    System.out.println("Cinema: " + cinema.getCinemaNum());
     System.out.println("Price: " + price + " | Time: " + showing.getFormattedTime() + " | Seat: " + seatId);
     System.out.println("***********************************************");
   }

@@ -10,7 +10,7 @@ public class Cineplex {
     this.cineplexName = cineplexName;
   }
   
-  public String getNameCineplex() {
+  public String getCineplexName() {
     return cineplexName;
   }
 
