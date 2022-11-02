@@ -11,7 +11,7 @@ public class MovieGoerDB extends SerializeDB {
     public boolean checkMovieGoerExists(String name) {
         ArrayList<MovieGoer> data = (ArrayList<MovieGoer>) this.read();
         for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getName() = name) {
+            if (data.get(i).getName() == name) {
                 return true;
             }
         }

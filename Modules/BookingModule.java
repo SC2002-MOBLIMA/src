@@ -27,7 +27,10 @@ public class BookingModule {
     System.out.println("***********************************************");
     System.out.println("MOBLIMA -- Booking Module:");
 
-    cineplexList = CineplexDB.getCineplexList();
+    CineplexDB cineplexDB = new CineplexDB();
+    @SuppressWarnings("unchecked")
+    ArrayList<Cineplex> readList = (ArrayList<Cineplex>)cineplexDB.read();
+    cineplexList = readList;
     selectCineplex();
 
     boolean running = true;
@@ -76,7 +79,7 @@ public class BookingModule {
 
   private void displayAllCinemaShowings() {
     for (Cinema cinema: cinemaList) {
-      System.out.println("Cinema " + cinema.getCinemaNumber() + ":");
+      System.out.println("Cinema " + cinema.getCinemaNum() + ":");
       cinema.displayAvailableShows();
       System.out.println("");
     }
@@ -115,7 +118,7 @@ public class BookingModule {
         System.out.print("Ticket " + i+1 + " | ");
         System.out.print("Please enter seat to book (eg. A1): ");
         String seatId = sc.next();
-        if (showingObj.isAssigned(seatId)) {
+        if (showingObj.isAvailable(seatId)) {
           System.out.print("Ticket " + i+1 + " | ");
           System.out.println("Seat already occupied, Please try again.\n");
         } else {
@@ -126,9 +129,9 @@ public class BookingModule {
     }
 
     System.out.println("Please confirm the details of your booking: ");
-    System.out.println("Movie: " + showingObj.getMovieTitle());
+    System.out.println("Movie: " + movieObj.getTitle());
     System.out.println("Cineplex: " + cineplexObj.getCineplexName());
-    System.out.println("Cinema: " + cinemaObj.getCinemaNumber());
+    System.out.println("Cinema: " + cinemaObj.getCinemaNum());
     System.out.println("Price: " + price);
     System.out.println("Time: " + showingObj.getFormattedTime());
     System.out.print("Seats: ");
