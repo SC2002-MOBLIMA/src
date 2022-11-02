@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.*;
 import Databases.MovieDB;
+import Databases.MovieGoerDB;
 
 import java.util.ArrayList;
 import Objects.Cinema;
@@ -67,53 +68,56 @@ public class MovieGoerModule {
 
   public void run() {
     MovieDB movieDB = new MovieDB();
+    MovieGoerDB movieGoerDB = new MovieGoerDB();
     @SuppressWarnings("unchecked")
-    ArrayList<Movie> readMovies = (ArrayList<Movie>)movieDB.read();
+    ArrayList<Movie> readMovies = (ArrayList<Movie>) movieDB.read();
     allmovies = readMovies;
     String keywords = "";
     System.out.print("Please enter your username: ");
     String username = sc.next();
-    int input = 0;
-    System.out.println("MovieGoer Module Running...");
-    while (input != 9) {
-      System.out.println("[1] Search Movies\n"
-          + "[2] List movies\n"
-          + "[3] View movie details\n"
-          + "[4] Book Seats\n"
-          + "[5] View Booking history\n"
-          + "[6] List top 5 movies based on sales\n"
-          + "[7] List top 5 movies based on ratings\n"
-          + "[8] Exit");
-      System.out.print("Please select an option: ");
-      input = sc.nextInt();
-      switch (input) {
-        case 1:
-          System.out.println("Please enter the keywords: ");
-          keywords = sc.nextLine();
-          printMovieSearch(keywords, true, allmovies);
-          keywords = "";
-          break;
-        case 2:
-          printMovieSearch(keywords, true, allmovies);
-          break;
-        case 3:
-          printMovieSearch(keywords, true, allmovies);
-          break;
-        case 4:
-          BookingModule bookingModule = new BookingModule(sc, movieGoerObject);
-          bookingModule.run();
-          break;
-        case 5:
-          System.out.println(movieGoerObject.getTransactionList());
-          break;
-        case 6:
-          printMovieBySales();
-          break;
-        case 7:
-          printMovieByRating();
-          break;
-        case 8:
-          break;
+    if (movieGoerDB.checkMovieGoerExists(username)) {
+      int input = 0;
+      System.out.println("MovieGoer Module Running...");
+      while (input != 9) {
+        System.out.println("[1] Search Movies\n"
+            + "[2] List movies\n"
+            + "[3] View movie details\n"
+            + "[4] Book Seats\n"
+            + "[5] View Booking history\n"
+            + "[6] List top 5 movies based on sales\n"
+            + "[7] List top 5 movies based on ratings\n"
+            + "[8] Exit");
+        System.out.print("Please select an option: ");
+        input = sc.nextInt();
+        switch (input) {
+          case 1:
+            System.out.println("Please enter the keywords: ");
+            keywords = sc.nextLine();
+            printMovieSearch(keywords, true, allmovies);
+            keywords = "";
+            break;
+          case 2:
+            printMovieSearch(keywords, true, allmovies);
+            break;
+          case 3:
+            printMovieSearch(keywords, true, allmovies);
+            break;
+          case 4:
+            BookingModule bookingModule = new BookingModule(sc, movieGoerObject);
+            bookingModule.run();
+            break;
+          case 5:
+            System.out.println(movieGoerObject.getTransactionList());
+            break;
+          case 6:
+            printMovieBySales();
+            break;
+          case 7:
+            printMovieByRating();
+            break;
+          case 8:
+            break;
+        }
       }
     }
 
