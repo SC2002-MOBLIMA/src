@@ -4,6 +4,8 @@ import Enums.CinemaType;
 import java.time.LocalDateTime;
 import Enums.MovieStatus;
 
+import java.util.ArrayList;
+
 public class Cinema {
   
     private int cinemaNum;
