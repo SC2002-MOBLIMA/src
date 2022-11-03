@@ -61,12 +61,12 @@ public class MovieListingModule {
     for (Movie m : movieList) {
       if (m.getTitle().equalsIgnoreCase(title)) {
         movieList.remove(m);
-        Movie newMovie = getUpdatedMovie(m);
-        movieList.add(newMovie);
+        Movie updatedMovie = getUpdatedMovie(m);
+        movieList.add(updatedMovie);
       }
     }
     movieDB.write(movieList);
-    System.out.println("Movie Listing successfully removed");
+    System.out.println("Movie Listing successfully updated");
     System.out.println("***********************************************");
   }
 
@@ -143,14 +143,14 @@ public class MovieListingModule {
     System.out.println("***********************************************");
     System.out.println("MOBLIMA -- Movie Listing Module (Create New Movie Listing):");
     System.out.println("Input Movie Title:");
-    String title = sc.next();
+    String title = sc.nextLine();
     System.out.println("Input Movie Status (COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING):");
     MovieStatus status = MovieStatus.valueOf(sc.next());
     System.out.println("Input Movie Synopsis:");
-    String synopsis = sc.next();
+    String synopsis = sc.nextLine();
 
     System.out.println("Input Movie Director:");
-    String director = sc.next();
+    String director = sc.nextLine();
 
     ArrayList<String> cast = getCast();
 
@@ -188,7 +188,7 @@ public class MovieListingModule {
 
     for (int i = 0; i < numberOfCast; i++) {
       System.out.println("Input Movie Cast:");
-      String castMember = sc.next();
+      String castMember = sc.nextLine();
       cast.add(castMember);
     }
 
