@@ -96,20 +96,23 @@ public class BookingModule {
         Cinema cinemaObj = selectCinema();
         cinemaObj.displayAvailableShows();
 
-        Showing showingObj = selectShowing(cinemaObj);
-        if (showingObj == null) {
+        if (cinemaObj.getShowList().size() == 0) {
             return;
         }
+
+        Showing showingObj = selectShowing(cinemaObj);
         showingObj.printSeating();
     }
 
     private void bookSeat() {
         Cinema cinemaObj = selectCinema();
         cinemaObj.displayAvailableShows();
-        Showing showingObj = selectShowing(cinemaObj);
-        if (showingObj == null) {
+
+        if (cinemaObj.getShowList().size() == 0) {
             return;
-        } 
+        }
+
+        Showing showingObj = selectShowing(cinemaObj);
         Movie movieObj = showingObj.getMovie();
         double price = calculatePrice(cinemaObj, showingObj, movieGoerObj);
         System.out.println("***********************************************");
@@ -213,19 +216,15 @@ public class BookingModule {
 
     private Showing selectShowing(Cinema cinema) {
         Showing showing;
-        if (cinema.getShowList() == null) {
-            System.out.println("No available showings.");
-            return null;
-        }
         do {
             System.out.print("Please enter the ID of the show of your choice: ");
             int showingId = sc.nextInt();
             showing = cinema.searchShow(showingId);
             if (showing == null) {
                 System.out.println("Invalid Showing ID, Please try again. \n");
-        } else {
-            break;
-        }
+            } else {
+                break;
+            }
         } while (true);
 
         return showing;

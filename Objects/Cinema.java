@@ -50,23 +50,21 @@ public class Cinema implements Serializable {
 
   public void displayAvailableShows() { // Come back to finish this
     int index = 1;
-    if (showList == null) {
-      return;
-    }
+    int showsAvailable = 0;
     for (Showing showing: showList) {
       Movie movie = showing.getMovie();
       if (movie.getStatus() == MovieStatus.NOW_SHOWING) {
-        System.out.println(
-          "[" + (index + 1) + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
-          index++;
+        System.out.println("[" + (index + 1) + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
+        index++;
+        showsAvailable = 1;
       }
+    }
+    if (showsAvailable == 0) {
+      System.out.println("No Shows Found.");
     }
   }
 
   public Showing searchShow(int id) {
-    if (showList == null) {
-      return null;
-    }
     for (int i = 0; i < showList.size(); i++) {
       int check = showList.get(i).getId();
       if (check == id) {
@@ -84,5 +82,4 @@ public class Cinema implements Serializable {
   public void removeShow(Showing show) {
     showList.remove(show);
   }
-
 }
