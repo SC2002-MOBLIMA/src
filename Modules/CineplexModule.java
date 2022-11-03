@@ -132,7 +132,6 @@ public class CineplexModule {
 
   public void addShow() {
     selectMovie();
-    ArrayList<Showing> showList = cinemaReq.getShowList();
     LocalDateTime dateTime = LocalDateTime.now();
     while (true) {
       try {
