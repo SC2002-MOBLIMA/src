@@ -43,45 +43,46 @@ public class BookingModule {
         System.out.println("[4] Select, Book & Purchase Tickets");
         System.out.println("[5] Reselect Cineplex");
         System.out.println("[6] Back");
+        System.out.print("Please enter your choice: ");
 
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-            displayAllCinemaShowings();
-            break;
+                displayAllCinemaShowings();
+                break;
 
             case 2:
-            displayCinemaShowings();
-            break;
+                displayCinemaShowings();
+                break;
 
             case 3:
-            checkSeatAvailability();
-            break;
+                checkSeatAvailability();
+                break;
 
             case 4:
-            bookSeat();
-            break;
+                bookSeat();
+                break;
 
             case 5:
-            selectCineplex();
-            break;
+                selectCineplex();
+                break;
 
             case 6:
-            running = false;
-            break;
+                running = false;
+                break;
 
             default:
-            System.out.println("Invalid Choice, Please try again.\n");
-            break;
+                System.out.println("Invalid Choice, Please try again.\n");
+                break;
         }
         }
     }
 
     private void displayAllCinemaShowings() {
         for (Cinema cinema : cinemaList) {
-        System.out.println("Cinema " + cinema.getCinemaNum() + ":");
-        cinema.displayAvailableShows();
-        System.out.println("");
+            System.out.println("Cinema " + cinema.getCinemaNum() + ":");
+            cinema.displayAvailableShows();
+            System.out.println("");
         }
     }
 
@@ -103,6 +104,9 @@ public class BookingModule {
         Cinema cinemaObj = selectCinema();
         cinemaObj.displayAvailableShows();
         Showing showingObj = selectShowing(cinemaObj);
+        if (showingObj == null) {
+            return;
+        } 
         Movie movieObj = showingObj.getMovie();
         double price = calculatePrice(cinemaObj, showingObj, movieGoerObj);
         System.out.println("***********************************************");
@@ -112,20 +116,19 @@ public class BookingModule {
 
         ArrayList<String> seatIds = new ArrayList<String>();
         for (int i = 0; i < ticketCount; i++) {
-        boolean seatChosen = false;
-        do {
-            showingObj.printSeating();
-            System.out.print("Ticket " + i + 1 + " | ");
-            System.out.print("Please enter seat to book (eg. A1): ");
-            String seatId = sc.next();
-            if (showingObj.isAvailable(seatId)) {
-            System.out.print("Ticket " + i + 1 + " | ");
-            System.out.println("Seat already occupied, Please try again.\n");
-            } else {
-            seatIds.set(i, seatId);
-            break;
-            }
-        } while (true);
+            do {
+                showingObj.printSeating();
+                System.out.print("Ticket " + i + 1 + " | ");
+                System.out.print("Please enter seat to book (eg. A1): ");
+                String seatId = sc.next();
+                if (showingObj.isAvailable(seatId)) {
+                    System.out.print("Ticket " + i + 1 + " | ");
+                    System.out.println("Seat already occupied, Please try again.\n");
+                } else {
+                    seatIds.set(i, seatId);
+                    break;
+                }
+            } while (true);
         }
 
         System.out.println("Please confirm the details of your booking: ");
@@ -206,13 +209,17 @@ public class BookingModule {
     }
 
     private Showing selectShowing(Cinema cinema) {
-        System.out.print("Please enter the ID of the show of your choice: ");
-        int showingId = sc.nextInt();
         Showing showing;
+        if (cinema.getShowList() == null) {
+            System.out.println("No available showings.");
+            return null;
+        }
         do {
-        showing = cinema.searchShow(showingId);
-        if (showing == null) {
-            System.out.println("Invalid Showing ID, Please try again. \n");
+            System.out.print("Please enter the ID of the show of your choice: ");
+            int showingId = sc.nextInt();
+            showing = cinema.searchShow(showingId);
+            if (showing == null) {
+                System.out.println("Invalid Showing ID, Please try again. \n");
         } else {
             break;
         }

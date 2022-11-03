@@ -1,6 +1,7 @@
 package Objects;
 
 import java.io.Serializable;
+import java.net.SocketTimeoutException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -48,18 +49,28 @@ public class Cinema implements Serializable {
   }
 
   public void displayAvailableShows() { // Come back to finish this
+    int index = 1;
+    if (showList == null) {
+      return;
+    }
+    for (Showing showing: showList) {
+      Movie movie = showing.getMovie();
+      if (movie.getStatus() == MovieStatus.NOW_SHOWING) {
+        System.out.println(
+          "[" + (index + 1) + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
+          index++;
+      }
+    }
     for (int i = 0; i < showList.size(); i++) {
       if ((this.showList.get(i).getMovie()).getStatus() == MovieStatus.NOW_SHOWING) {
-        System.out.println(
-            "[" + (i + 1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getFormattedTime());
-        // System.out.println(showList.get(i).getMovieTitle());
-        // System.out.println("Show Timte: " + showList.get(i).getShowTime());
-
       }
     }
   }
 
   public Showing searchShow(int id) {
+    if (showList == null) {
+      return null;
+    }
     for (int i = 0; i < showList.size(); i++) {
       int check = showList.get(i).getId();
       if (check == id) {
