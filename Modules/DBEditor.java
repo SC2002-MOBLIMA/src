@@ -137,9 +137,8 @@ public class DBEditor {
                     MovieType type = MovieType.valueOf(sc.nextLine());
                     System.out.println("endOfShowingDate: ");
                     String endOfShowingDate = sc.nextLine();
-                    Movie newMovieToAdd = new Movie(title, status, synopsis, director, cast, saleCount, type,
-                            endOfShowingDate);
-                    movieData.add(newMovieToAdd);
+                    // Movie newMovieToAdd = new Movie(title, status, synopsis, director, cast, saleCount, type, endOfShowingDate);
+                    // movieData.add(newMovieToAdd);
                     MovieDBInstance.write(movieData);
 
                     // read
@@ -191,7 +190,7 @@ public class DBEditor {
                     break;
             }
             System.out.println("***********************************************");
-            sc.close();
         }
+        sc.close();
     }
 }

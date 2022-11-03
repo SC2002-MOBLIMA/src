@@ -38,7 +38,6 @@ public class CineplexModule {
       CineplexDB cineplexDB = new CineplexDB();
       @SuppressWarnings("unchecked")
       ArrayList<Cineplex> cineplexList = (ArrayList<Cineplex>)cineplexDB.read();
-
       for (int i = 0; i < cineplexList.size(); i++) {
         System.out.println("[" + (i+1) + "] " + cineplexList.get(i).getCineplexName());
       }
@@ -184,6 +183,9 @@ public class CineplexModule {
         break;
     }
     cinemaReq.addShow(movieReq, dateTime, inputDateType);
+    
+    CineplexDB cineplexDB = new CineplexDB();
+    cineplexDB.write(cineplexList);
     System.out.println("Show has been successfully added.");
   }
 
