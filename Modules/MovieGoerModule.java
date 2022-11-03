@@ -26,67 +26,29 @@ public class MovieGoerModule {
         this.sc = sc;
     }
 
-    public void printMovieSearch(String phrase, Boolean detailed, ArrayList<Movie> movies) {
-        for (Movie m : movies) {
-            if (m.getStatus() == (MovieStatus.NOW_SHOWING) && m.getTitle().contains(phrase)) {
-                if (detailed == false) {
-                    System.out.println(m.getTitle());
-                } else {
-                    System.out.println(m.getTitle());
-                    System.out.println(m.getStatus());
-                    System.out.println(m.getSynopsis());
-                    System.out.println(m.getDirector());
-                    System.out.println(m.getCast());
-                    System.out.println(m.getReviewList());
-                    System.out.println(m.getSalesCount());
-                    System.out.println(m.getType());
-                }
-            }
-        }
-    }
-
-    public void printMovieByRating() {
-        int counter = 0;
-        MovieDB movieDB = new MovieDB();
-        @SuppressWarnings("unchecked")
-        ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
-        Collections.sort(movieList, new SortByRating());
-        for (Movie m : movieList) {
-            while (counter < 5) {
-                System.out.println(m.getTitle());
-                counter++;
-            }
-        }
-    }
-
-    public void printMovieBySales() {
-        int counter = 0;
-        MovieDB movieDB = new MovieDB();
-        @SuppressWarnings("unchecked")
-        ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
-        Collections.sort(movieList, new SortBySales());
-        for (Movie m : movieList) {
-            while (counter < 5) {
-                System.out.println(m.getTitle());
-                counter++;
-            }
-        }
-    }
-
     public void run() {
         MovieDB movieDB = new MovieDB();
         MovieGoerDB movieGoerDB = new MovieGoerDB();
         @SuppressWarnings("unchecked")
         ArrayList<Movie> readMovies = (ArrayList<Movie>) movieDB.read();
+        ArrayList<MovieGoer> readMovieGoers = (ArrayList<MovieGoer>) movieGoerDB.read();
         allmovies = readMovies;
         String keywords = "";
 
         boolean validUsername = false;
-        while (!validUsername) {
+        while (true) {
             System.out.print("Please enter your username: ");
             String username = sc.nextLine();
-            if (movieGoerDB.checkMovieGoerExists(username)) {
-                validUsername = true;
+
+            for (MovieGoer mg: readMovieGoers) {
+                String mgUsername = mg.getName();
+                if (mgUsername.equals(username)) {
+                    validUsername = true;
+                    movieGoerObject = mg;
+                }
+            }
+            if (validUsername) {
+                break;
             } else {
                 System.out.println("Error: Username not found. Please try again");
             }
@@ -135,6 +97,53 @@ public class MovieGoerModule {
                     break;
             }
 
+        }
+    }
+
+    public void printMovieSearch(String phrase, Boolean detailed, ArrayList<Movie> movies) {
+        for (Movie m : movies) {
+            if (m.getStatus() == (MovieStatus.NOW_SHOWING) && m.getTitle().contains(phrase)) {
+                if (detailed == false) {
+                    System.out.println(m.getTitle());
+                } else {
+                    System.out.println(m.getTitle());
+                    System.out.println(m.getStatus());
+                    System.out.println(m.getSynopsis());
+                    System.out.println(m.getDirector());
+                    System.out.println(m.getCast());
+                    System.out.println(m.getReviewList());
+                    System.out.println(m.getSalesCount());
+                    System.out.println(m.getType());
+                }
+            }
+        }
+    }
+
+    public void printMovieByRating() {
+        int counter = 0;
+        MovieDB movieDB = new MovieDB();
+        @SuppressWarnings("unchecked")
+        ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
+        Collections.sort(movieList, new SortByRating());
+        for (Movie m : movieList) {
+            while (counter < 5) {
+                System.out.println(m.getTitle());
+                counter++;
+            }
+        }
+    }
+
+    public void printMovieBySales() {
+        int counter = 0;
+        MovieDB movieDB = new MovieDB();
+        @SuppressWarnings("unchecked")
+        ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
+        Collections.sort(movieList, new SortBySales());
+        for (Movie m : movieList) {
+            while (counter < 5) {
+                System.out.println(m.getTitle());
+                counter++;
+            }
         }
     }
 }
