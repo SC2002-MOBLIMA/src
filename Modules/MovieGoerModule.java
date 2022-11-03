@@ -83,10 +83,12 @@ public class MovieGoerModule {
                     printMovieSearch(keywords, true, allmovies);
                     break;
                 case 4:
+                    System.out.println("**************** Booking Module *****************");
                     BookingModule bookingModule = new BookingModule(sc, movieGoerObject);
                     bookingModule.run();
                     break;
                 case 5:
+                    System.out.println("**************** Booking History *****************");
                     if (!movieGoerObject.getMovieTicketList().isEmpty()) {
                         System.out.println(movieGoerObject.getMovieTicketList());
                     } else {
@@ -108,7 +110,7 @@ public class MovieGoerModule {
     }
 
     public void printMovieSearch(String phrase, Boolean detailed, ArrayList<Movie> movies) {
-        System.out.println("***********************************************");
+        System.out.println("**************** Results *****************");
         for (Movie m : movies) {
             if (m.getStatus() == (MovieStatus.NOW_SHOWING) && m.getTitle().contains(phrase)) {
                 if (detailed == false) {
@@ -144,18 +146,17 @@ public class MovieGoerModule {
                 }
             }
         }
-        System.out.println("***********************************************");
     }
 
     public void printMovieByRating() {
-        System.out.println("*************** Top 5 Movies ****************");
+        System.out.println("**************** Top 5 Movies *****************");
         int counter = 1;
         MovieDB movieDB = new MovieDB();
         @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortByRating());
         for (Movie m : movieList) {
-            System.out.print("["+counter +"] ");
+            System.out.print("[" + counter + "] ");
             System.out.println(m.getTitle());
             counter++;
 
@@ -166,7 +167,7 @@ public class MovieGoerModule {
     }
 
     public void printMovieBySales() {
-        System.out.println("*************** Top 5 Movies ****************");
+        System.out.println("**************** Top 5 Movies *****************");
         int counter = 1;
         MovieDB movieDB = new MovieDB();
         @SuppressWarnings("unchecked")
