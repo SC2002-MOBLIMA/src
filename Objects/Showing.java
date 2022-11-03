@@ -46,6 +46,10 @@ public class Showing implements Serializable {
     return this.movie;
   }
 
+  public Movie setMovie(Movie movie){
+    return this.movie = movie;
+  }
+
   public String getMovieTitle() {
     return this.movie.getTitle();
   }
@@ -57,7 +61,6 @@ public class Showing implements Serializable {
   public String getFormattedTime() {
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
     String formattedDate = showTime.format(myFormatObj);
-    System.out.println(formattedDate);
     return formattedDate;
   }
 

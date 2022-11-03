@@ -1,16 +1,14 @@
 package Modules;
 
 import java.util.Scanner;
-import java.io.*;
-import java.util.*;
+import java.util.Collections;
 import Databases.MovieDB;
 import Databases.MovieGoerDB;
 
 import java.util.ArrayList;
-import Objects.Cinema;
-import Objects.Showing;
 import Objects.MovieGoer;
 import Objects.Movie;
+import Objects.Review;
 import Enums.MovieStatus;
 import Comparators.SortByRating;
 import Comparators.SortBySales;
@@ -29,7 +27,8 @@ public class MovieGoerModule {
     public void run() {
         MovieDB movieDB = new MovieDB();
         MovieGoerDB movieGoerDB = new MovieGoerDB();
-        @SuppressWarnings("unchecked")
+        System.out.println("***********************************************");
+        System.out.println("MOBLIMA -- Movie Goer Module:");
         ArrayList<Movie> readMovies = (ArrayList<Movie>) movieDB.read();
         ArrayList<MovieGoer> readMovieGoers = (ArrayList<MovieGoer>) movieGoerDB.read();
         allmovies = readMovies;
@@ -40,7 +39,7 @@ public class MovieGoerModule {
             System.out.print("Please enter your username: ");
             String username = sc.nextLine();
 
-            for (MovieGoer mg: readMovieGoers) {
+            for (MovieGoer mg : readMovieGoers) {
                 String mgUsername = mg.getName();
                 if (mgUsername.equals(username)) {
                     validUsername = true;
@@ -54,8 +53,9 @@ public class MovieGoerModule {
             }
         }
         int input = 0;
-        System.out.println("MovieGoer Module Running...");
         while (input != 8) {
+            System.out.println("\n***********************************************");
+            System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObject.getName() + "):");
             System.out.println("[1] Search Movies\n"
                     + "[2] List movies\n"
                     + "[3] View movie details\n"
@@ -78,14 +78,23 @@ public class MovieGoerModule {
                     printMovieSearch(keywords, false, allmovies);
                     break;
                 case 3:
+                    System.out.print("Please enter the keywords: ");
+                    keywords = sc.nextLine();
                     printMovieSearch(keywords, true, allmovies);
                     break;
                 case 4:
+                    System.out.println("**************** Booking Module *****************");
                     BookingModule bookingModule = new BookingModule(sc, movieGoerObject);
                     bookingModule.run();
                     break;
                 case 5:
-                    System.out.println(movieGoerObject.getMovieTicketList());
+                    System.out.println("**************** Booking History *****************");
+                    if (!movieGoerObject.getMovieTicketList().isEmpty()) {
+                        System.out.println(movieGoerObject.getMovieTicketList());
+                    } else {
+                        System.out.println("No past transactions\n");
+                    }
+
                     break;
                 case 6:
                     printMovieBySales();
@@ -101,48 +110,83 @@ public class MovieGoerModule {
     }
 
     public void printMovieSearch(String phrase, Boolean detailed, ArrayList<Movie> movies) {
+        System.out.println("**************** Results *****************");
         for (Movie m : movies) {
             if (m.getStatus() == (MovieStatus.NOW_SHOWING) && m.getTitle().contains(phrase)) {
                 if (detailed == false) {
                     System.out.println(m.getTitle());
                 } else {
-                    System.out.println(m.getTitle());
-                    System.out.println(m.getStatus());
-                    System.out.println(m.getSynopsis());
-                    System.out.println(m.getDirector());
-                    System.out.println(m.getCast());
-                    System.out.println(m.getReviewList());
-                    System.out.println(m.getSalesCount());
-                    System.out.println(m.getType());
+                    System.out.println("Title: " + m.getTitle());
+                    System.out.println("Movie Status: " + m.getStatus());
+                    System.out.println("Movie Synopsis: " + m.getSynopsis());
+                    System.out.println("Movie Director: " + m.getDirector());
+                    System.out.print("Cast Members: ");
+                    ArrayList<String> castMembers = m.getCast();
+                    System.out.println(String.join(", ", castMembers));
+                    System.out.print("Reviews: ");
+                    if (!m.getReviewList().isEmpty()) {
+                        for (Review moviereview : m.getReviewList()) {
+                            System.out.println("Name: " + moviereview.getName());
+                            System.out.println("Rating: " + moviereview.getRating());
+                            System.out.println("Review: " + moviereview.getReview());
+                        }
+                    } else {
+                        System.out.println("No reviews");
+                    }
+
+                    try {
+                        System.out.println("\n Overall rating: " + m.getOverallRating());
+                    } catch (ArithmeticException e) {
+                        ;
+
+                    }
+
+                    System.out.println("Sales Count: " + m.getSalesCount());
+                    System.out.println("Movie Type: " + m.getType());
                 }
             }
         }
     }
 
     public void printMovieByRating() {
-        int counter = 0;
+        System.out.println("**************** Top 5 Movies *****************");
+        int counter = 1;
         MovieDB movieDB = new MovieDB();
         @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortByRating());
         for (Movie m : movieList) {
-            while (counter < 5) {
-                System.out.println(m.getTitle());
-                counter++;
+            System.out.print("[" + counter + "] ");
+            System.out.print(m.getTitle());
+            try {
+                System.out.print(" - Overall Rating: " + m.getOverallRating());
+            } catch (ArithmeticException e) {
+                ;
+
+            }
+            counter++;
+
+            if (counter >= 6) {
+                break;
             }
         }
     }
 
     public void printMovieBySales() {
-        int counter = 0;
+        System.out.println("**************** Top 5 Movies *****************");
+        int counter = 1;
         MovieDB movieDB = new MovieDB();
         @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortBySales());
         for (Movie m : movieList) {
-            while (counter < 5) {
-                System.out.println(m.getTitle());
-                counter++;
+            System.out.print("[" + counter + "] ");
+            System.out.print(m.getTitle());
+            System.out.print(" - Total Sales: " + m.getSalesCount());
+            counter++;
+
+            if (counter >= 6) {
+                break;
             }
         }
     }

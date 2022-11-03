@@ -19,6 +19,7 @@ public class Cinema implements Serializable {
     this.cinemaNum = cinemaNum;
     this.cinemaCode = cinemaCode;
     this.cinemaType = cinemaType;
+    this.showList = new ArrayList<Showing>();
   }
 
   public ArrayList<Showing> getShowList() {
@@ -48,14 +49,18 @@ public class Cinema implements Serializable {
   }
 
   public void displayAvailableShows() { // Come back to finish this
-    for (int i = 0; i < showList.size(); i++) {
-      if ((this.showList.get(i).getMovie()).getStatus() == MovieStatus.NOW_SHOWING) {
-        System.out.println(
-            "[" + (i + 1) + "]: " + showList.get(i).getMovieTitle() + " " + showList.get(i).getFormattedTime());
-        // System.out.println(showList.get(i).getMovieTitle());
-        // System.out.println("Show Timte: " + showList.get(i).getShowTime());
-
+    int index = 1;
+    int showsAvailable = 0;
+    for (Showing showing: showList) {
+      Movie movie = showing.getMovie();
+      if (movie.getStatus() == MovieStatus.NOW_SHOWING) {
+        System.out.println("[" + (index + 1) + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
+        index++;
+        showsAvailable = 1;
       }
+    }
+    if (showsAvailable == 0) {
+      System.out.println("No Shows Found.");
     }
   }
 
@@ -77,5 +82,4 @@ public class Cinema implements Serializable {
   public void removeShow(Showing show) {
     showList.remove(show);
   }
-
 }
