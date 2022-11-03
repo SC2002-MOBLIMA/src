@@ -129,7 +129,6 @@ public class CineplexModule {
         System.out.println("Error: Key in a valid value");
       }
     }
-    ArrayList<Showing> showList = cinemaReq.getShowList();
 
     LocalDateTime dateTime = LocalDateTime.now();
     while (true) {
@@ -161,30 +160,25 @@ public class CineplexModule {
         System.out.println("Invalid DateTime chosen. Please try again");
       }
     }
-
-    switch(dateInt){
+    DateType inputDateType = DateType.WEEKDAY;
+    switch (dateInt) {
       case 1:
-        showReq = new Showing(movieReq, dateTime, DateType.WEEKEND);
-        showList.add(showReq);
-        System.out.println("Show has been sucessfully added");
+        inputDateType = DateType.WEEKEND;
         break;
-      
+
       case 2:
-        showReq = new Showing(movieReq, dateTime, DateType.WEEKDAY);
-        showList.add(showReq);
-        System.out.println("Show has been sucessfully added");
+        inputDateType = DateType.WEEKDAY;
         break;
-      
+
       case 3:
-        showReq = new Showing(movieReq, dateTime, DateType.PUBLIC_HOLIDAY);
-        showList.add(showReq);
-        System.out.println("Show has been sucessfully added");
+        inputDateType = DateType.PUBLIC_HOLIDAY;
         break;
-      
+    
       default:
-        System.out.println("Show cannot be added");
         break;
     }
+    cinemaReq.addShow(movieReq, dateTime, inputDateType);
+    System.out.println("Show has been successfully added.");
   }
 
   public void removeShow() {
@@ -197,7 +191,8 @@ public class CineplexModule {
       int selection = sc.nextInt();
       System.out.println("************************************************************");
       if (!(selection < 1 || selection > showList.size())) {
-        showList.remove(selection - 1);
+        Showing selectedShow = showList.get(selection-1);
+        cinemaReq.removeShow(selectedShow);
         main = false;
         System.out.println("Selection has been sucessfully removed");
       } else {

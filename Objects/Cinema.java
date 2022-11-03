@@ -74,7 +74,7 @@ public class Cinema implements Serializable {
     return null;
   }
 
-  public void addShow(Movie movie, LocalDateTime showTime, MovieStatus status, DateType dateType) {
+  public void addShow(Movie movie, LocalDateTime showTime, DateType dateType) {
     Showing show = new Showing(movie, showTime, dateType);
     showList.add(show);
   }
