@@ -46,6 +46,8 @@ public class MovieListingModule {
 
         case 4:
           running = false;
+          System.out.println("Movie Listing Module stoppping");
+          System.out.println("***********************************************");
           break;
       }
     }
@@ -156,7 +158,8 @@ public class MovieListingModule {
     MovieType type = MovieType.valueOf(sc.next());
 
     System.out.println("Input Movie End Of Showing Date (yyyyMMdd):");
-    String endOfShowingDate = sc.next();
+    String dateString = sc.next();
+    LocalDateTime endOfShowingDate = LocalDateTime.parse(dateString);
 
     Movie newMovie = new Movie(title, status, synopsis, director, cast, type, endOfShowingDate);
 
