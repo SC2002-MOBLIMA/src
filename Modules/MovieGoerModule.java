@@ -54,7 +54,7 @@ public class MovieGoerModule {
         }
         int input = 0;
         while (input != 8) {
-            System.out.println("***********************************************");
+            System.out.println("\n***********************************************");
             System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObject.getName() + "):");
             System.out.println("[1] Search Movies\n"
                     + "[2] List movies\n"
@@ -157,7 +157,13 @@ public class MovieGoerModule {
         Collections.sort(movieList, new SortByRating());
         for (Movie m : movieList) {
             System.out.print("[" + counter + "] ");
-            System.out.println(m.getTitle());
+            System.out.print(m.getTitle());
+            try {
+                System.out.print(" - Overall Rating: " + m.getOverallRating());
+            } catch (ArithmeticException e) {
+                ;
+
+            }
             counter++;
 
             if (counter >= 6) {
@@ -175,7 +181,8 @@ public class MovieGoerModule {
         Collections.sort(movieList, new SortBySales());
         for (Movie m : movieList) {
             System.out.print("[" + counter + "] ");
-            System.out.println(m.getTitle());
+            System.out.print(m.getTitle());
+            System.out.print(" - Total Sales: " + m.getSalesCount());
             counter++;
 
             if (counter >= 6) {
