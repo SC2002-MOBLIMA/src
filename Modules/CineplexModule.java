@@ -114,14 +114,13 @@ public class CineplexModule {
     }
   }
 
-  public void addShow() {
-
+  private void selectMovie(){
     boolean main = true;
     while (main) {
       MovieDB movieDB = new MovieDB();
       @SuppressWarnings("unchecked")
       ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read(); // Resolve tomorrow
-      System.out.println("Key in the number of the movie that you would like to add");
+      System.out.println("Key in the number of the movie that you would like");
       for (int i = 0; i < movieList.size(); i++) {
         System.out.println("[" + (i + 1) + "] " + movieList.get(i).getTitle());
       }
@@ -130,17 +129,20 @@ public class CineplexModule {
       if (!(selection < 1 || selection > movieList.size())) {
         main = false;
         movieReq = movieList.get(selection - 1);
-        break;
       } else {
         System.out.println("Error: Key in a valid value");
-      }
+      } 
     }
+  }
+
+  public void addShow() {
+
+    selectMovie();
     ArrayList<Showing> showList = cinemaReq.getShowList();
 
     LocalDateTime dateTime = LocalDateTime.now();
     while (true) {
       try {
-        // TODO: Find out how to validate
         System.out.println("Key in the Date and Time of the show in the following format (yyyyMMddHHmm): ");
         String input = sc.next();
         System.out.println("************************************************************");
@@ -229,6 +231,7 @@ public class CineplexModule {
   }
 
   public void updateShow() {
+    System.out.println("Updating Showing...");
     ArrayList<Showing> showList = cinemaReq.getShowList();
     boolean main = true; 
     while(main){
@@ -239,9 +242,48 @@ public class CineplexModule {
       System.out.println("Key in the number of the show that you would like to update: ");
       cinemaReq.displayShowList();
       int selection = sc.nextInt();
+      Showing show = showList.get(selection-1);
       System.out.println("************************************************************");
       if (!(selection < 1 || selection > showList.size())) {
-        // TODO: Discuss tomorrow
+        System.out.println("Update: ");
+        System.out.println("[1] Movie");
+        System.out.println("[2] Showtime");
+        int choice = sc.nextInt();
+
+        switch(choice){
+
+          case 1:
+            System.out.println("Updating movie of Showing..");
+            selectMovie();
+            show.setMovie(movieReq);
+            System.out.println("Movie has been updated");
+            main = false;
+            break;
+
+          case 2:
+            boolean main_loop = true;
+            if(main_loop){ 
+              LocalDateTime dateTime = null;
+              System.out.println("Updating showtime of Showing...");
+              System.out.println("Key in the new show time in the following format (yyyyMMddHHmm): ");
+              String date = sc.next();
+              DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+              try{
+                dateTime = LocalDateTime.parse(date, myFormatObj);
+                show.setShowTime(dateTime);
+                System.out.println("Showtime has been updated");
+                main = false;
+                break;
+              } catch (Exception e) {
+                System.out.println("Error: Invalid date format. Please try again");
+              }
+            }
+            break;
+
+          default:
+
+            break;
+        }
       } else {
         System.out.println("Error: Key in a valid value");
       }

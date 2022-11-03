@@ -46,6 +46,10 @@ public class Showing implements Serializable {
     return this.movie;
   }
 
+  public Movie setMovie(Movie movie){
+    return this.movie = movie;
+  }
+
   public String getMovieTitle() {
     return this.movie.getTitle();
   }
