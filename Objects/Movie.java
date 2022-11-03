@@ -48,6 +48,10 @@ public class Movie implements Serializable, Comparable<Movie> {
     return this.synopsis;
   }
 
+  public ArrayList<Review> getReviewList() {
+    return this.reviewList;
+  }
+
   public void setSynopsis(String synopsis) {
     this.synopsis = synopsis;
   }
@@ -137,18 +141,18 @@ public class Movie implements Serializable, Comparable<Movie> {
   }
 
   // public static void main(String args[]) {
-  //   ArrayList<String> cast = new ArrayList<>();
-  //   cast.add("ABC");
-  //   cast.add("ABC");
-  //   String[] c = { "A", "Iron B" };
-  //   Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
-  //       "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
-  //   Movie m2 = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
-  //       "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
-  //   System.out.println(m2.equals(m));
-  //   m.addReview("kaijun", 5, "sucks");
-  //   m.addReview("kaijun", 1, "sucks");
-  //   System.out.println(m.getOverallRating());
-  //   System.out.println("works");
+  // ArrayList<String> cast = new ArrayList<>();
+  // cast.add("ABC");
+  // cast.add("ABC");
+  // String[] c = { "A", "Iron B" };
+  // Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
+  // "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
+  // Movie m2 = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
+  // "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
+  // System.out.println(m2.equals(m));
+  // m.addReview("kaijun", 5, "sucks");
+  // m.addReview("kaijun", 1, "sucks");
+  // System.out.println(m.getOverallRating());
+  // System.out.println("works");
   // }
 }
