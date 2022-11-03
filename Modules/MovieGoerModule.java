@@ -125,8 +125,8 @@ public class MovieGoerModule {
                         System.out.println("Rating: " + moviereview.getRating());
                         System.out.println("Review: " + moviereview.getReview());
                     }
-
-                    System.out.println("\nSales Count: " + m.getSalesCount());
+                    System.out.println("\n");
+                    System.out.println("Sales Count: " + m.getSalesCount());
                     System.out.println("Movie Type: " + m.getType());
                 }
             }
