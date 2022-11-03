@@ -129,56 +129,61 @@ public class CineplexModule {
         System.out.println("Error: Key in a valid value");
       }
     }
+    ArrayList<Showing> showList = cinemaReq.getShowList();
 
-    boolean main_next = true;
-    while (main_next) {
-      ArrayList<Showing> showList = cinemaReq.getShowList();
-      System.out.println("Key in the Date and Time of the show in the following format (yyyyMMddHHmm): ");
-      String input = sc.next();
-      System.out.println("************************************************************");
-
-      DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+    LocalDateTime dateTime = LocalDateTime.now();
+    while (true) {
       try {
         // TODO: Find out how to validate
-        LocalDateTime dateTime = LocalDateTime.parse(input, myFormatObj);
-
-        System.out.println("Pick a DateType: ");
-        System.out.println("[1] Weekend");
-        System.out.println("[2] Weekday");
-        System.out.println("[3] Public Holiday");
-        int dateint = sc.nextInt();
+        System.out.println("Key in the Date and Time of the show in the following format (yyyyMMddHHmm): ");
+        String input = sc.next();
         System.out.println("************************************************************");
-
-        switch(dateint){
-          case 1:
-            showReq = new Showing(movieReq, dateTime, DateType.WEEKEND);
-            showList.add(showReq);
-            System.out.println("Show has been sucessfully added");
-            main_next = false;
-            break;
-          
-          case 2:
-            showReq = new Showing(movieReq, dateTime, DateType.WEEKDAY);
-            showList.add(showReq);
-            System.out.println("Show has been sucessfully added");
-            main_next = false;
-            break;
-          
-          case 3:
-            showReq = new Showing(movieReq, dateTime, DateType.PUBLIC_HOLIDAY);
-            showList.add(showReq);
-            System.out.println("Show has been sucessfully added");
-            main_next = false;
-            break;
-          
-          default:
-            System.out.println("Show cannot be added");
-            break;
-
-        }
+  
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+        dateTime = LocalDateTime.parse(input, myFormatObj);
+        break;
       } catch (Exception e) {
         System.out.println("Error: Invalid date format. Please try again");
       }
+    }
+
+    int dateInt = 0;
+    while (true) {
+      System.out.println("Pick a DateType: ");
+      System.out.println("[1] Weekend");
+      System.out.println("[2] Weekday");
+      System.out.println("[3] Public Holiday");
+      dateInt = sc.nextInt();
+      System.out.println("************************************************************");
+      if (dateInt >= 1 && dateInt <=3) {
+        break;
+      } else {
+        System.out.println("Invalid DateTime chosen. Please try again");
+      }
+    }
+
+    switch(dateInt){
+      case 1:
+        showReq = new Showing(movieReq, dateTime, DateType.WEEKEND);
+        showList.add(showReq);
+        System.out.println("Show has been sucessfully added");
+        break;
+      
+      case 2:
+        showReq = new Showing(movieReq, dateTime, DateType.WEEKDAY);
+        showList.add(showReq);
+        System.out.println("Show has been sucessfully added");
+        break;
+      
+      case 3:
+        showReq = new Showing(movieReq, dateTime, DateType.PUBLIC_HOLIDAY);
+        showList.add(showReq);
+        System.out.println("Show has been sucessfully added");
+        break;
+      
+      default:
+        System.out.println("Show cannot be added");
+        break;
     }
   }
 

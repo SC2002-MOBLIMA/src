@@ -19,6 +19,7 @@ public class Cinema implements Serializable {
     this.cinemaNum = cinemaNum;
     this.cinemaCode = cinemaCode;
     this.cinemaType = cinemaType;
+    this.showList = new ArrayList<Showing>();
   }
 
   public ArrayList<Showing> getShowList() {
