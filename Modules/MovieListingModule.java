@@ -178,8 +178,8 @@ public class MovieListingModule {
     boolean run = true;
     do {
       System.out.println("Input number of cast members:");
-      int number = sc.nextInt();
-      if (number < 2) {
+      numberOfCast = sc.nextInt();
+      if (numberOfCast < 2) {
         System.out.println("There must be more than at least 2 cast members!");
       } else {
         run = false;
