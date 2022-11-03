@@ -2,6 +2,7 @@ package Modules;
 
 import java.util.Scanner;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import Databases.AdminDB;
@@ -26,30 +27,31 @@ public class DBEditor {
     Scanner sc = new Scanner(System.in);
 
     System.out.println("***********************************************");
-    System.out.println("************* WELCOME TO DATABASE EDITOR **************");
+    System.out.println("********* WELCOME TO DATABASE EDITOR **********");
     System.out.println("***********************************************");
     int choice;
     boolean running = true;
     while (running) {
 
-      System.out.println("DATABASE EDITOR -- Main Menu:");
-      System.out.println("[1] Edit AdminDB ");
-      System.out.println("[2] Edit CineplexDB ");
-      System.out.println("[3] Edit MovieDB ");
-      System.out.println("[4] Edit MovieGoerDB ");
-      System.out.println("[5] Exit");
-      System.out.print("Please Select: ");
-      choice = sc.nextInt();
-      sc.nextLine(); // consume \n
-      System.out.println("***********************************************");
-      switch (choice) {
-        case 1:
-            // create instance object of your DB and your local data variable
-            AdminDB AdminDBInstance = new AdminDB();
-            ArrayList<Admin> adminData = (ArrayList<Admin>) AdminDBInstance.read();
-            if (adminData == null) {
-                adminData = new ArrayList<Admin>();
-            }
+            System.out.println("DATABASE EDITOR -- Main Menu:");
+            System.out.println("[1] Edit AdminDB ");
+            System.out.println("[2] Edit CineplexDB ");
+            System.out.println("[3] Edit MovieDB ");
+            System.out.println("[4] Edit MovieGoerDB ");
+            System.out.println("[5] Exit");
+            System.out.print("Please Select: ");
+            choice = sc.nextInt();
+            sc.nextLine(); // consume \n
+            System.out.println("***********************************************");
+            switch (choice) {
+                case 1:
+                    // create instance object of your DB and your local data variable
+                    AdminDB AdminDBInstance = new AdminDB();
+                    ArrayList<Admin> adminData = (ArrayList<Admin>) AdminDBInstance.read();
+                    if (adminData == null) {
+                        adminData = new ArrayList<Admin>();
+                    }
+
 
             // write
             System.out.println("Username: ");
@@ -130,14 +132,12 @@ public class DBEditor {
                 cast.add(sc.nextLine());
             }
             sc.nextLine();
-            System.out.println("saleCount: ");
-            int saleCount = sc.nextInt();
-            sc.nextLine();
             System.out.println("type: (REGULAR, THREE_D, BLOCKBUSTER)");
             MovieType type = MovieType.valueOf(sc.nextLine());
-            System.out.println("endOfShowingDate: ");
+            System.out.println("endOfShowingDate (yyyyMMddHHmm): ");
             String dateString = sc.nextLine();
-            LocalDateTime endOfShowingDate = LocalDateTime.parse(dateString);
+            DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+            LocalDateTime endOfShowingDate = LocalDateTime.parse(dateString, dtFormatter);
             Movie newMovieToAdd = new Movie(title, status, synopsis, director, cast, type, endOfShowingDate);
             movieData.add(newMovieToAdd);
             MovieDBInstance.write(movieData);
