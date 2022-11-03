@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.time.LocalDateTime;
 
 import Databases.SettingsDB;
+import Enums.AgeType;
+import Enums.CinemaType;
+import Enums.DateType;
+import Enums.MovieType;
 
 public class SettingsModule {
   private Scanner sc;
@@ -48,52 +52,65 @@ public class SettingsModule {
       System.out.println("***********************************************");
       switch (choice) {
         case 1:
-          String movieTypeChoice = "null";
-          while (!movieTypeChoice.equals("REGULAR") &&
-              !movieTypeChoice.equals("THREE_D")
-              && !movieTypeChoice.equals("BLOCKBUSTER")) {
-            System.out.println("Movie Type: (REGULAR, THREE_D, BLOCKBUSTER)");
-            movieTypeChoice = sc.nextLine();
+          int movieTypeChoice = 0;;
+          while (movieTypeChoice < 1 || movieTypeChoice > 3) {
+            System.out.println("\n[1] Regular");
+            System.out.println("[2] 3D");
+            System.out.println("[3] Blockbuster");
+
+            System.out.print("\nPlease enter Movie Type: ");
+            movieTypeChoice = sc.nextInt();
+            sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, movieTypeChoice);
+          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, MovieType.values()[movieTypeChoice-1].name());
           break;
 
         case 2:
-          String cinemaClassChoice = "null";
-          while (!cinemaClassChoice.equals("GOLD_CLASS")
-              && !cinemaClassChoice.equals("DELUXE") && !cinemaClassChoice.equals("REGULAR")) {
-            System.out.println("Movie Type: (GOLD_CLASS, DELUXE, REGULAR)");
-            cinemaClassChoice = sc.nextLine();
+          int cinemaClassChoice = 0;
+          while (cinemaClassChoice < 1 || cinemaClassChoice > 3) {
+            System.out.println("\n[1] Gold Class");
+            System.out.println("[2] Deluxe");
+            System.out.println("[3] Regular");
+
+            System.out.print("\nPlease enter Cinema Class: ");
+            cinemaClassChoice = sc.nextInt();
+            sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, cinemaClassChoice);
+          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, CinemaType.values()[cinemaClassChoice-1].name());
           break;
 
         case 3:
-          String movieGoerAgeChoice = "null";
-          while (!movieGoerAgeChoice.equals("CHILD")
-              && !movieGoerAgeChoice.equals("ADULT") && !movieGoerAgeChoice.equals("SENIOR")) {
-            System.out.println("Movie Type: (CHILD, ADULT, SENIOR)");
-            movieGoerAgeChoice = sc.nextLine();
+          int movieGoerAgeChoice = 0;
+          while (movieGoerAgeChoice < 1 || movieGoerAgeChoice > 3) {
+            System.out.println("\n[1] Child");
+            System.out.println("[2] Adult");
+            System.out.println("[3] Senior");
+            System.out.print("\nPlease enter Age Type: ");
+            movieGoerAgeChoice = sc.nextInt();
+            sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, movieGoerAgeChoice);
+          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, AgeType.values()[movieGoerAgeChoice-1].name());
           break;
 
         case 4:
-          String dayTypeChoice = "null";
-          while (!dayTypeChoice.equals("WEEKDAY")
-              && !dayTypeChoice.equals("WEEKEND") && !dayTypeChoice.equals("PUBLIC_HOLIDAY")) {
-            System.out.println("Movie Type: (WEEKDAY, WEEKEND, PUBLIC_HOLIDAY)");
-            dayTypeChoice = sc.nextLine();
+          int dayTypeChoice = 0;
+          while (dayTypeChoice < 1 || dayTypeChoice > 3) {
+            System.out.println("\n[1] Weekday");
+            System.out.println("[2] Weekend");
+            System.out.println("[3] Public Holiday");
+            System.out.print("\n Please enter Day Type");
+            dayTypeChoice = sc.nextInt();
+            sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, dayTypeChoice);
+          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, DateType.values()[dayTypeChoice-1].name());
           break;
         case 5:
           System.out.println("Current Holiday Dates are: ");
-          ArrayList holidayDates = (ArrayList) settingsList.get(4);
-          for (int i = 0; i < holidayDates.size(); i++) {
-            System.out.println(holidayDates.get(i));
+          ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
+          for (LocalDateTime date: holidayDates) {
+            System.out.println(date.toLocalDate());
           }
-          System.out.print("Enter year: ");
+          System.out.print("\nEnter year: ");
           int year = sc.nextInt();
           sc.nextLine();
           System.out.print("Enter month: ");
@@ -102,16 +119,10 @@ public class SettingsModule {
           System.out.print("Enter day: ");
           int day = sc.nextInt();
           sc.nextLine();
-          System.out.print("Enter hour: ");
-          int hour = sc.nextInt();
-          sc.nextLine();
-          System.out.print("Enter minute: ");
-          int minute = sc.nextInt();
-          sc.nextLine();
 
           int dateAlreadyExistsAtPosition = -1;
           for (int i = 0; i < holidayDates.size(); i++) {
-            if (holidayDates.get(i).equals(LocalDateTime.of(year, month, day, hour, minute))) {
+            if (holidayDates.get(i).equals(LocalDateTime.of(year, month, day, 0, 0))) {
               dateAlreadyExistsAtPosition = i;
               break;
             }
@@ -121,7 +132,7 @@ public class SettingsModule {
             ((ArrayList) settingsList.get(4)).remove(dateAlreadyExistsAtPosition);
             dateAlreadyExistsAtPosition = -1;
           } else {
-            ((ArrayList) settingsList.get(4)).add(LocalDateTime.of(year, month, day, hour, minute));
+            ((ArrayList) settingsList.get(4)).add(LocalDateTime.of(year, month, day, 0, 0));
           }
           Collections.sort((ArrayList) settingsList.get(4));
           settingsDB.write(settingsList);
