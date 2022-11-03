@@ -197,11 +197,13 @@ public class CineplexModule {
         Showing selectedShow = showList.get(selection-1);
         cinemaReq.removeShow(selectedShow);
         main = false;
-        System.out.println("Selection has been sucessfully removed");
+        System.out.println("Selection has been successfully removed");
       } else {
         System.out.println("Error: Invalid value keyed in. Please try again");
       }
     }
+    CineplexDB cineplexDB = new CineplexDB();
+    cineplexDB.write(cineplexList);
     System.out.println("***********************************************");
   }
 
@@ -209,8 +211,8 @@ public class CineplexModule {
     System.out.println("Updating Showing...");
     ArrayList<Showing> showList = cinemaReq.getShowList();
     boolean main = true; 
-    while(main){
-      if(showList.size()==0){
+    while (main) {
+      if (showList.size() == 0){
         System.out.println("There are no showings to remove");
         break;
       }
@@ -226,7 +228,6 @@ public class CineplexModule {
         int choice = sc.nextInt();
 
         switch(choice){
-
           case 1:
             System.out.println("Updating movie of Showing..");
             selectMovie();
@@ -262,12 +263,13 @@ public class CineplexModule {
             break;
 
           default:
-
             break;
         }
       } else {
         System.out.println("Error: Key in a valid value");
       }
     }
+    CineplexDB cineplexDB = new CineplexDB();
+    cineplexDB.write(cineplexList);
   }
 }
