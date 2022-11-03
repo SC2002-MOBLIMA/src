@@ -148,13 +148,14 @@ public class MovieGoerModule {
     }
 
     public void printMovieByRating() {
+        System.out.println("*************** Top 5 Movies ****************");
         int counter = 1;
         MovieDB movieDB = new MovieDB();
         @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortByRating());
         for (Movie m : movieList) {
-            System.out.println("******** Top " + counter + " ********");
+            System.out.print("["+counter +"] ");
             System.out.println(m.getTitle());
             counter++;
 
@@ -165,13 +166,14 @@ public class MovieGoerModule {
     }
 
     public void printMovieBySales() {
+        System.out.println("*************** Top 5 Movies ****************");
         int counter = 1;
         MovieDB movieDB = new MovieDB();
         @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortBySales());
         for (Movie m : movieList) {
-            System.out.println("******** Top " + counter + " ********");
+            System.out.print("[" + counter + "] ");
             System.out.println(m.getTitle());
             counter++;
 
