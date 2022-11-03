@@ -97,6 +97,9 @@ public class BookingModule {
         cinemaObj.displayAvailableShows();
 
         Showing showingObj = selectShowing(cinemaObj);
+        if (showingObj == null) {
+            return;
+        }
         showingObj.printSeating();
     }
 

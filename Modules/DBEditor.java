@@ -191,6 +191,7 @@ public class DBEditor {
                     break;
             }
             System.out.println("***********************************************");
+            sc.close();
         }
     }
 }
