@@ -106,7 +106,7 @@ public class MovieGoerModule {
                 keywords = "";
                 break;
             case 2:
-                printMovieSearch(keywords, true, allmovies);
+                printMovieSearch(keywords, false, allmovies);
                 break;
             case 3:
                 printMovieSearch(keywords, true, allmovies);
