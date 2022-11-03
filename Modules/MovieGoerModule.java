@@ -29,7 +29,8 @@ public class MovieGoerModule {
     public void run() {
         MovieDB movieDB = new MovieDB();
         MovieGoerDB movieGoerDB = new MovieGoerDB();
-        @SuppressWarnings("unchecked")
+        System.out.println("***********************************************");
+        System.out.println("MOBLIMA -- Movie Goer Module:");
         ArrayList<Movie> readMovies = (ArrayList<Movie>) movieDB.read();
         ArrayList<MovieGoer> readMovieGoers = (ArrayList<MovieGoer>) movieGoerDB.read();
         allmovies = readMovies;
@@ -54,8 +55,9 @@ public class MovieGoerModule {
             }
         }
         int input = 0;
-        System.out.println("MovieGoer Module Running...");
         while (input != 8) {
+            System.out.println("***********************************************");
+            System.out.println("MOBLIMA -- Movie Goer Module: (Movie Goer: " + movieGoerObject.getName() + "):");
             System.out.println("[1] Search Movies\n"
                     + "[2] List movies\n"
                     + "[3] View movie details\n"

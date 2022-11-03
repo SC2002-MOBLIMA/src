@@ -36,7 +36,7 @@ public class BookingModule {
         boolean running = true;
         while (running) {
         System.out.println("***********************************************");
-        System.out.println("MOBLIMA -- Booking Module (Selected Cineplex: " + cineplexObj.getCineplexName() + " ):");
+        System.out.println("MOBLIMA -- Booking Module (Selected Cineplex: " + cineplexObj.getCineplexName() + "):");
         System.out.println("[1] Display All Cinema Showings");
         System.out.println("[2] Display Cinema Showings");
         System.out.println("[3] Check Showing Seat Availability");
