@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import Enums.DateType;
 import java.util.ArrayList;
+
+import Databases.CineplexDB;
 import Enums.*;
 
 public class Showing implements Serializable {
@@ -28,6 +30,7 @@ public class Showing implements Serializable {
       }
     }
     this.seatLayout = layout;
+    this.id = CineplexDB.generateShowingId();
   }
 
   public int getId() {
@@ -59,7 +62,7 @@ public class Showing implements Serializable {
   }
 
   public String getFormattedTime() {
-    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     String formattedDate = showTime.format(myFormatObj);
     return formattedDate;
   }
@@ -108,28 +111,28 @@ public class Showing implements Serializable {
     return this.seatLayout;
   }
 
-  public static void main(String[] args) {
-    ArrayList<String> cast = new ArrayList<>();
-    cast.add("ABC");
-    cast.add("ABC");
-    String[] c = { "A", "Iron B" };
-    Movie m = new Movie("Spider Man", MovieStatus.NOW_SHOWING, "Spider Man", "Spider Man", cast, MovieType.BLOCKBUSTER, LocalDateTime.now());
-    LocalDateTime lTime = LocalDateTime.now();
-    DateType dateType = DateType.WEEKEND;
-    Showing showing = new Showing(m, lTime, dateType);
+  // public static void main(String[] args) {
+  //   ArrayList<String> cast = new ArrayList<>();
+  //   cast.add("ABC");
+  //   cast.add("ABC");
+  //   String[] c = { "A", "Iron B" };
+  //   Movie m = new Movie("Spider Man", MovieStatus.NOW_SHOWING, "Spider Man", "Spider Man", cast, MovieType.BLOCKBUSTER, LocalDateTime.now());
+  //   LocalDateTime lTime = LocalDateTime.now();
+  //   DateType dateType = DateType.WEEKEND;
+  //   Showing showing = new Showing(m, lTime, dateType);
 
-    showing.getFormattedTime();
-    showing.printSeating();
-    System.out.println();
+  //   showing.getFormattedTime();
+  //   showing.printSeating();
+  //   System.out.println();
 
-    MovieGoer movieGoer = new MovieGoer(null, null, null, null);
-    Seat[][] layout = showing.getSeatLayout();
-    layout[0][0].assignSeat(movieGoer);
-    showing.printSeating();
-    System.out.println(showing.isAvailable("A0"));
-    System.out.println(showing.isAvailable("A1"));
+  //   MovieGoer movieGoer = new MovieGoer(null, null, null, null);
+  //   Seat[][] layout = showing.getSeatLayout();
+  //   layout[0][0].assignSeat(movieGoer);
+  //   showing.printSeating();
+  //   System.out.println(showing.isAvailable("A0"));
+  //   System.out.println(showing.isAvailable("A1"));
 
-    showing.assignSeat(movieGoer, "A1");
-    showing.printSeating();
-  }
+  //   showing.assignSeat(movieGoer, "A1");
+  //   showing.printSeating();
+  // }
 }

@@ -170,12 +170,12 @@ public class CineplexModule {
   }
 
   public void showShow(){
-    System.out.println("**************** Results *****************");
+    System.out.println("**************** Results **********************");
     ArrayList<Showing> showList = cinemaReq.getShowList();
     if(showList.size()==0){
       System.out.println("There are no showings available.");
     }
-    else{
+    else {
       cinemaReq.displayShowList();
     }
     System.out.println("***********************************************");

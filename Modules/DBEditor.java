@@ -27,7 +27,7 @@ public class DBEditor {
     Scanner sc = new Scanner(System.in);
 
     System.out.println("***********************************************");
-    System.out.println("************* WELCOME TO DATABASE EDITOR **************");
+    System.out.println("********* WELCOME TO DATABASE EDITOR **********");
     System.out.println("***********************************************");
     int choice;
     boolean running = true;

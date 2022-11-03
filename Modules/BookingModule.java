@@ -150,12 +150,12 @@ public class BookingModule {
         }
 
         System.out.println("Please confirm the details of your booking: ");
-        System.out.println("Movie:\t" + movieObj.getTitle());
+        System.out.println("Movie:\t\t" + movieObj.getTitle());
         System.out.println("Cineplex:\t" + cineplexObj.getCineplexName());
-        System.out.println("Cinema:\t" + cinemaObj.getCinemaNum());
-        System.out.println("Price:\t" + price);
-        System.out.println("Time:\t" + showingObj.getFormattedTime());
-        System.out.print("Seats:\t");
+        System.out.println("Cinema:\t\t" + cinemaObj.getCinemaNum());
+        System.out.println("Price:\t\t" + price);
+        System.out.println("Time:\t\t" + showingObj.getFormattedTime());
+        System.out.print("Seats:\t\t");
         for (String seatId : seatIds) {
             System.out.print(seatId + " ");
         }
@@ -193,20 +193,20 @@ public class BookingModule {
     private void selectCineplex() {
         int choice;
         do {
-        System.out.println("Please select your cineplex of choice: ");
-        int index = 0;
-        for (Cineplex cineplex : cineplexList) {
-            index++;
-            System.out.println("[" + index + "]: " + cineplex.getCineplexName());
-        }
-        int cineplexSize = cineplexList.size();
-        choice = sc.nextInt();
-        choice = choice < 1 || choice > cineplexSize ? 0 : choice;
-        if (choice == 0) {
-            System.out.println("Invalid choice, Please try again.\n");
-        } else {
-            break;
-        }
+            int index = 0;
+            for (Cineplex cineplex : cineplexList) {
+                index++;
+                System.out.println("[" + index + "]: " + cineplex.getCineplexName());
+            }
+            int cineplexSize = cineplexList.size();
+            System.out.println("Please select your cineplex of choice: ");
+            choice = sc.nextInt();
+            choice = choice < 1 || choice > cineplexSize ? 0 : choice;
+            if (choice == 0) {
+                System.out.println("Invalid choice, Please try again.\n");
+            } else {
+                break;
+            }
         } while (true);
         cineplexObj = cineplexList.get(choice - 1);
         cinemaList = cineplexObj.getListOfCinemas();
@@ -263,26 +263,26 @@ public class BookingModule {
         DateType showingDateType = showing.getDateType();
 
         double price = 1;
+        String movieTypeChoice = movieType.name();
+        String cinemaClassChoice = cinemaClass.name();
+        String movieGoerAgeChoice = movieGoerAge.name();
+        String showingDateTypeChoice = showingDateType.name();
         // MovieType
-        String movieTypeChoice = "";
-        switch (movieType) {
-            case REGULAR:
-                movieTypeChoice = "REGULAR";
-                break;
+        int movieTypePrice = ((HashMap<String, Integer>)settingsList.get(0)).get(movieTypeChoice);
+        price *= movieTypePrice;
 
-            case THREE_D:
-                movieTypeChoice = "THREE_D";
-                break;
+        // CinemaClass
+        int cinemaClassPrice = ((HashMap<String, Integer>)settingsList.get(1)).get(cinemaClassChoice);
+        price *= cinemaClassPrice;
 
-            case BLOCKBUSTER:
-                movieTypeChoice = "BLOCKBUSTER";
-                break;
-        
-            default:
-                break;
-        }
-        int movieTypePrice = (int)((HashMap)settingsList.get(0)).get(movieTypeChoice);
-        System.out.println(movieTypePrice);
+        // MovieGoer Age
+        int movieGoerAgePrice = ((HashMap<String, Integer>)settingsList.get(2)).get(movieGoerAgeChoice);
+        price *= movieGoerAgePrice;
+
+        // DateType
+        int showingDateTypePrice = ((HashMap<String, Integer>)settingsList.get(3)).get(showingDateTypeChoice);
+        price *= showingDateTypePrice;
+
         return Math.round(price * 100) / 100;
     }
 }

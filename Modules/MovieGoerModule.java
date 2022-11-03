@@ -28,7 +28,7 @@ public class MovieGoerModule {
         MovieDB movieDB = new MovieDB();
         MovieGoerDB movieGoerDB = new MovieGoerDB();
         System.out.println("***********************************************");
-        System.out.println("MOBLIMA -- Movie Goer Module:");
+        System.out.println("MOBLIMA -- Movie Goer Module:\n");
         ArrayList<Movie> readMovies = (ArrayList<Movie>) movieDB.read();
         ArrayList<MovieGoer> readMovieGoers = (ArrayList<MovieGoer>) movieGoerDB.read();
         allmovies = readMovies;
@@ -93,9 +93,8 @@ public class MovieGoerModule {
                     if (!movieGoerObject.getMovieTicketList().isEmpty()) {
                         System.out.println(movieGoerObject.getMovieTicketList());
                     } else {
-                        System.out.println("No past transactions\n");
+                        System.out.println("No Past Bookings\n");
                     }
-
                     break;
                 case 6:
                     printMovieBySales();
@@ -112,10 +111,12 @@ public class MovieGoerModule {
 
     public void printMovieSearch(String phrase, Boolean detailed, ArrayList<Movie> movies) {
         System.out.println("**************** Results *****************");
+        int index = 0;
         for (Movie m : movies) {
             if (m.getStatus() == (MovieStatus.NOW_SHOWING) && m.getTitle().contains(phrase)) {
                 if (detailed == false) {
-                    System.out.println(m.getTitle());
+                    System.out.println("[" + index + "] " + m.getTitle());
+                    index++;
                 } else {
                     System.out.println("Title: " + m.getTitle());
                     System.out.println("Movie Status: " + m.getStatus());
@@ -143,7 +144,7 @@ public class MovieGoerModule {
                     }
 
                     System.out.println("Sales Count: " + m.getSalesCount());
-                    System.out.println("Movie Type: " + m.getType());
+                    System.out.println("Movie Type: " + m.getType() + "\n");
                 }
             }
         }
@@ -160,9 +161,9 @@ public class MovieGoerModule {
             System.out.print("[" + counter + "] ");
             System.out.print(m.getTitle());
             try {
-                System.out.print(" - Overall Rating: " + m.getOverallRating());
+                System.out.print(" - Overall Rating: " + m.getOverallRating() + "\n");
             } catch (ArithmeticException e) {
-                System.out.print(" - Overall Rating: 0");
+                System.out.print(" - Overall Rating: 0" + "\n");
             }
             counter++;
 
@@ -182,7 +183,7 @@ public class MovieGoerModule {
         for (Movie m : movieList) {
             System.out.print("[" + counter + "] ");
             System.out.print(m.getTitle());
-            System.out.print(" - Total Sales: " + m.getSalesCount());
+            System.out.print(" - Total Sales: " + m.getSalesCount() + "\n");
             counter++;
 
             if (counter >= 6) {

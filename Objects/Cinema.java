@@ -54,7 +54,7 @@ public class Cinema implements Serializable {
     for (Showing showing: showList) {
       Movie movie = showing.getMovie();
       if (movie.getStatus() == MovieStatus.NOW_SHOWING) {
-        System.out.println("[" + showing.getId() + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
+        System.out.println("[ID - #" + showing.getId() + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
         // index++;
         showsAvailable = 1;
       }

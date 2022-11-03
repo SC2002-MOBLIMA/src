@@ -23,7 +23,7 @@ public class AdminModule {
 
         while (!isLoggedIn) {
             System.out.println("***********************************************");
-            System.out.println("MOBLIMA -- Admin Module:");
+            System.out.println("MOBLIMA -- Admin Module:\n");
             System.out.print("Please enter your username: ");
             String username = sc.next();
             System.out.print("Please enter your password: ");
