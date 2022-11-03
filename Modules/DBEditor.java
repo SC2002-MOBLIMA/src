@@ -23,15 +23,15 @@ import Enums.AgeType;
 
 public class DBEditor {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
 
-        System.out.println("***********************************************");
-        System.out.println("************* WELCOME TO DATABASE EDITOR **************");
-        System.out.println("***********************************************");
-        int choice;
-        boolean running = true;
-        while (running) {
+    System.out.println("***********************************************");
+    System.out.println("************* WELCOME TO DATABASE EDITOR **************");
+    System.out.println("***********************************************");
+    int choice;
+    boolean running = true;
+    while (running) {
 
             System.out.println("DATABASE EDITOR -- Main Menu:");
             System.out.println("[1] Edit AdminDB ");
@@ -191,6 +191,7 @@ public class DBEditor {
           break;
       }
       System.out.println("***********************************************");
->>>>>>> Stashed changes
     }
+    sc.close();
+  }
 }

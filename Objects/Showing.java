@@ -11,7 +11,7 @@ public class Showing implements Serializable {
 
   private int id;
   private Movie movie;
-  private LocalDateTime showTime; // Exact Date and Time
+  private LocalDateTime showTime; // YYYY-MM-DDT00:00:00
   private DateType dateType; // Weekend/ Weekday/ PublicHoliday
   private Seat[][] seatLayout; // 9 rows, 10 columns
 
@@ -46,6 +46,10 @@ public class Showing implements Serializable {
     return this.movie;
   }
 
+  public Movie setMovie(Movie movie){
+    return this.movie = movie;
+  }
+
   public String getMovieTitle() {
     return this.movie.getTitle();
   }
@@ -57,7 +61,6 @@ public class Showing implements Serializable {
   public String getFormattedTime() {
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
     String formattedDate = showTime.format(myFormatObj);
-    System.out.println(formattedDate);
     return formattedDate;
   }
 
