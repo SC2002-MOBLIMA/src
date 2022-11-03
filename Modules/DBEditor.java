@@ -4,17 +4,20 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import Databases.AdminDB;
-// import Databases.CineplexDB;
+import Databases.CineplexDB;
 import Databases.MovieDB;
 // import Databases.MovieGoerDB;
-
+import Databases.MovieGoerDB;
 import Objects.Admin;
-// import Objects.Cineplex;
+import Objects.Cineplex;
+import Objects.Cinema;
 import Objects.Movie;
 // import Modules.MovieGoerModule;
-
+import Objects.MovieGoer;
 import Enums.MovieStatus;
 import Enums.MovieType;
+import Enums.CinemaType;
+import Enums.AgeType;
 
 public class DBEditor {
 
@@ -65,6 +68,44 @@ public class DBEditor {
                     }
                     break;
                 case 2:
+                    CineplexDB CineplexDBInstance = new CineplexDB();
+                    ArrayList<Cineplex> cineplexData = (ArrayList<Cineplex>) CineplexDBInstance.read();
+                    if (cineplexData == null) {
+                        cineplexData = new ArrayList<Cineplex>();
+                    }
+
+                    // write
+                    System.out.println("cineplexName: ");
+                    String cineplexName = sc.nextLine();
+                    ArrayList<Cinema> cinemasList = new ArrayList<Cinema>();
+                    System.out.println("enter number of cinemas to add: ");
+                    int numberOfCinemas = sc.nextInt();
+                    while (numberOfCinemas > 0) {
+                        System.out.println("cinema number:");
+                        int cinemaNum = sc.nextInt();
+                        sc.nextLine();
+                        System.out.println("cinema code: ");
+                        String cinemaCode = sc.nextLine();
+                        System.out.println("cinema type: (GOLD_CLASS, DELUXE, REGULAR)");
+                        CinemaType cinemaType = CinemaType.valueOf(sc.nextLine());
+                        cinemasList.add(
+                            new Cinema(cinemaNum, cinemaCode, cinemaType)
+                        );
+                        numberOfCinemas--;
+                    }
+
+                    Cineplex newCineplexToAdd = new Cineplex(cineplexName, cinemasList);
+                    cineplexData.add(newCineplexToAdd);
+                    CineplexDBInstance.write(cineplexData);
+
+                    // read
+                    cineplexData = (ArrayList<Cineplex>) CineplexDBInstance.read();
+                    System.out.println("Current Data:");
+                    for (int i = 0; i < cineplexData.size(); i++) {
+                        Cineplex cineplex = (Cineplex) cineplexData.get(i);
+                        System.out.println(cineplex);
+                    }
+                    
                     break;
                 case 3:
                     // create instance object of your DB and your local data variable
@@ -110,7 +151,35 @@ public class DBEditor {
                     }
                     break;
                 case 4:
+                    // create instance object of your DB and your local data variable
+                    MovieGoerDB movieGoerDBInstance = new MovieGoerDB();
+                    ArrayList<MovieGoer> movieGoerData = (ArrayList<MovieGoer>) movieGoerDBInstance.read();
+                    if (movieGoerData == null) {
+                        movieGoerData = new ArrayList<MovieGoer>();
+                    }
+
+                    // write
+                    System.out.println("Name: ");
+                    String name = sc.nextLine();
+                    System.out.println("Mobile: ");
+                    String mobile = sc.nextLine();
+                    System.out.println("AgeType: (CHILD, ADULT, SENIOR)");
+                    AgeType ageType = AgeType.valueOf(sc.nextLine());
+                    System.out.println("Email: ");
+                    String email = sc.nextLine();
+                    
+                    MovieGoer newMovieGoerToAdd = new MovieGoer(name, mobile, ageType, email);
+                    movieGoerData.add(newMovieGoerToAdd);
+                    movieGoerDBInstance.write(movieGoerData);
+
+                    // read
+                    movieGoerData = (ArrayList<MovieGoer>) movieGoerDBInstance.read();
+                    System.out.println("Current Data:");
+                    for (MovieGoer m: movieGoerData) {
+                        System.out.println(m);
+                    }
                     break;
+
                 case 5:
                     System.out.println("Bye Bye!");
                     running = false;

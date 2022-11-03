@@ -1,5 +1,6 @@
 package Objects;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ import Enums.CinemaType;
 import Enums.DateType;
 import Enums.MovieStatus;
 
-public class Cinema {
+public class Cinema implements Serializable {
 
   private int cinemaNum;
   private String cinemaCode;

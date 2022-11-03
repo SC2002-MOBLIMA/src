@@ -1,9 +1,10 @@
 package Objects;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class MovieTicket {
+public class MovieTicket implements Serializable {
   private MovieGoer movieGoer;
   private double price;
   private Showing showing;

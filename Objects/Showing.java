@@ -1,12 +1,13 @@
 package Objects;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import Enums.DateType;
 // import java.util.ArrayList;
 // import Enums.*;
 
-public class Showing {
+public class Showing implements Serializable {
 
   private int id;
   private Movie movie;

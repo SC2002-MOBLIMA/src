@@ -9,9 +9,10 @@ public class MovieGoerDB extends SerializeDB {
     }
 
     public boolean checkMovieGoerExists(String name) {
+        @SuppressWarnings("unchecked")
         ArrayList<MovieGoer> data = (ArrayList<MovieGoer>) this.read();
         for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getName() == name) {
+            if (data.get(i).getName().equals(name)) {
                 return true;
             }
         }
