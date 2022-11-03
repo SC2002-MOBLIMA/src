@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.DayOfWeek;
+import java.time.*;
 
 import Databases.MovieDB;
 import Databases.CineplexDB;
@@ -49,12 +50,7 @@ public class CineplexModule {
         cineplexReq = cineplexList.get(name-1);
         main = false;
         break;
-      } 
-        // if (cineplexList.get(i).getCineplexName() == name) {
-        //   cineplexReq = cineplexList.get(i);
-        //   main = false;
-        // }
-      
+      }     
       System.out.println("Error: Cineplex not found. Please try again");
     }
 
@@ -120,7 +116,7 @@ public class CineplexModule {
     while (main) {
       MovieDB movieDB = new MovieDB();
       @SuppressWarnings("unchecked")
-      ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read(); // Resolve tomorrow
+      ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
       System.out.println("Key in the number of the movie that you would like");
       for (int i = 0; i < movieList.size(); i++) {
         System.out.println("[" + (i + 1) + "] " + movieList.get(i).getTitle());
@@ -138,6 +134,7 @@ public class CineplexModule {
 
   public void addShow() {
     selectMovie();
+    ArrayList<Showing> showList = cinemaReq.getShowList();
     LocalDateTime dateTime = LocalDateTime.now();
     while (true) {
       try {
@@ -147,11 +144,17 @@ public class CineplexModule {
   
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
         dateTime = LocalDateTime.parse(input, myFormatObj);
-        break;
+
+        if(dateTime.compareTo(movieReq.getEndOfShowingDate())<0){
+          break;
+        }
+        else{
+          System.out.println("Date keyed in exceeds the end of showing of movie. Please key in the data again")
+        }
       } catch (Exception e) {
         System.out.println("Error: Invalid date format. Please try again");
       }
-    }//TODO: Dattime verifictaion to compare with end of showing date
+    }
 
     DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
     int day = dayofWeek.getValue();
@@ -166,46 +169,6 @@ public class CineplexModule {
       showList.add(showReq);
       System.out.println("Show has been sucessfully added");
     }
-
-
-    // int dateInt = 0;
-    // while (true) {
-    //   System.out.println("Pick a DateType: ");
-    //   System.out.println("[1] Weekend");
-    //   System.out.println("[2] Weekday");
-    //   System.out.println("[3] Public Holiday");
-    //   dateInt = sc.nextInt();
-    //   System.out.println("************************************************************");
-    //   if (dateInt >= 1 && dateInt <=3) {
-    //     break;
-    //   } else {
-    //     System.out.println("Invalid DateTime chosen. Please try again");
-    //   }
-    // }
-
-    // switch(dateInt){
-    //   case 1:
-    //     showReq = new Showing(movieReq, dateTime, DateType.WEEKEND);
-    //     showList.add(showReq);
-    //     System.out.println("Show has been sucessfully added");
-    //     break;
-      
-    //   case 2:
-    //     showReq = new Showing(movieReq, dateTime, DateType.WEEKDAY);
-    //     showList.add(showReq);
-    //     System.out.println("Show has been sucessfully added");
-    //     break;
-      
-    //   case 3:
-    //     showReq = new Showing(movieReq, dateTime, DateType.PUBLIC_HOLIDAY);
-    //     showList.add(showReq);
-    //     System.out.println("Show has been sucessfully added");
-    //     break;
-      
-    //   default:
-    //     System.out.println("Show cannot be added");
-    //     break;
-    // }
   }
 
   public void showShow(){
@@ -275,18 +238,24 @@ public class CineplexModule {
 
           case 2:
             boolean main_loop = true;
+            System.out.println("Updating showtime of Showing...");
             if(main_loop){ 
               LocalDateTime dateTime = null;
-              System.out.println("Updating showtime of Showing...");
+              movieReq = show.getMovie();
               System.out.println("Key in the new show time in the following format (yyyyMMddHHmm): ");
               String date = sc.next();
               DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
               try{
                 dateTime = LocalDateTime.parse(date, myFormatObj);
-                show.setShowTime(dateTime);
-                System.out.println("Showtime has been updated");
-                main = false;
-                break;
+                if(dateTime.compareTo(movieReq.getEndOfShowingDate())<0){
+                  show.setShowTime(dateTime);
+                  System.out.println("Showtime has been updated");
+                  main_loop = false;
+                  break;
+                }
+                else{
+                  System.out.println("Showtime keyed in exceeds movie's end of showing date. Please key in the date again");
+                }
               } catch (Exception e) {
                 System.out.println("Error: Invalid date format. Please try again");
               }
