@@ -1,7 +1,6 @@
 package Objects;
 
 import java.io.Serializable;
-import java.net.SocketTimeoutException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 

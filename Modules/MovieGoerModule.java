@@ -1,16 +1,11 @@
 package Modules;
 
 import java.util.Scanner;
-import java.io.*;
-import java.nio.file.FileSystemNotFoundException;
-import java.nio.file.attribute.FileStoreAttributeView;
-import java.util.*;
+import java.util.Collections;
 import Databases.MovieDB;
 import Databases.MovieGoerDB;
 
 import java.util.ArrayList;
-import Objects.Cinema;
-import Objects.Showing;
 import Objects.MovieGoer;
 import Objects.Movie;
 import Objects.Review;
@@ -60,7 +55,7 @@ public class MovieGoerModule {
         int input = 0;
         while (input != 8) {
             System.out.println("***********************************************");
-            System.out.println("MOBLIMA -- Movie Goer Module: (Movie Goer: " + movieGoerObject.getName() + "):");
+            System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObject.getName() + "):");
             System.out.println("[1] Search Movies\n"
                     + "[2] List movies\n"
                     + "[3] View movie details\n"
@@ -143,9 +138,11 @@ public class MovieGoerModule {
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortByRating());
         for (Movie m : movieList) {
-            while (counter < 5) {
-                System.out.println(m.getTitle());
-                counter++;
+            System.out.println(m.getTitle());
+            counter++;
+
+            if (counter >= 5) {
+                break;
             }
         }
     }
@@ -157,9 +154,11 @@ public class MovieGoerModule {
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortBySales());
         for (Movie m : movieList) {
-            while (counter < 5) {
-                System.out.println(m.getTitle());
-                counter++;
+            System.out.println(m.getTitle());
+            counter++;
+
+            if (counter >= 5) {
+                break;
             }
         }
     }
