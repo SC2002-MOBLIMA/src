@@ -49,13 +49,13 @@ public class Cinema implements Serializable {
   }
 
   public void displayAvailableShows() { // Come back to finish this
-    int index = 1;
+    // int index = 1;
     int showsAvailable = 0;
     for (Showing showing: showList) {
       Movie movie = showing.getMovie();
       if (movie.getStatus() == MovieStatus.NOW_SHOWING) {
-        System.out.println("[" + (index + 1) + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
-        index++;
+        System.out.println("[" + showing.getId() + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
+        // index++;
         showsAvailable = 1;
       }
     }

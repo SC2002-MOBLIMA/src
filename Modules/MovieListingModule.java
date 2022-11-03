@@ -20,7 +20,7 @@ public class MovieListingModule {
     boolean running = true;
     while (running) {
       System.out.println("***********************************************");
-      System.out.println("MOBLIMA -- Movie Listing Module:");
+      System.out.println("MOBLIMA -- Admin -- Movie Listing Module:");
       MovieDB movieDB = new MovieDB();
       @SuppressWarnings("unchecked")
       ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
@@ -55,7 +55,7 @@ public class MovieListingModule {
 
   private void updateMovieListing(ArrayList<Movie> movieList, MovieDB movieDB) {
     System.out.println("***********************************************");
-    System.out.println("MOBLIMA -- Movie Listing Module ( Update Existing Movie Listing):");
+    System.out.println("MOBLIMA -- Movie Listing Module (Update Existing Movie Listing):");
     System.out.println("What is the title of the movie?");
     String title = sc.next();
     for (Movie m : movieList) {

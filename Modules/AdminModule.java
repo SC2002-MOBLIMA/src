@@ -17,17 +17,17 @@ public class AdminModule {
     }
 
     public void run() {
-        System.out.println("***********************************************");
-        System.out.println("MOBLIMA -- Admin Module:");
         AdminDB adminDB = new AdminDB();
         @SuppressWarnings("unchecked")
         ArrayList<Admin> adminList = (ArrayList<Admin>) adminDB.read();
 
         while (!isLoggedIn) {
-        System.out.print("Please enter your username: ");
-        String username = sc.next();
-        System.out.print("Please enter your password: ");
-        String password = sc.next();
+            System.out.println("***********************************************");
+            System.out.println("MOBLIMA -- Admin Module:");
+            System.out.print("Please enter your username: ");
+            String username = sc.next();
+            System.out.print("Please enter your password: ");
+            String password = sc.next();
 
         System.out.println("Admin: " + username + " Password: " + password);
 

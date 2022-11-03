@@ -39,6 +39,7 @@ public abstract class SerializeDB {
             out = new ObjectOutputStream(fos);
             out.writeObject(data);
             out.close();
+            // TODO: remove this print statement
             System.out.println("Successfully written to DB");
         } catch (IOException ex) {
             ex.printStackTrace();

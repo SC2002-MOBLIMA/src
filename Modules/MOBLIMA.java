@@ -6,7 +6,7 @@ public class MOBLIMA {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("***********************************************");
+        System.out.println("\n***********************************************");
         System.out.println("************* WELCOME TO MOBLIMA **************");
         int choice;
         boolean running = true;

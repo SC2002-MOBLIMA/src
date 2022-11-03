@@ -54,7 +54,7 @@ public class MovieGoerModule {
         }
         int input = 0;
         while (input != 8) {
-            System.out.println("\n***********************************************");
+            System.out.println("***********************************************");
             System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObject.getName() + "):");
             System.out.println("[1] Search Movies\n"
                     + "[2] List movies\n"
@@ -83,9 +83,10 @@ public class MovieGoerModule {
                     printMovieSearch(keywords, true, allmovies);
                     break;
                 case 4:
-                    System.out.println("**************** Booking Module *****************");
                     BookingModule bookingModule = new BookingModule(sc, movieGoerObject);
                     bookingModule.run();
+                    movieGoerDB.write(readMovieGoers);
+                    movieDB.write(readMovies);
                     break;
                 case 5:
                     System.out.println("**************** Booking History *****************");
@@ -161,8 +162,7 @@ public class MovieGoerModule {
             try {
                 System.out.print(" - Overall Rating: " + m.getOverallRating());
             } catch (ArithmeticException e) {
-                ;
-
+                System.out.print(" - Overall Rating: 0");
             }
             counter++;
 
