@@ -177,6 +177,7 @@ public class DBEditor {
                     System.out.println("Current Data:");
                     for (MovieGoer m: movieGoerData) {
                         System.out.println(m);
+                        System.out.println(m.getName());
                     }
                     break;
 

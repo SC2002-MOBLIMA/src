@@ -19,6 +19,7 @@ public class MOBLIMA {
         System.out.println("[3] Exit");
         System.out.print("Please Select Target Role: ");
         choice = sc.nextInt();
+        sc.nextLine();
         System.out.println("***********************************************");
         switch (choice) {
             case 1:
