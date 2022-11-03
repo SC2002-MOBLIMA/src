@@ -147,7 +147,7 @@ public class CineplexModule {
           break;
         }
         else{
-          System.out.println("Date keyed in exceeds the end of showing of movie. Please key in the data again")
+          System.out.println("Date keyed in exceeds the end of showing of movie. Please key in the data again");
         }
       } catch (Exception e) {
         System.out.println("Error: Invalid date format. Please try again");
@@ -160,15 +160,11 @@ public class CineplexModule {
     DateType inputDateType = DateType.WEEKDAY;
     if(day == 6 || day == 7){
       inputDateType = DateType.WEEKEND;
-      showReq = new Showing(movieReq, dateTime, DateType.WEEKEND);
     }
-    else{
-      showReq = new Showing(movieReq, dateTime, DateType.WEEKDAY);
-      showList.add(showReq);
-      System.out.println("Show has been sucessfully added");
-    }
+    cinemaReq.addShow(movieReq, dateTime, inputDateType);
     CineplexDB cineplexDB = new CineplexDB();
     cineplexDB.write(cineplexList);
+    System.out.println("Show has been sucessfully added");
   }
 
   public void showShow(){
