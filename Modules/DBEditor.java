@@ -136,19 +136,20 @@ public class DBEditor {
             System.out.println("type: (REGULAR, THREE_D, BLOCKBUSTER)");
             MovieType type = MovieType.valueOf(sc.nextLine());
             System.out.println("endOfShowingDate: ");
-            String endOfShowingDate = sc.nextLine();
-            // Movie newMovieToAdd = new Movie(title, status, synopsis, director, cast, saleCount, type, endOfShowingDate);
-            // movieData.add(newMovieToAdd);
+            String dateString = sc.nextLine();
+            LocalDateTime endOfShowingDate = LocalDateTime.parse(dateString);
+            Movie newMovieToAdd = new Movie(title, status, synopsis, director, cast, type, endOfShowingDate);
+            movieData.add(newMovieToAdd);
             MovieDBInstance.write(movieData);
 
-          // read
-          movieData = (ArrayList<Movie>) MovieDBInstance.read();
-          System.out.println("Current Data:");
-          for (int i = 0; i < movieData.size(); i++) {
-            Movie movie = (Movie) movieData.get(i);
-            System.out.println(movie);
-          }
-          break;
+            // read
+            movieData = (ArrayList<Movie>) MovieDBInstance.read();
+            System.out.println("Current Data:");
+            for (int i = 0; i < movieData.size(); i++) {
+                Movie movie = (Movie) movieData.get(i);
+                System.out.println(movie);
+            }
+            break;
         case 4:
           // create instance object of your DB and your local data variable
           MovieGoerDB movieGoerDBInstance = new MovieGoerDB();
