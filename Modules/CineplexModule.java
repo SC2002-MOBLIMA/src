@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 import Databases.MovieDB;
+import Databases.CineplexDB;
+
 import Enums.DateType;
 import Objects.Cineplex;
 import Objects.Cinema;
@@ -17,7 +19,7 @@ public class CineplexModule {
   private ArrayList<Cineplex> cineplexList;
   private Cineplex cineplexReq;
   private Cinema cinemaReq;
-  // private Showing showReq;
+  private Showing showReq;
   private Movie movieReq;
 
   public CineplexModule(Scanner sc) {
@@ -30,16 +32,28 @@ public class CineplexModule {
 
     boolean main = true;
     while (main) {
-      System.out.println("************************************************************");
-      System.out.println("Please key in the cineplex name that you would like to edit");
-      String name = sc.next();
-      System.out.println("************************************************************");
+      // System.out.println("************************************************************");
+      System.out.println("Please key in the number of the cineplex name that you would like to edit");
+      
+      CineplexDB cineplexDB = new CineplexDB();
+      @SuppressWarnings("unchecked")
+      ArrayList<Cineplex> cineplexList = (ArrayList<Cineplex>)cineplexDB.read();
+
       for (int i = 0; i < cineplexList.size(); i++) {
-        if (cineplexList.get(i).getCineplexName() == name) {
-          cineplexReq = cineplexList.get(i);
-          main = false;
-        }
+        System.out.println("[" + (i+1) + "] " + cineplexList.get(i).getCineplexName());
       }
+      int name = sc.nextInt();
+
+      if(!(name<1 || name>cineplexList.size())){
+        cineplexReq = cineplexList.get(name-1);
+        main = false;
+        break;
+      } 
+        // if (cineplexList.get(i).getCineplexName() == name) {
+        //   cineplexReq = cineplexList.get(i);
+        //   main = false;
+        // }
+      
       System.out.println("Error: Cineplex not found. Please try again");
     }
 
@@ -47,10 +61,12 @@ public class CineplexModule {
     while (main_cinema) {
       System.out.println("************************************************************");
       System.out.println("Please key in the cinema number that you would like to edit");
+      ArrayList<Cinema> cinemaList = cineplexReq.getListOfCinemas();
+      for (int i = 0; i < cinemaList.size(); i++) {
+        System.out.println("[" + cinemaList.get(i).getCinemaNum() + "]");
+      }
       int num = sc.nextInt();
       System.out.println("************************************************************");
-
-      ArrayList<Cinema> cinemaList = cineplexReq.getListOfCinemas();
 
       for (int i = 0; i < cinemaList.size(); i++) {
         if (cinemaList.get(i).getCinemaNum() == num) {
@@ -58,12 +74,13 @@ public class CineplexModule {
           main_cinema = false;
         }
       }
-      System.out.println("Error: Cinema not found. Please try again");
+      if(main_cinema){
+        System.out.println("Error: Cinema not found. Please try again");
+      }
     }
 
     boolean main_final = true;
     while (main_final) {
-      System.out.println("************************************************************");
       System.out.println("[1] Add Showing");
       System.out.println("[2] Remove Showing");
       System.out.println("[3] Update Showing");
@@ -98,7 +115,6 @@ public class CineplexModule {
       MovieDB movieDB = new MovieDB();
       @SuppressWarnings("unchecked")
       ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read(); // Resolve tomorrow
-      System.out.println("************************************************************");
       System.out.println("Key in the number of the movie that you would like to add");
       for (int i = 0; i < movieList.size(); i++) {
         System.out.println("[" + (i + 1) + "] " + movieList.get(i).getTitle());
@@ -113,33 +129,61 @@ public class CineplexModule {
         System.out.println("Error: Key in a valid value");
       }
     }
+    ArrayList<Showing> showList = cinemaReq.getShowList();
 
-    boolean main_next = true;
-    while (main_next) {
-      ArrayList<Showing> showList = cinemaReq.getShowList();
-      System.out.println("************************************************************");
-      System.out.println("Key in the Date and Time of the show in the following format (yyyyMMddHHmm): ");
-      String input = sc.next();
-      System.out.println("************************************************************");
-
-      DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+    LocalDateTime dateTime = LocalDateTime.now();
+    while (true) {
       try {
         // TODO: Find out how to validate
-        LocalDateTime dateTime = LocalDateTime.parse(input, myFormatObj);
-
+        System.out.println("Key in the Date and Time of the show in the following format (yyyyMMddHHmm): ");
+        String input = sc.next();
         System.out.println("************************************************************");
-        System.out.println("Key in the DateType (Weekend,Weekday,Public Holiday): ");
-        String dateString = sc.next();
-        System.out.println("************************************************************");
-
-        DateType dateType = DateType.fromString(dateString);
-        Showing show = new Showing(movieReq, dateTime, dateType);
-        showList.add(show);
-        System.out.println("Show has been sucessfully added");
-        main_next = false;
+  
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+        dateTime = LocalDateTime.parse(input, myFormatObj);
+        break;
       } catch (Exception e) {
         System.out.println("Error: Invalid date format. Please try again");
       }
+    }
+
+    int dateInt = 0;
+    while (true) {
+      System.out.println("Pick a DateType: ");
+      System.out.println("[1] Weekend");
+      System.out.println("[2] Weekday");
+      System.out.println("[3] Public Holiday");
+      dateInt = sc.nextInt();
+      System.out.println("************************************************************");
+      if (dateInt >= 1 && dateInt <=3) {
+        break;
+      } else {
+        System.out.println("Invalid DateTime chosen. Please try again");
+      }
+    }
+
+    switch(dateInt){
+      case 1:
+        showReq = new Showing(movieReq, dateTime, DateType.WEEKEND);
+        showList.add(showReq);
+        System.out.println("Show has been sucessfully added");
+        break;
+      
+      case 2:
+        showReq = new Showing(movieReq, dateTime, DateType.WEEKDAY);
+        showList.add(showReq);
+        System.out.println("Show has been sucessfully added");
+        break;
+      
+      case 3:
+        showReq = new Showing(movieReq, dateTime, DateType.PUBLIC_HOLIDAY);
+        showList.add(showReq);
+        System.out.println("Show has been sucessfully added");
+        break;
+      
+      default:
+        System.out.println("Show cannot be added");
+        break;
     }
   }
 
@@ -148,7 +192,6 @@ public class CineplexModule {
     boolean main = true;
     while (main) {
       ArrayList<Showing> showList = cinemaReq.getShowList();
-      System.out.println("************************************************************");
       System.out.println("Key in the number of the show that you would like to remove: ");
       cinemaReq.displayShowList();
       int selection = sc.nextInt();
@@ -165,7 +208,6 @@ public class CineplexModule {
 
   public void updateShow() {
     ArrayList<Showing> showList = cinemaReq.getShowList();
-    System.out.println("************************************************************");
     System.out.println("Key in the number of the show that you would like to update: ");
     cinemaReq.displayShowList();
     int selection = sc.nextInt();
