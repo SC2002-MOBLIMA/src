@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.DayOfWeek;
 
 import Databases.MovieDB;
 import Databases.CineplexDB;
@@ -151,36 +152,12 @@ public class CineplexModule {
       }
     }//TODO: Dattime verifictaion to compare with end of showing date
 
-    int dateInt = 0;
-    while (true) {
-      System.out.println("Pick a DateType: ");
-      System.out.println("[1] Weekend");
-      System.out.println("[2] Weekday");
-      System.out.println("[3] Public Holiday");
-      dateInt = sc.nextInt();
-      System.out.println("************************************************************");
-      if (dateInt >= 1 && dateInt <=3) {
-        break;
-      } else {
-        System.out.println("Invalid DateTime chosen. Please try again");
-      }
-    }
+    DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
+    int day = dayofWeek.getValue();
+
     DateType inputDateType = DateType.WEEKDAY;
-    switch (dateInt) {
-      case 1:
-        inputDateType = DateType.WEEKEND;
-        break;
-
-      case 2:
-        inputDateType = DateType.WEEKDAY;
-        break;
-
-      case 3:
-        inputDateType = DateType.PUBLIC_HOLIDAY;
-        break;
-    
-      default:
-        break;
+    if(day == 6 || day == 7){
+      inputDateType = DateType.WEEKEND;
     }
     cinemaReq.addShow(movieReq, dateTime, inputDateType);
     
