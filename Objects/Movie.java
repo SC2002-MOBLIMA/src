@@ -1,6 +1,7 @@
 package Objects;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import Enums.MovieStatus;
 import Enums.MovieType;
@@ -11,19 +12,20 @@ public class Movie implements Serializable, Comparable<Movie> {
   private String synopsis;
   private String director;
   private ArrayList<String> cast;
-  private ArrayList<Review> reviewList = new ArrayList<Review>(); // Always initialized
+  private ArrayList<Review> reviewList;
   private int saleCount;
   private MovieType type;
-  private String endOfShowingDate;
+  private LocalDateTime endOfShowingDate; // YYYY-MM-DDT00:00:00
 
   public Movie(String title, MovieStatus status, String synopsis, String director, ArrayList<String> cast,
-      int saleCount, MovieType type, String endOfShowingDate) {
+      MovieType type, LocalDateTime endOfShowingDate) {
     this.title = title;
     this.status = status;
     this.synopsis = synopsis;
     this.director = director;
     this.cast = cast;
-    this.saleCount = saleCount;
+    this.reviewList = new ArrayList<Review>(); // default empty reviewList
+    this.saleCount = 0; // default empty saleCount
     this.type = type;
     this.endOfShowingDate = endOfShowingDate;
   }
@@ -84,6 +86,18 @@ public class Movie implements Serializable, Comparable<Movie> {
     return this.saleCount;
   }
 
+  public void setSaleCount(int saleCount) {
+    this.saleCount = saleCount;
+  }
+
+  public LocalDateTime getEndOfShowingDate() {
+    return this.endOfShowingDate;
+  }
+
+  public void setEndOfShowingDate(LocalDateTime endOfShowingDate) {
+    this.endOfShowingDate = endOfShowingDate;
+  }
+
   public void incrementSaleCount() {
     int count = getSalesCount();
     this.saleCount = count++;
@@ -139,20 +153,4 @@ public class Movie implements Serializable, Comparable<Movie> {
     }
     return false;
   }
-
-  // public static void main(String args[]) {
-  // ArrayList<String> cast = new ArrayList<>();
-  // cast.add("ABC");
-  // cast.add("ABC");
-  // String[] c = { "A", "Iron B" };
-  // Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
-  // "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
-  // Movie m2 = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
-  // "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
-  // System.out.println(m2.equals(m));
-  // m.addReview("kaijun", 5, "sucks");
-  // m.addReview("kaijun", 1, "sucks");
-  // System.out.println(m.getOverallRating());
-  // System.out.println("works");
-  // }
 }

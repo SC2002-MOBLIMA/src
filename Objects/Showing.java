@@ -11,7 +11,7 @@ public class Showing implements Serializable {
 
   private int id;
   private Movie movie;
-  private LocalDateTime showTime; // Exact Date and Time
+  private LocalDateTime showTime; // YYYY-MM-DDT00:00:00
   private DateType dateType; // Weekend/ Weekday/ PublicHoliday
   private Seat[][] seatLayout; // 9 rows, 10 columns
 
