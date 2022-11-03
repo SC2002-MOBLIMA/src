@@ -44,101 +44,102 @@ public class DBEditor {
       System.out.println("***********************************************");
       switch (choice) {
         case 1:
-          // create instance object of your DB and your local data variable
-          AdminDB AdminDBInstance = new AdminDB();
-          ArrayList<Admin> adminData = (ArrayList<Admin>) AdminDBInstance.read();
-          if (adminData == null) {
-            adminData = new ArrayList<Admin>();
-          }
+            // create instance object of your DB and your local data variable
+            AdminDB AdminDBInstance = new AdminDB();
+            ArrayList<Admin> adminData = (ArrayList<Admin>) AdminDBInstance.read();
+            if (adminData == null) {
+                adminData = new ArrayList<Admin>();
+            }
 
-          // write
-          System.out.println("Username: ");
-          String username = sc.nextLine();
-          System.out.println("Password: ");
-          String password = sc.nextLine();
-          Admin newAdminToAdd = new Admin(username, password);
-          adminData.add(newAdminToAdd);
-          AdminDBInstance.write(adminData);
+            // write
+            System.out.println("Username: ");
+            String username = sc.nextLine();
+            System.out.println("Password: ");
+            String password = sc.nextLine();
+            Admin newAdminToAdd = new Admin(username, password);
+            adminData.add(newAdminToAdd);
+            AdminDBInstance.write(adminData);
 
-          // read
-          adminData = (ArrayList<Admin>) AdminDBInstance.read();
-          System.out.println("Current Data:");
-          for (int i = 0; i < adminData.size(); i++) {
-            Admin adminPerson = (Admin) adminData.get(i);
-            System.out.println(adminPerson);
-          }
-          break;
+            // read
+            adminData = (ArrayList<Admin>) AdminDBInstance.read();
+            System.out.println("Current Data:");
+            for (int i = 0; i < adminData.size(); i++) {
+                Admin adminPerson = (Admin) adminData.get(i);
+                System.out.println(adminPerson);
+            }
+            break;
         case 2:
-          CineplexDB CineplexDBInstance = new CineplexDB();
-          ArrayList<Cineplex> cineplexData = (ArrayList<Cineplex>) CineplexDBInstance.read();
-          if (cineplexData == null) {
-            cineplexData = new ArrayList<Cineplex>();
-          }
+            CineplexDB CineplexDBInstance = new CineplexDB();
+            ArrayList<Cineplex> cineplexData = (ArrayList<Cineplex>) CineplexDBInstance.read();
+            if (cineplexData == null) {
+                cineplexData = new ArrayList<Cineplex>();
+            }
 
-          // write
-          System.out.println("cineplexName: ");
-          String cineplexName = sc.nextLine();
-          ArrayList<Cinema> cinemasList = new ArrayList<Cinema>();
-          System.out.println("enter number of cinemas to add: ");
-          int numberOfCinemas = sc.nextInt();
-          while (numberOfCinemas > 0) {
-            System.out.println("cinema number:");
-            int cinemaNum = sc.nextInt();
-            sc.nextLine();
-            System.out.println("cinema code: ");
-            String cinemaCode = sc.nextLine();
-            System.out.println("cinema type: (GOLD_CLASS, DELUXE, REGULAR)");
-            CinemaType cinemaType = CinemaType.valueOf(sc.nextLine());
-            cinemasList.add(
-                new Cinema(cinemaNum, cinemaCode, cinemaType));
-            numberOfCinemas--;
-          }
+            // write
+            System.out.println("cineplexName: ");
+            String cineplexName = sc.nextLine();
+            ArrayList<Cinema> cinemasList = new ArrayList<Cinema>();
+            System.out.println("enter number of cinemas to add: ");
+            int numberOfCinemas = sc.nextInt();
+            while (numberOfCinemas > 0) {
+                System.out.println("cinema number:");
+                int cinemaNum = sc.nextInt();
+                sc.nextLine();
+                System.out.println("cinema code: ");
+                String cinemaCode = sc.nextLine();
+                System.out.println("cinema type: (GOLD_CLASS, DELUXE, REGULAR)");
+                CinemaType cinemaType = CinemaType.valueOf(sc.nextLine());
+                cinemasList.add(
+                    new Cinema(cinemaNum, cinemaCode, cinemaType));
+                numberOfCinemas--;
+            }
 
-          Cineplex newCineplexToAdd = new Cineplex(cineplexName, cinemasList);
-          cineplexData.add(newCineplexToAdd);
-          CineplexDBInstance.write(cineplexData);
+            Cineplex newCineplexToAdd = new Cineplex(cineplexName, cinemasList);
+            cineplexData.add(newCineplexToAdd);
+            CineplexDBInstance.write(cineplexData);
 
-          // read
-          cineplexData = (ArrayList<Cineplex>) CineplexDBInstance.read();
-          System.out.println("Current Data:");
-          for (int i = 0; i < cineplexData.size(); i++) {
-            Cineplex cineplex = (Cineplex) cineplexData.get(i);
-            System.out.println(cineplex);
-          }
+            // read
+            cineplexData = (ArrayList<Cineplex>) CineplexDBInstance.read();
+            System.out.println("Current Data:");
+            for (int i = 0; i < cineplexData.size(); i++) {
+                Cineplex cineplex = (Cineplex) cineplexData.get(i);
+                System.out.println(cineplex);
+            }
 
-          break;
+            break;
         case 3:
-          // create instance object of your DB and your local data variable
-          MovieDB MovieDBInstance = new MovieDB();
-          ArrayList<Movie> movieData = (ArrayList<Movie>) MovieDBInstance.read();
-          if (movieData == null) {
-            movieData = new ArrayList<Movie>();
-          }
+            // create instance object of your DB and your local data variable
+            MovieDB MovieDBInstance = new MovieDB();
+            ArrayList<Movie> movieData = (ArrayList<Movie>) MovieDBInstance.read();
+            if (movieData == null) {
+                movieData = new ArrayList<Movie>();
+            }
 
-          // write
-          System.out.println("title: ");
-          String title = sc.nextLine();
-          System.out.println("status: (COMING_SOON, PREVIEW, NOW_SHOWING)");
-          MovieStatus status = MovieStatus.valueOf(sc.nextLine());
-          System.out.println("synopsis: ");
-          String synopsis = sc.nextLine();
-          System.out.println("director: ");
-          String director = sc.nextLine();
-          ArrayList<String> cast = new ArrayList<String>();
-          System.out.println("cast: (enter a number to end)");
-          while (!sc.hasNextInt()) {
-            cast.add(sc.nextLine());
-          }
-          sc.nextLine();
-          System.out.println("type: (REGULAR, THREE_D, BLOCKBUSTER)");
-          MovieType type = MovieType.valueOf(sc.nextLine());
-          System.out.println("endOfShowingDate: ");
-          String dateString = sc.nextLine();
-          LocalDateTime endOfShowingDate = LocalDateTime.parse(dateString);
-          Movie newMovieToAdd = new Movie(title, status, synopsis, director, cast, type,
-              endOfShowingDate);
-          movieData.add(newMovieToAdd);
-          MovieDBInstance.write(movieData);
+            // write
+            System.out.println("title: ");
+            String title = sc.nextLine();
+            System.out.println("status: (COMING_SOON, PREVIEW, NOW_SHOWING)");
+            MovieStatus status = MovieStatus.valueOf(sc.nextLine());
+            System.out.println("synopsis: ");
+            String synopsis = sc.nextLine();
+            System.out.println("director: ");
+            String director = sc.nextLine();
+            ArrayList<String> cast = new ArrayList<String>();
+            System.out.println("cast: (enter a number to end)");
+            while (!sc.hasNextInt()) {
+                cast.add(sc.nextLine());
+            }
+            sc.nextLine();
+            System.out.println("saleCount: ");
+            int saleCount = sc.nextInt();
+            sc.nextLine();
+            System.out.println("type: (REGULAR, THREE_D, BLOCKBUSTER)");
+            MovieType type = MovieType.valueOf(sc.nextLine());
+            System.out.println("endOfShowingDate: ");
+            String endOfShowingDate = sc.nextLine();
+            // Movie newMovieToAdd = new Movie(title, status, synopsis, director, cast, saleCount, type, endOfShowingDate);
+            // movieData.add(newMovieToAdd);
+            MovieDBInstance.write(movieData);
 
           // read
           movieData = (ArrayList<Movie>) MovieDBInstance.read();
@@ -189,7 +190,7 @@ public class DBEditor {
           break;
       }
       System.out.println("***********************************************");
-      sc.close();
     }
+    sc.close();
   }
 }
