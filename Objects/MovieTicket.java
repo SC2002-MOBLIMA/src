@@ -13,7 +13,8 @@ public class MovieTicket implements Serializable {
   private String seatId;
   private String TID;
 
-  public MovieTicket(MovieGoer movieGoer, double price, Showing showing, Cineplex cineplex, Cinema cinema, String seatId) {
+  public MovieTicket(MovieGoer movieGoer, double price, Showing showing, Cineplex cineplex, Cinema cinema,
+      String seatId) {
     this.movieGoer = movieGoer;
     this.price = price;
     this.showing = showing;
