@@ -60,10 +60,6 @@ public class Cinema implements Serializable {
           index++;
       }
     }
-    for (int i = 0; i < showList.size(); i++) {
-      if ((this.showList.get(i).getMovie()).getStatus() == MovieStatus.NOW_SHOWING) {
-      }
-    }
   }
 
   public Showing searchShow(int id) {

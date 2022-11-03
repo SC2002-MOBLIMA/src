@@ -8,11 +8,10 @@ public class MOBLIMA {
 
         System.out.println("***********************************************");
         System.out.println("************* WELCOME TO MOBLIMA **************");
-        System.out.println("***********************************************");
         int choice;
         boolean running = true;
         while (running) {
-
+            System.out.println("***********************************************");
             System.out.println("MOBLIMA -- Main Menu:");
             System.out.println("[1] Movie Goer");
             System.out.println("[2] Admin");
@@ -42,5 +41,6 @@ public class MOBLIMA {
                     break;
             }
         }
+        sc.close();
     }
 }
