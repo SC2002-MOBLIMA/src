@@ -210,7 +210,7 @@ public class BookingModule {
             break;
         }
         } while (true);
-        Cinema cinema = cinemaList.get(cinemaChoice);
+        Cinema cinema = cinemaList.get(cinemaChoice-1);
         return cinema;
     }
 
