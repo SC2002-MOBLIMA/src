@@ -37,8 +37,7 @@ public class CineplexModule {
       System.out.println("Please key in the number of the cineplex name that you would like to edit");
       
       CineplexDB cineplexDB = new CineplexDB();
-      @SuppressWarnings("unchecked")
-      ArrayList<Cineplex> cineplexList = (ArrayList<Cineplex>)cineplexDB.read();
+      cineplexList = (ArrayList<Cineplex>)cineplexDB.read();
       for (int i = 0; i < cineplexList.size(); i++) {
         System.out.println("[" + (i+1) + "] " + cineplexList.get(i).getCineplexName());
       }
