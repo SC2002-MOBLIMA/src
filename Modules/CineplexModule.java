@@ -151,7 +151,7 @@ public class CineplexModule {
       } catch (Exception e) {
         System.out.println("Error: Invalid date format. Please try again");
       }
-    }
+    }//TODO: Dattime verifictaion to compare with end of showing date
 
     int dateInt = 0;
     while (true) {
