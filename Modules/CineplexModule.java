@@ -81,27 +81,33 @@ public class CineplexModule {
 
     boolean main_final = true;
     while (main_final) {
-      System.out.println("[1] Add Showing");
-      System.out.println("[2] Remove Showing");
-      System.out.println("[3] Update Showing");
-      System.out.println("[4] Back");
+      System.out.println("[1] Show Showing");
+      System.out.println("[2] Add Showing");
+      System.out.println("[3] Remove Showing");
+      System.out.println("[4] Update Showing");
+      System.out.println("[5] Back");
       int select = sc.nextInt();
       System.out.println("************************************************************");
 
       switch (select) {
+        
         case 1:
+          showShow();
+          break;
+        
+        case 2:
           addShow();
           break;
 
-        case 2:
+        case 3:
           removeShow();
           break;
 
-        case 3:
+        case 4:
           updateShow();
           break;
 
-        case 4:
+        case 5:
           main_final = false;
           break;
       }
@@ -187,11 +193,27 @@ public class CineplexModule {
     }
   }
 
+  public void showShow(){
+    boolean main = true;
+    ArrayList<Showing> showList = cinemaReq.getShowList();
+    if(showList.size()==0){
+      System.out.println("There are no showings available");
+    }
+    else{
+      cinemaReq.displayShowList();
+    }
+    System.out.println("************************************************************");
+  }
+
   public void removeShow() {
 
     boolean main = true;
     while (main) {
       ArrayList<Showing> showList = cinemaReq.getShowList();
+      if(showList.size()==0){
+        System.out.println("There are no showings to remove");
+        break;
+      }
       System.out.println("Key in the number of the show that you would like to remove: ");
       cinemaReq.displayShowList();
       int selection = sc.nextInt();
@@ -208,14 +230,21 @@ public class CineplexModule {
 
   public void updateShow() {
     ArrayList<Showing> showList = cinemaReq.getShowList();
-    System.out.println("Key in the number of the show that you would like to update: ");
-    cinemaReq.displayShowList();
-    int selection = sc.nextInt();
-    System.out.println("************************************************************");
-    if (!(selection < 1 || selection > showList.size())) {
-      // TODO: Discuss tomorrow
-    } else {
-      System.out.println("Error: Key in a valid value");
+    boolean main = true; 
+    while(main){
+      if(showList.size()==0){
+        System.out.println("There are no showings to remove");
+        break;
+      }
+      System.out.println("Key in the number of the show that you would like to update: ");
+      cinemaReq.displayShowList();
+      int selection = sc.nextInt();
+      System.out.println("************************************************************");
+      if (!(selection < 1 || selection > showList.size())) {
+        // TODO: Discuss tomorrow
+      } else {
+        System.out.println("Error: Key in a valid value");
+      }
     }
   }
 }

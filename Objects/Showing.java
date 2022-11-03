@@ -57,7 +57,6 @@ public class Showing implements Serializable {
   public String getFormattedTime() {
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
     String formattedDate = showTime.format(myFormatObj);
-    System.out.println(formattedDate);
     return formattedDate;
   }
 
