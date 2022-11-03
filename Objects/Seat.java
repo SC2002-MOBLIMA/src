@@ -1,6 +1,8 @@
 package Objects;
 
-public class Seat {
+import java.io.Serializable;
+
+public class Seat implements Serializable {
   private String id;
   private MovieGoer movieGoer;
 

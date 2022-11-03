@@ -1,9 +1,10 @@
 package Objects;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class MovieTicket {
+public class MovieTicket implements Serializable {
   private MovieGoer movieGoer;
   private double price;
   private Showing showing;
@@ -38,7 +39,7 @@ public class MovieTicket {
     System.out.println("Movie Information: ");
     System.out.println("Movie: " + showing.getMovieTitle());
     System.out.println("Cineplex: " + cineplex.getCineplexName());
-    System.out.println("Cinema: " + cinema.getCinemaNumber());
+    System.out.println("Cinema: " + cinema.getCinemaNum());
     System.out.println("Price: " + price + " | Time: " + showing.getFormattedTime() + " | Seat: " + seatId);
     System.out.println("***********************************************");
   }

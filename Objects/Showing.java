@@ -1,26 +1,26 @@
 package Objects;
 
-import java.time.format.DateTimeFormatter;
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.lang.Character;
-import java.lang.String;
+import java.time.format.DateTimeFormatter;
 import Enums.DateType;
-import Enums.MovieType;
-import Enums.*;
+// import java.util.ArrayList;
+// import Enums.*;
 
-public class Showing {
+public class Showing implements Serializable {
 
   private int id;
   private Movie movie;
   private LocalDateTime showTime; // Exact Date and Time
   private DateType dateType; // Weekend/ Weekday/ PublicHoliday
-  private Seat[][] seatLayout; // 10 rows, 9 columns
+  private Seat[][] seatLayout; // 9 rows, 10 columns
 
-  public Showing(Movie movie, LocalDateTime showTime) {
+  public Showing(Movie movie, LocalDateTime showTime, DateType dateType) {
     this.movie = movie;
     this.showTime = showTime;
+    this.dateType = dateType;
 
-    Seat[][] layout = new Seat[10][9];
+    Seat[][] layout = new Seat[9][10];
     for (int i = 0; i < layout.length; i++) {
       for (int j = 0; j < layout[i].length; j++) {
         String seatId = (char) (i + 65) + String.valueOf(j);
@@ -42,19 +42,37 @@ public class Showing {
     this.showTime = showTime;
   }
 
+  public Movie getMovie() {
+    return this.movie;
+  }
+
   public String getMovieTitle() {
-    return movie.getTitle();
+    return this.movie.getTitle();
+  }
+
+  public DateType getDateType() {
+    return this.dateType;
+  }
+
+  public String getFormattedTime() {
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+    String formattedDate = showTime.format(myFormatObj);
+    System.out.println(formattedDate);
+    return formattedDate;
   }
 
   public void printSeating() {
     for (int i = 0; i < this.seatLayout.length; i++) {
-      for (int j = 0; j < this.seatLayout[j].length; j++) {
+      for (int j = 0; j < this.seatLayout[i].length; j++) {
         if (this.seatLayout[i][j].isAvailable()) {
           System.out.print("[ ]");
         } else {
           System.out.print("[X]");
         }
-        if (j == this.seatLayout[j].length - 1) {
+        if (j == 4) {
+          System.out.print("\t\t");
+        }
+        if (j == this.seatLayout[i].length - 1) {
           System.out.println();
         }
       }
@@ -75,41 +93,36 @@ public class Showing {
     seat.assignSeat(movieGoer);
   }
 
-  public MovieType getMovieType() {
-    return movie.getType();
-  }
-
-  public DateType getDateType() {
-    return this.dateType;
-  }
-
-  public String getFormattedTime() {
-    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
-    String formattedDate = showTime.format(myFormatObj);
-    System.out.println(formattedDate);
-    return formattedDate;
-  }
-
   // Testing
   public Seat[][] getSeatLayout() {
     return this.seatLayout;
   }
 
-  public static void main(String[] args) {
-    String[] c = { "A", "Iron B" };
-    Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
-        "Spider Man", c, 0, MovieType.BLOCKBUSTER,
-        "ABC");
-    LocalDateTime lTime = LocalDateTime.now();
-    Showing showing = new Showing(m, lTime);
-    Seat[][] layout = showing.getSeatLayout();
-    layout[0][0].assignSeat(new MovieGoer());
-    showing.printSeating();
-    System.out.println("new");
-    showing.isAvailable("A0");
-    showing.isAvailable("A1");
-    showing.assignSeat(new MovieGoer(), "A1");
-    showing.printSeating();
-    showing.getFormattedTime();
-  }
+  // public static void main(String[] args) {
+  // ArrayList<String> cast = new ArrayList<>();
+  // cast.add("ABC");
+  // cast.add("ABC");
+  // String[] c = { "A", "Iron B" };
+  // Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
+  // "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
+  // LocalDateTime lTime = LocalDateTime.now();
+  // DateType dateType = DateType.WEEKEND;
+  // Showing showing = new Showing(m, lTime, dateType);
+
+  // showing.getFormattedTime();
+  // showing.printSeating();
+  // System.out.println();
+
+  // ArrayList<MovieTicket> TransactionList = new ArrayList<MovieTicket>();
+  // MovieGoer movieGoer = new MovieGoer("null", "null", Agetype.ADULT, "null", 0,
+  // TransactionList);
+  // Seat[][] layout = showing.getSeatLayout();
+  // layout[0][0].assignSeat(movieGoer);
+  // showing.printSeating();
+  // System.out.println(showing.isAvailable("A0"));
+  // System.out.println(showing.isAvailable("A1"));
+
+  // showing.assignSeat(movieGoer, "A1");
+  // showing.printSeating();
+  // }
 }

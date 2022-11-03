@@ -1,6 +1,8 @@
 package Objects;
 
-public class Review {
+import java.io.Serializable;
+
+public class Review implements Serializable {
   private String name;
   private int rating; // From 1(worse) to 5 (best)
   private String review;

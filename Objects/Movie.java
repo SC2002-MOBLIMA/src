@@ -1,12 +1,11 @@
 package Objects;
 
 import java.io.Serializable;
-import java.util.*;
-
-import Enums.MovieType;
+import java.util.ArrayList;
 import Enums.MovieStatus;
+import Enums.MovieType;
 
-public class Movie implements Serializable {
+public class Movie implements Serializable, Comparable<Movie> {
   private String title;
   private MovieStatus status;
   private String synopsis;
@@ -18,8 +17,7 @@ public class Movie implements Serializable {
   private String endOfShowingDate;
 
   public Movie(String title, MovieStatus status, String synopsis, String director, ArrayList<String> cast,
-      int saleCount,
-      MovieType type, String endOfShowingDate) {
+      int saleCount, MovieType type, String endOfShowingDate) {
     this.title = title;
     this.status = status;
     this.synopsis = synopsis;
@@ -115,19 +113,42 @@ public class Movie implements Serializable {
     return overallRating;
   }
 
-  // TODO:
-  // public int compareTo() {}
-  // public boolean equals(Object o) {}
+  @Override
+  public int compareTo(Movie m) {
+    // compare by movie title
+    return this.title.compareToIgnoreCase(m.getTitle());
+  }
 
-  // // Testing
+  @Override
+  public boolean equals(Object o) {
+    // compare by movie title
+    if (o == null) {
+      return false;
+    }
+    if (o.getClass() != this.getClass()) {
+      return false;
+    }
+
+    Movie m = (Movie) o;
+    if (this.title == m.getTitle()) {
+      return true;
+    }
+    return false;
+  }
+
   // public static void main(String args[]) {
-  // String[] c = { "A", "Iron B" };
-  // Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
-  // "Spider Man", c, 0, MovieType.BLOCKBUSTER,
-  // "ABC");
-  // m.addReview("kaijun", 5, "sucks");
-  // m.addReview("kaijun", 1, "sucks");
-  // System.out.println(m.getOverallRating());
-  // System.out.println("works");
+  //   ArrayList<String> cast = new ArrayList<>();
+  //   cast.add("ABC");
+  //   cast.add("ABC");
+  //   String[] c = { "A", "Iron B" };
+  //   Movie m = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
+  //       "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
+  //   Movie m2 = new Movie("Spider Man", MovieStatus.COMING_SOON, "Spider Man",
+  //       "Spider Man", cast, 0, MovieType.BLOCKBUSTER, "ABC");
+  //   System.out.println(m2.equals(m));
+  //   m.addReview("kaijun", 5, "sucks");
+  //   m.addReview("kaijun", 1, "sucks");
+  //   System.out.println(m.getOverallRating());
+  //   System.out.println("works");
   // }
 }
