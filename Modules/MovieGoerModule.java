@@ -121,13 +121,24 @@ public class MovieGoerModule {
                     System.out.print("Cast Members: ");
                     ArrayList<String> castMembers = m.getCast();
                     System.out.println(String.join(", ", castMembers));
-                    System.out.print("\nReviews: ");
-                    for (Review moviereview : m.getReviewList()) {
-                        System.out.println("Name: " + moviereview.getName());
-                        System.out.println("Rating: " + moviereview.getRating());
-                        System.out.println("Review: " + moviereview.getReview());
+                    System.out.print("Reviews: ");
+                    if (!m.getReviewList().isEmpty()) {
+                        for (Review moviereview : m.getReviewList()) {
+                            System.out.println("Name: " + moviereview.getName());
+                            System.out.println("Rating: " + moviereview.getRating());
+                            System.out.println("Review: " + moviereview.getReview());
+                        }
+                    } else {
+                        System.out.println("No reviews");
                     }
-                    System.out.println("\n");
+
+                    try {
+                        System.out.println("\n Overall rating: " + m.getOverallRating());
+                    } catch (ArithmeticException e) {
+                        ;
+
+                    }
+
                     System.out.println("Sales Count: " + m.getSalesCount());
                     System.out.println("Movie Type: " + m.getType());
                 }
