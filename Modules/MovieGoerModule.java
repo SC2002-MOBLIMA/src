@@ -87,7 +87,12 @@ public class MovieGoerModule {
                     bookingModule.run();
                     break;
                 case 5:
-                    System.out.println(movieGoerObject.getMovieTicketList());
+                    if (!movieGoerObject.getMovieTicketList().isEmpty()) {
+                        System.out.println(movieGoerObject.getMovieTicketList());
+                    } else {
+                        System.out.println("No past transactions\n");
+                    }
+
                     break;
                 case 6:
                     printMovieBySales();
@@ -143,32 +148,34 @@ public class MovieGoerModule {
     }
 
     public void printMovieByRating() {
-        int counter = 0;
+        int counter = 1;
         MovieDB movieDB = new MovieDB();
         @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortByRating());
         for (Movie m : movieList) {
+            System.out.println("******** Top " + counter + " ********");
             System.out.println(m.getTitle());
             counter++;
 
-            if (counter >= 5) {
+            if (counter >= 6) {
                 break;
             }
         }
     }
 
     public void printMovieBySales() {
-        int counter = 0;
+        int counter = 1;
         MovieDB movieDB = new MovieDB();
         @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortBySales());
         for (Movie m : movieList) {
+            System.out.println("******** Top " + counter + " ********");
             System.out.println(m.getTitle());
             counter++;
 
-            if (counter >= 5) {
+            if (counter >= 6) {
                 break;
             }
         }
