@@ -283,10 +283,11 @@ public class CineplexModule {
                   if(filter){
                     if(day == 6 || day == 7){
                       inputDateType = DateType.WEEKEND;
-                    }
+                    }       
                   }
                   show.setDateType(inputDateType);
                   main_loop = false;
+                  main = false;
                   break;
                 }
                 else{
