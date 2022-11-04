@@ -164,19 +164,25 @@ public class CineplexModule {
     // @SuppressWarnings("unchecked")
     ArrayList settingsList = (ArrayList) settingsDB.read();
     ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
-    // LocalDate date = dateTime.toLocalDate();
+    LocalDate date = dateTime.toLocalDate();
 
     DateType inputDateType = DateType.WEEKDAY;
     boolean filter = true;
+    
     for(int i=0; i<holidayDates.size(); i++){
-      if(holidayDates.get(i).equals(dateTime)){
+      if(holidayDates.get(i).equals(date)){
         inputDateType = DateType.PUBLIC_HOLIDAY;
+        // System.out.println("Public holiday detected");
         filter = false;
       }
     }
     if(filter){
       if(day == 6 || day == 7){
         inputDateType = DateType.WEEKEND;
+        System.out.println("Weekend detected");
+      }
+      else{
+        System.out.println("Weekday detected");
       }
     }
     cinemaReq.addShow(movieReq, dateTime, inputDateType);
@@ -272,11 +278,13 @@ public class CineplexModule {
                   SettingsDB settingsDB = new SettingsDB();
                   ArrayList settingsList = (ArrayList) settingsDB.read();
                   ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
+                  LocalDate date_check = dateTime.toLocalDate();
                   DateType inputDateType = DateType.WEEKDAY;
                   boolean filter = true;
                   for(int i=0; i<holidayDates.size(); i++){
-                    if(holidayDates.get(i).equals(dateTime)){
+                    if(holidayDates.get(i).equals(date_check)){
                       inputDateType = DateType.PUBLIC_HOLIDAY;
+                      // System.out.println("Public holiday detected");
                       filter = false;
                     }
                   }
