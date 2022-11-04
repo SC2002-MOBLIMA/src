@@ -9,12 +9,14 @@ import java.time.*;
 
 import Databases.MovieDB;
 import Databases.CineplexDB;
+import Databases.SettingsDB;
 
 import Enums.DateType;
 import Objects.Cineplex;
 import Objects.Cinema;
 import Objects.Showing;
 import Objects.Movie;
+
 
 public class CineplexModule {
   private Scanner sc;
@@ -157,10 +159,25 @@ public class CineplexModule {
 
     DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
     int day = dayofWeek.getValue();
+    
+    SettingsDB settingsDB = new SettingsDB();
+    // @SuppressWarnings("unchecked")
+    ArrayList settingsList = (ArrayList) settingsDB.read();
+    ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
+    // LocalDate date = dateTime.toLocalDate();
 
     DateType inputDateType = DateType.WEEKDAY;
-    if(day == 6 || day == 7){
-      inputDateType = DateType.WEEKEND;
+    boolean filter = true;
+    for(int i=0; i<holidayDates.size(); i++){
+      if(holidayDates.get(i).equals(dateTime)){
+        inputDateType = DateType.PUBLIC_HOLIDAY;
+        filter = false;
+      }
+    }
+    if(filter){
+      if(day == 6 || day == 7){
+        inputDateType = DateType.WEEKEND;
+      }
     }
     cinemaReq.addShow(movieReq, dateTime, inputDateType);
     CineplexDB cineplexDB = new CineplexDB();
@@ -250,6 +267,25 @@ public class CineplexModule {
                 if(dateTime.compareTo(movieReq.getEndOfShowingDate())<0){
                   show.setShowTime(dateTime);
                   System.out.println("Showtime has been updated");
+                  DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
+                  int day = dayofWeek.getValue();
+                  SettingsDB settingsDB = new SettingsDB();
+                  ArrayList settingsList = (ArrayList) settingsDB.read();
+                  ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
+                  DateType inputDateType = DateType.WEEKDAY;
+                  boolean filter = true;
+                  for(int i=0; i<holidayDates.size(); i++){
+                    if(holidayDates.get(i).equals(dateTime)){
+                      inputDateType = DateType.PUBLIC_HOLIDAY;
+                      filter = false;
+                    }
+                  }
+                  if(filter){
+                    if(day == 6 || day == 7){
+                      inputDateType = DateType.WEEKEND;
+                    }
+                  }
+                  show.setDateType(inputDateType);
                   main_loop = false;
                   break;
                 }
