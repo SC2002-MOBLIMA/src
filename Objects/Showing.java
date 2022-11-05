@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import Enums.DateType;
-import java.util.ArrayList;
 
 import Databases.CineplexDB;
-import Enums.*;
+
+// // For Testing
+// import Enums.*;
+// import java.util.ArrayList;
 
 public class Showing implements Serializable {
 

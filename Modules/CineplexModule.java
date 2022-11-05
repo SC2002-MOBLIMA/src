@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.DayOfWeek;
-import java.time.*;
 
 import Databases.MovieDB;
 import Databases.CineplexDB;
@@ -21,7 +20,7 @@ public class CineplexModule {
   private ArrayList<Cineplex> cineplexList;
   private Cineplex cineplexReq;
   private Cinema cinemaReq;
-  private Showing showReq;
+  // private Showing showReq;
   private Movie movieReq;
 
   public CineplexModule(Scanner sc) {
@@ -116,7 +115,6 @@ public class CineplexModule {
     boolean main = true;
     while (main) {
       MovieDB movieDB = new MovieDB();
-      @SuppressWarnings("unchecked")
       ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
       for (int i = 0; i < movieList.size(); i++) {
         System.out.println("[" + (i + 1) + "] " + movieList.get(i).getTitle());

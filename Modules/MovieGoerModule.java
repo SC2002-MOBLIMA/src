@@ -15,8 +15,8 @@ import Comparators.SortBySales;
 
 public class MovieGoerModule {
     private Scanner sc;
-    private boolean running;
-    private boolean signedIn;
+    // private boolean running;
+    // private boolean signedIn;
     private MovieGoer movieGoerObject;
     private ArrayList<Movie> allmovies;
 
@@ -154,7 +154,6 @@ public class MovieGoerModule {
         System.out.println("**************** Top 5 Movies *****************");
         int counter = 1;
         MovieDB movieDB = new MovieDB();
-        @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortByRating());
         for (Movie m : movieList) {
@@ -177,7 +176,6 @@ public class MovieGoerModule {
         System.out.println("**************** Top 5 Movies *****************");
         int counter = 1;
         MovieDB movieDB = new MovieDB();
-        @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
         Collections.sort(movieList, new SortBySales());
         for (Movie m : movieList) {

@@ -1,7 +1,5 @@
 package Enums;
 
-import Objects.Movie;
-
 public enum MovieType { // modified by aaron based on appendix A
   REGULAR("regular"),
   THREE_D("3d"),

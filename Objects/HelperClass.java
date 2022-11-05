@@ -34,7 +34,6 @@ public class HelperClass {
 
   public void searchMovies(String phrase, boolean detailed) {
     MovieDB movieDB = new MovieDB();
-    @SuppressWarnings("unchecked")
     ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
 
     for (int i = 0; i < movieList.size(); i++) {

@@ -23,7 +23,6 @@ public class MovieListingModule {
         System.out.println("***********************************************");
         System.out.println("MOBLIMA -- Admin -- Movie Listing Module:");
         MovieDB movieDB = new MovieDB();
-        @SuppressWarnings("unchecked")
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
 
         System.out.println("[1] Create New Movie Listing");

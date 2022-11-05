@@ -1,6 +1,8 @@
 package Databases;
 
-public class AdminDB extends SerializeDB {
+import Objects.Admin;
+
+public class AdminDB extends SerializeDB<Admin> {
     public AdminDB() {
         this.filename = "Databases/admin.dat";
     }
