@@ -34,6 +34,7 @@ public class SettingsModule {
 
   private void askNewPriceAndWriteToDB(SettingsDB settingsDB, int choice, String typeChoice) {
     double price = 0;
+    System.out.println("Choice: " + choice + "TypeChoice: " + typeChoice);
     switch (choice) {
       case 1:
         price = settingsObj.getMovieTypePrice(typeChoice);
@@ -93,7 +94,7 @@ public class SettingsModule {
 
   public void run() {
     SettingsDB settingsDB = new SettingsDB();
-    settingsObj = (Settings)settingsDB.read();
+    settingsObj = settingsDB.read();
     
     if (settingsObj == null) {
       settingsObj = new Settings();
@@ -149,7 +150,7 @@ public class SettingsModule {
             movieTypeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice, MovieType.values()[movieTypeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice-2, MovieType.values()[movieTypeChoice-1].name());
           break;
 
         case 4:
@@ -163,7 +164,7 @@ public class SettingsModule {
             cinemaClassChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice, CinemaType.values()[cinemaClassChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice-2, CinemaType.values()[cinemaClassChoice-1].name());
           break;
 
         case 5:
@@ -176,33 +177,34 @@ public class SettingsModule {
             movieGoerAgeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice, AgeType.values()[movieGoerAgeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice-2, AgeType.values()[movieGoerAgeChoice-1].name());
           break;
 
         case 6:
           int dayTypeChoice = 0;
           while (dayTypeChoice < 1 || dayTypeChoice > 3) {
-            System.out.println("\n[1] Weekday");
-            System.out.println("[2] Weekend");
+            System.out.println("\n[1] Weekend");
+            System.out.println("[2] Weekday");
             System.out.println("[3] Public Holiday");
             System.out.print("\nPlease enter Day Type: ");
             dayTypeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice, DateType.values()[dayTypeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice-2, DateType.values()[dayTypeChoice-1].name());
           break;
 
         case 7:
           int seatTypeChoice = 0;
           while (seatTypeChoice < 1 || seatTypeChoice > 4) {
-            System.out.println("[1] Regular");
+            System.out.println("\n[1] Regular");
             System.out.println("[2] Couple");
             System.out.println("[3] Elite");
             System.out.println("[4] Ultima");
+            System.out.print("Please enter Seat Type: ");
             seatTypeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice, SeatType.values()[seatTypeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice-2, SeatType.values()[seatTypeChoice-1].name());
           break;
 
         case 8:
