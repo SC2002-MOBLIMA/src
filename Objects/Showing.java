@@ -63,6 +63,10 @@ public class Showing implements Serializable {
     return this.dateType;
   }
 
+  public DateType setDateType(DateType dateType){
+    return this.dateType = dateType;
+  }
+
   public String getFormattedTime() {
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     String formattedDate = showTime.format(myFormatObj);

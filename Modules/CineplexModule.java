@@ -8,12 +8,14 @@ import java.time.DayOfWeek;
 
 import Databases.MovieDB;
 import Databases.CineplexDB;
+import Databases.SettingsDB;
 
 import Enums.DateType;
 import Objects.Cineplex;
 import Objects.Cinema;
 import Objects.Showing;
 import Objects.Movie;
+
 
 public class CineplexModule {
   private Scanner sc;
@@ -155,10 +157,31 @@ public class CineplexModule {
 
     DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
     int day = dayofWeek.getValue();
+    
+    SettingsDB settingsDB = new SettingsDB();
+    // @SuppressWarnings("unchecked")
+    ArrayList settingsList = (ArrayList) settingsDB.read();
+    ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
+    LocalDate date = dateTime.toLocalDate();
 
     DateType inputDateType = DateType.WEEKDAY;
-    if(day == 6 || day == 7){
-      inputDateType = DateType.WEEKEND;
+    boolean filter = true;
+    
+    for(int i=0; i<holidayDates.size(); i++){
+      if(holidayDates.get(i).equals(date)){
+        inputDateType = DateType.PUBLIC_HOLIDAY;
+        // System.out.println("Public holiday detected");
+        filter = false;
+      }
+    }
+    if(filter){
+      if(day == 6 || day == 7){
+        inputDateType = DateType.WEEKEND;
+        System.out.println("Weekend detected");
+      }
+      else{
+        System.out.println("Weekday detected");
+      }
     }
     cinemaReq.addShow(movieReq, dateTime, inputDateType);
     CineplexDB cineplexDB = new CineplexDB();
@@ -195,11 +218,13 @@ public class CineplexModule {
         Showing selectedShow = showList.get(selection-1);
         cinemaReq.removeShow(selectedShow);
         main = false;
-        System.out.println("Selection has been sucessfully removed");
+        System.out.println("Selection has been successfully removed");
       } else {
         System.out.println("Error: Invalid value keyed in. Please try again");
       }
     }
+    CineplexDB cineplexDB = new CineplexDB();
+    cineplexDB.write(cineplexList);
     System.out.println("***********************************************");
   }
 
@@ -207,8 +232,8 @@ public class CineplexModule {
     System.out.println("Updating Showing...");
     ArrayList<Showing> showList = cinemaReq.getShowList();
     boolean main = true; 
-    while(main){
-      if(showList.size()==0){
+    while (main) {
+      if (showList.size() == 0){
         System.out.println("There are no showings to remove");
         break;
       }
@@ -224,7 +249,6 @@ public class CineplexModule {
         int choice = sc.nextInt();
 
         switch(choice){
-
           case 1:
             System.out.println("Updating movie of Showing..");
             selectMovie();
@@ -247,7 +271,29 @@ public class CineplexModule {
                 if(dateTime.compareTo(movieReq.getEndOfShowingDate())<0){
                   show.setShowTime(dateTime);
                   System.out.println("Showtime has been updated");
+                  DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
+                  int day = dayofWeek.getValue();
+                  SettingsDB settingsDB = new SettingsDB();
+                  ArrayList settingsList = (ArrayList) settingsDB.read();
+                  ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
+                  LocalDate date_check = dateTime.toLocalDate();
+                  DateType inputDateType = DateType.WEEKDAY;
+                  boolean filter = true;
+                  for(int i=0; i<holidayDates.size(); i++){
+                    if(holidayDates.get(i).equals(date_check)){
+                      inputDateType = DateType.PUBLIC_HOLIDAY;
+                      // System.out.println("Public holiday detected");
+                      filter = false;
+                    }
+                  }
+                  if(filter){
+                    if(day == 6 || day == 7){
+                      inputDateType = DateType.WEEKEND;
+                    }       
+                  }
+                  show.setDateType(inputDateType);
                   main_loop = false;
+                  main = false;
                   break;
                 }
                 else{
@@ -260,12 +306,13 @@ public class CineplexModule {
             break;
 
           default:
-
             break;
         }
       } else {
         System.out.println("Error: Key in a valid value");
       }
     }
+    CineplexDB cineplexDB = new CineplexDB();
+    cineplexDB.write(cineplexList);
   }
 }

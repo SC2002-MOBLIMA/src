@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import Objects.MovieGoer;
 import Objects.Movie;
 import Objects.Review;
+import Objects.MovieTicket;
 import Enums.MovieStatus;
 import Comparators.SortByRating;
 import Comparators.SortBySales;
@@ -91,7 +92,10 @@ public class MovieGoerModule {
                 case 5:
                     System.out.println("**************** Booking History *****************");
                     if (!movieGoerObject.getMovieTicketList().isEmpty()) {
-                        System.out.println(movieGoerObject.getMovieTicketList());
+                        ArrayList<MovieTicket> mtList = movieGoerObject.getMovieTicketList();
+                        for (MovieTicket m : mtList) {
+                            m.printTicket();
+                        }
                     } else {
                         System.out.println("No Past Bookings\n");
                     }
