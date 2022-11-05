@@ -113,6 +113,13 @@ public class Showing implements Serializable {
     return seat.isAvailable();
   }
 
+  public SeatType getSeatType(String seatId) {
+    int row = (int) seatId.charAt(0) - 65;
+    int column = Character.valueOf(seatId.charAt(1)) - 49;
+    Seat seat = this.seatLayout[row][column];
+    return seat.getSeatType();
+  }
+
   public void assignSeat(MovieGoer movieGoer, String seatId) {
     int row = (int) seatId.charAt(0) - 65;
     int column = Character.valueOf(seatId.charAt(1)) - 49;

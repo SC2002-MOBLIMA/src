@@ -7,47 +7,47 @@ import java.util.ArrayList;
 
 public class Settings implements Serializable {
   
-  private HashMap<String, Integer> movieTypePriceMap;
-  private HashMap<String, Integer> cinemaClassPriceMap;
-  private HashMap<String, Integer> ageTypePriceMap;
-  private HashMap<String, Integer> dayTypePriceMap;
-  private HashMap<String, Integer> seatTypePriceMap;
+  private HashMap<String, Double> movieTypePriceMap;
+  private HashMap<String, Double> cinemaClassPriceMap;
+  private HashMap<String, Double> ageTypePriceMap;
+  private HashMap<String, Double> dayTypePriceMap;
+  private HashMap<String, Double> seatTypePriceMap;
   private ArrayList<LocalDate> holidayDates;
 
   public Settings() {
-    movieTypePriceMap = new HashMap<String, Integer>();
-    cinemaClassPriceMap = new HashMap<String, Integer>();
-    ageTypePriceMap = new HashMap<String, Integer>();
-    dayTypePriceMap = new HashMap<String, Integer>();
-    seatTypePriceMap = new HashMap<String, Integer>();
+    movieTypePriceMap = new HashMap<String, Double>();
+    cinemaClassPriceMap = new HashMap<String, Double>();
+    ageTypePriceMap = new HashMap<String, Double>();
+    dayTypePriceMap = new HashMap<String, Double>();
+    seatTypePriceMap = new HashMap<String, Double>();
     holidayDates = new ArrayList<LocalDate>();
   }
 
-  public int getMovieTypePrice(String typeChoice) {
+  public double getMovieTypePrice(String typeChoice) {
     if (movieTypePriceMap.containsKey(typeChoice)) {
       return movieTypePriceMap.get(typeChoice);
     } else return 0;
   }
 
-  public int getCinemaClassPrice(String typeChoice) {
+  public double getCinemaClassPrice(String typeChoice) {
     if (cinemaClassPriceMap.containsKey(typeChoice)) {
       return cinemaClassPriceMap.get(typeChoice);
     } return 0;
   }
 
-  public int getAgeTypePrice(String typeChoice) {
+  public double getAgeTypePrice(String typeChoice) {
     if (ageTypePriceMap.containsKey(typeChoice)) {
       return ageTypePriceMap.get(typeChoice);
     } return 0;
   }
 
-  public int getDayTypePrice(String typeChoice) {
+  public double getDayTypePrice(String typeChoice) {
     if (dayTypePriceMap.containsKey(typeChoice)) {
       return dayTypePriceMap.get(typeChoice);
     } return 0;
   }
 
-  public int getSeatTypePrice(String typeChoice) {
+  public double getSeatTypePrice(String typeChoice) {
     if (seatTypePriceMap.containsKey(typeChoice)) {
       return seatTypePriceMap.get(typeChoice);
     } return 0;
@@ -57,23 +57,23 @@ public class Settings implements Serializable {
     return holidayDates;
   }
 
-  public void setMovieTypePrice(String typeChoice, int price) {
+  public void setMovieTypePrice(String typeChoice, double price) {
     movieTypePriceMap.put(typeChoice, price);
   }
 
-  public void setCinemaClassPrice(String typeChoice, int price) {
+  public void setCinemaClassPrice(String typeChoice, double price) {
     cinemaClassPriceMap.put(typeChoice, price);
   }
 
-  public void setAgeTypePrice(String typeChoice, int price) {
+  public void setAgeTypePrice(String typeChoice, double price) {
     ageTypePriceMap.put(typeChoice, price);
   }
 
-  public void setDayTypePrice(String typeChoice, int price) {
+  public void setDayTypePrice(String typeChoice, double price) {
     dayTypePriceMap.put(typeChoice, price);
   }
 
-  public void setSeatTypePrice(String typeChoice, int price) {
+  public void setSeatTypePrice(String typeChoice, double price) {
     seatTypePriceMap.put(typeChoice, price);
   }
 

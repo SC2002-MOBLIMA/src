@@ -33,7 +33,7 @@ public class SettingsModule {
   }
 
   private void askNewPriceAndWriteToDB(SettingsDB settingsDB, int choice, String typeChoice) {
-    int price = 0;
+    double price = 0;
     switch (choice) {
       case 1:
         price = settingsObj.getMovieTypePrice(typeChoice);
@@ -61,7 +61,7 @@ public class SettingsModule {
     System.out.println("Old Price was: " + price);
 
     System.out.print("Set New Price: ");
-    int newPrice = sc.nextInt();
+    double newPrice = sc.nextDouble();
     sc.nextLine();
 
     System.out.println("Writing to database...");
@@ -118,27 +118,19 @@ public class SettingsModule {
       System.out.println("***********************************************");
       switch (choice) {
         case 1:
-          System.out.println("Movie Types\t| Cinema Classes\t| Movie Goer Age\t| Days");
+          System.out.println("Movie Types \t| Cinema Classes \t| Movie Goer Age\t| Days");
           for (int i = 0; i<3; i++) {
             String movieType = MovieType.values()[i].name();
             String cinemaClass = CinemaType.values()[i].name();
             String ageType = AgeType.values()[i].name();
             String dayType = DateType.values()[i].name();
-            if (i == 0) {
+            // if (i == 0) {
               System.out.println(
-                movieType + ": " + settingsObj.getMovieTypePrice(movieType) + "\t| " +
-                cinemaClass + ": " + settingsObj.getCinemaClassPrice(cinemaClass) + "\t| " +
-                ageType + ": " + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
-                dayType + ": " + settingsObj.getDayTypePrice(dayType) + "\t"
+                movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t\t| " +
+                cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t\t| " +
+                ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
+                dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t"
               );
-            } else {
-              System.out.println(
-                movieType + ": " + settingsObj.getMovieTypePrice(movieType) + "\t| " +
-                cinemaClass + ": " + settingsObj.getCinemaClassPrice(cinemaClass) + "\t\t| " +
-                ageType + ": " + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
-                dayType + ": " + settingsObj.getDayTypePrice(dayType) + "\t"
-              );
-            }
           }
           break;
 
@@ -193,7 +185,7 @@ public class SettingsModule {
             System.out.println("\n[1] Weekday");
             System.out.println("[2] Weekend");
             System.out.println("[3] Public Holiday");
-            System.out.print("\n Please enter Day Type");
+            System.out.print("\nPlease enter Day Type: ");
             dayTypeChoice = sc.nextInt();
             sc.nextLine();
           }

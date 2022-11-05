@@ -27,6 +27,10 @@ public class Seat implements Serializable {
         this.movieGoer = movieGoer;
     }
 
+    public SeatType getSeatType() {
+        return seatType;
+    }
+
     
     public void printSeat() {
 

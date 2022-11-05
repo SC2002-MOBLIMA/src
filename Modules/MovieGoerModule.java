@@ -22,7 +22,7 @@ public class MovieGoerModule {
 
     public MovieGoerModule(Scanner sc) {
         this.sc = sc;
-        this.isLoggedIn = true; // TODO: toggle this to false
+        this.isLoggedIn = false;
     }
 
     public void run() {

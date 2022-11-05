@@ -10,6 +10,7 @@ import Enums.AgeType;
 import Enums.CinemaType;
 import Enums.MovieType;
 import Enums.DateType;
+import Enums.SeatType;
 
 import Objects.Cinema;
 import Objects.Cineplex;
@@ -126,13 +127,13 @@ public class BookingModule {
 
         Showing showingObj = selectShowing(cinemaObj);
         Movie movieObj = showingObj.getMovie();
-        double price = calculatePrice(cinemaObj, showingObj, movieGoerObj);
         System.out.println("***********************************************");
-        System.out.println("Chosen Movie: " + showingObj.getMovieTitle() + " | Price: " + price);
+        System.out.println("Chosen Movie: " + showingObj.getMovieTitle());
         System.out.print("Please enter the number of tickets: ");
         int ticketCount = sc.nextInt();
 
         ArrayList<String> seatIds = new ArrayList<String>();
+        double price = 0;
         for (int i = 0; i < ticketCount; i++) {
             do {
                 showingObj.printSeating();
@@ -141,6 +142,15 @@ public class BookingModule {
                 String seatId = sc.next();
                 if (showingObj.isAvailable(seatId)) {
                     seatIds.add(seatId);
+                    Movie movie = showingObj.getMovie();
+
+                    MovieType movieType = movie.getType();
+                    CinemaType cinemaClass = cinemaObj.getCinemaType();
+                    AgeType movieGoerAge = movieGoerObj.getAgeType();
+                    DateType showingDateType = showingObj.getDateType();
+                    SeatType seatType = showingObj.getSeatType(seatId);
+                    
+                    price += calculatePrice(movieType, cinemaClass, movieGoerAge, showingDateType, seatType);
                     break;
                 } else {
                     System.out.print("Ticket " + i + 1 + " | ");
@@ -183,6 +193,8 @@ public class BookingModule {
                 System.out.println("Movie Ticket " + (seatId + 1) + ": ");
                 movieTicket.printTicket();
             }
+        } else {
+            System.out.println("Booking Cancelled!\n");
         }
         CineplexDB cineplexDB = new CineplexDB();
         cineplexDB.write(cineplexList);
@@ -247,33 +259,29 @@ public class BookingModule {
 
   // PRICE HELPER
 
-    private double calculatePrice(Cinema cinema, Showing showing, MovieGoer movieGoer) {
-        CinemaType cinemaClass = cinema.getCinemaType();
-        Movie movie = showing.getMovie();
-        MovieType movieType = movie.getType();
-        AgeType movieGoerAge = movieGoer.getAgeType();
-        DateType showingDateType = showing.getDateType();
-
-        double price = 1;
+    private double calculatePrice(MovieType movieType, CinemaType cinemaClass, AgeType movieGoerAge, DateType showingDateType, SeatType seatType) {
         String movieTypeChoice = movieType.name();
         String cinemaClassChoice = cinemaClass.name();
         String movieGoerAgeChoice = movieGoerAge.name();
         String showingDateTypeChoice = showingDateType.name();
         // MovieType
-        int movieTypePrice = settingsObj.getMovieTypePrice(movieTypeChoice);
-        price *= movieTypePrice;
+        double price = settingsObj.getMovieTypePrice(movieTypeChoice);
 
         // CinemaClass
-        int cinemaClassPrice = settingsObj.getCinemaClassPrice(cinemaClassChoice);
+        double cinemaClassPrice = settingsObj.getCinemaClassPrice(cinemaClassChoice);
         price *= cinemaClassPrice;
 
         // MovieGoer Age
-        int movieGoerAgePrice = settingsObj.getAgeTypePrice(movieGoerAgeChoice);
+        double movieGoerAgePrice = settingsObj.getAgeTypePrice(movieGoerAgeChoice);
         price *= movieGoerAgePrice;
 
         // DateType
-        int showingDateTypePrice = settingsObj.getDayTypePrice(showingDateTypeChoice);
+        double showingDateTypePrice = settingsObj.getDayTypePrice(showingDateTypeChoice);
         price *= showingDateTypePrice;
+
+        // SeatType
+        double seatTypePrice = settingsObj.getSeatTypePrice(showingDateTypeChoice);
+        price *= seatTypePrice;
 
         return Math.round(price * 100) / 100;
     }

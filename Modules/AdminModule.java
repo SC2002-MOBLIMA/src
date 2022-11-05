@@ -12,7 +12,7 @@ public class AdminModule {
 
     public AdminModule(Scanner sc) {
         this.sc = sc;
-        this.isLoggedIn = true; // TODO: toggle this to false
+        this.isLoggedIn = false;
     }
 
     public void run() {
