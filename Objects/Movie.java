@@ -50,12 +50,12 @@ public class Movie implements Serializable, Comparable<Movie> {
     return this.synopsis;
   }
 
-  public ArrayList<Review> getReviewList() {
-    return this.reviewList;
-  }
-
   public void setSynopsis(String synopsis) {
     this.synopsis = synopsis;
+  }
+
+  public ArrayList<Review> getReviewList() {
+    return this.reviewList;
   }
 
   public String getDirector() {
@@ -82,7 +82,7 @@ public class Movie implements Serializable, Comparable<Movie> {
     this.type = type;
   }
 
-  public int getSalesCount() {
+  public int getSaleCount() {
     return this.saleCount;
   }
 
@@ -99,8 +99,7 @@ public class Movie implements Serializable, Comparable<Movie> {
   }
 
   public void incrementSaleCount() {
-    int count = getSalesCount();
-    this.saleCount = count++;
+    this.saleCount++;
   }
 
   public void printMovieDetails() {

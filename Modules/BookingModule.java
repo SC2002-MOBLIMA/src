@@ -98,11 +98,11 @@ public class BookingModule {
         }
     }
 
-  private void displayCinemaShowings() {
-    Cinema cinemaObj = selectCinema();
-    cinemaObj.displayAvailableShows();
-    System.out.println("");
-  }
+    private void displayCinemaShowings() {
+        Cinema cinemaObj = selectCinema();
+        cinemaObj.displayAvailableShows();
+        System.out.println("");
+    }
 
     private void checkSeatAvailability() {
         Cinema cinemaObj = selectCinema();
@@ -136,7 +136,7 @@ public class BookingModule {
         for (int i = 0; i < ticketCount; i++) {
             do {
                 showingObj.printSeating();
-                System.out.print("Ticket " + i + 1 + " | ");
+                System.out.print("Ticket " + (i + 1) + " | ");
                 System.out.print("Please enter seat to book (eg. A0): ");
                 String seatId = sc.next();
                 if (showingObj.isAvailable(seatId)) {
@@ -248,14 +248,6 @@ public class BookingModule {
   // PRICE HELPER
 
     private double calculatePrice(Cinema cinema, Showing showing, MovieGoer movieGoer) {
-
-        // Factors for price calculation
-        // a. type of movie (3D, Blockbuster, etc.) -> showing.getMovieType() // TODO
-        // b. class of cinema (e.g. Platinum Movie Suites) -> cinema.getCinemaType()
-        // c. age of movie-goer (e.g. adult, senior citizen, child) ->
-        // movieGoer.getAgeType() // TODO
-        // d. day of the week or public holiday -> showing.getShowTime()
-
         CinemaType cinemaClass = cinema.getCinemaType();
         Movie movie = showing.getMovie();
         MovieType movieType = movie.getType();

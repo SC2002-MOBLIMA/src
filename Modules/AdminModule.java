@@ -8,7 +8,6 @@ import Objects.Admin;
 
 public class AdminModule {
     private Scanner sc;
-    // private Admin adminObj;
     private boolean isLoggedIn;
 
     public AdminModule(Scanner sc) {
@@ -34,7 +33,6 @@ public class AdminModule {
                 System.out.println("Admin: " + admin.getUsername() + " Password: " + admin.getPassword());
                 if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
                     isLoggedIn = true;
-                    // this.adminObj = admin;
                     System.out.println("\nWelcome, " + username + "!\n");
                     break;
                 }

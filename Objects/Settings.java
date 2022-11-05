@@ -11,6 +11,7 @@ public class Settings implements Serializable {
   private HashMap<String, Integer> cinemaClassPriceMap;
   private HashMap<String, Integer> ageTypePriceMap;
   private HashMap<String, Integer> dayTypePriceMap;
+  private HashMap<String, Integer> seatTypePriceMap;
   private ArrayList<LocalDate> holidayDates;
 
   public Settings() {
@@ -18,6 +19,7 @@ public class Settings implements Serializable {
     cinemaClassPriceMap = new HashMap<String, Integer>();
     ageTypePriceMap = new HashMap<String, Integer>();
     dayTypePriceMap = new HashMap<String, Integer>();
+    seatTypePriceMap = new HashMap<String, Integer>();
     holidayDates = new ArrayList<LocalDate>();
   }
 
@@ -45,6 +47,12 @@ public class Settings implements Serializable {
     } return 0;
   }
 
+  public int getSeatTypePrice(String typeChoice) {
+    if (seatTypePriceMap.containsKey(typeChoice)) {
+      return seatTypePriceMap.get(typeChoice);
+    } return 0;
+  }
+
   public ArrayList<LocalDate> getHolidayDates() {
     return holidayDates;
   }
@@ -61,8 +69,12 @@ public class Settings implements Serializable {
     ageTypePriceMap.put(typeChoice, price);
   }
 
-  public void setDayTypePriceMap(String typeChoice, int price) {
+  public void setDayTypePrice(String typeChoice, int price) {
     dayTypePriceMap.put(typeChoice, price);
+  }
+
+  public void setSeatTypePrice(String typeChoice, int price) {
+    seatTypePriceMap.put(typeChoice, price);
   }
 
   public void setHolidayDates(ArrayList<LocalDate> holidayDates) {

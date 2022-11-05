@@ -5,13 +5,14 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import Databases.SettingsDB;
 import Enums.AgeType;
 import Enums.CinemaType;
 import Enums.DateType;
 import Enums.MovieType;
-
+import Enums.SeatType;
 import Objects.Settings;
 
 public class SettingsModule {
@@ -20,6 +21,15 @@ public class SettingsModule {
 
   public SettingsModule(Scanner sc) {
     this.sc = sc;
+  }
+
+  private void displayHolidayDates() {
+    System.out.println("Current Holiday Dates are: ");
+    ArrayList<LocalDate> holidayDates = settingsObj.getHolidayDates();
+    DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    for (LocalDate date: holidayDates) {
+      System.out.println(date.format(dFormatter));
+    }
   }
 
   private void askNewPriceAndWriteToDB(SettingsDB settingsDB, int choice, String typeChoice) {
@@ -39,6 +49,10 @@ public class SettingsModule {
 
       case 4:
         price = settingsObj.getDayTypePrice(typeChoice);
+        break;
+
+      case 5:
+        price = settingsObj.getSeatTypePrice(typeChoice);
         break;
     
       default:
@@ -65,8 +79,11 @@ public class SettingsModule {
         break;
 
       case 4:
-        settingsObj.setDayTypePriceMap(typeChoice, newPrice);
+        settingsObj.setDayTypePrice(typeChoice, newPrice);
         break;
+
+      case 5:
+        settingsObj.setSeatTypePrice(typeChoice, newPrice);
     
       default:
         break;
@@ -86,18 +103,50 @@ public class SettingsModule {
     while (running) {
       System.out.println("***********************************************");
       System.out.println("MOBLIMA -- Admin -- Settings Module:");
-      System.out.println("[1] Edit Prices for Movie Type");
-      System.out.println("[2] Edit Prices for Cinema Class");
-      System.out.println("[3] Edit Prices for Movie Goer Age");
-      System.out.println("[4] Edit Prices for Day Type");
-      System.out.println("[5] Edit Holiday Dates");
-      System.out.println("[6] Back");
+      System.out.println("[1] Display All Prices");
+      System.out.println("[2] Display Holiday Dates");
+      System.out.println("[3] Edit Prices for Movie Type");
+      System.out.println("[4] Edit Prices for Cinema Class");
+      System.out.println("[5] Edit Prices for Movie Goer Age");
+      System.out.println("[6] Edit Prices for Day Type");
+      System.out.println("[7] Edit Prices for Seat Type");
+      System.out.println("[8] Edit Holiday Dates");
+      System.out.println("[9] Back");
       System.out.print("Please Select Option: ");
       int choice = sc.nextInt();
       sc.nextLine();
       System.out.println("***********************************************");
       switch (choice) {
         case 1:
+          System.out.println("Movie Types\t| Cinema Classes\t| Movie Goer Age\t| Days");
+          for (int i = 0; i<3; i++) {
+            String movieType = MovieType.values()[i].name();
+            String cinemaClass = CinemaType.values()[i].name();
+            String ageType = AgeType.values()[i].name();
+            String dayType = DateType.values()[i].name();
+            if (i == 0) {
+              System.out.println(
+                movieType + ": " + settingsObj.getMovieTypePrice(movieType) + "\t| " +
+                cinemaClass + ": " + settingsObj.getCinemaClassPrice(cinemaClass) + "\t| " +
+                ageType + ": " + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
+                dayType + ": " + settingsObj.getDayTypePrice(dayType) + "\t"
+              );
+            } else {
+              System.out.println(
+                movieType + ": " + settingsObj.getMovieTypePrice(movieType) + "\t| " +
+                cinemaClass + ": " + settingsObj.getCinemaClassPrice(cinemaClass) + "\t\t| " +
+                ageType + ": " + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
+                dayType + ": " + settingsObj.getDayTypePrice(dayType) + "\t"
+              );
+            }
+          }
+          break;
+
+        case 2:
+          displayHolidayDates();
+          break;
+
+        case 3:
           int movieTypeChoice = 0;;
           while (movieTypeChoice < 1 || movieTypeChoice > 3) {
             System.out.println("\n[1] Regular");
@@ -111,7 +160,7 @@ public class SettingsModule {
           askNewPriceAndWriteToDB(settingsDB, choice, MovieType.values()[movieTypeChoice-1].name());
           break;
 
-        case 2:
+        case 4:
           int cinemaClassChoice = 0;
           while (cinemaClassChoice < 1 || cinemaClassChoice > 3) {
             System.out.println("\n[1] Gold Class");
@@ -125,7 +174,7 @@ public class SettingsModule {
           askNewPriceAndWriteToDB(settingsDB, choice, CinemaType.values()[cinemaClassChoice-1].name());
           break;
 
-        case 3:
+        case 5:
           int movieGoerAgeChoice = 0;
           while (movieGoerAgeChoice < 1 || movieGoerAgeChoice > 3) {
             System.out.println("\n[1] Child");
@@ -138,7 +187,7 @@ public class SettingsModule {
           askNewPriceAndWriteToDB(settingsDB, choice, AgeType.values()[movieGoerAgeChoice-1].name());
           break;
 
-        case 4:
+        case 6:
           int dayTypeChoice = 0;
           while (dayTypeChoice < 1 || dayTypeChoice > 3) {
             System.out.println("\n[1] Weekday");
@@ -150,24 +199,30 @@ public class SettingsModule {
           }
           askNewPriceAndWriteToDB(settingsDB, choice, DateType.values()[dayTypeChoice-1].name());
           break;
-        case 5:
-          System.out.println("Current Holiday Dates are: ");
-          ArrayList<LocalDate> holidayDates = settingsObj.getHolidayDates();
-          for (LocalDate date: holidayDates) {
-            System.out.println(date);
+
+        case 7:
+          int seatTypeChoice = 0;
+          while (seatTypeChoice < 1 || seatTypeChoice > 4) {
+            System.out.println("[1] Regular");
+            System.out.println("[2] Couple");
+            System.out.println("[3] Elite");
+            System.out.println("[4] Ultima");
+            seatTypeChoice = sc.nextInt();
+            sc.nextLine();
           }
-          System.out.print("\nEnter year: ");
-          int year = sc.nextInt();
-          sc.nextLine();
-          System.out.print("Enter month: ");
-          int month = sc.nextInt();
-          sc.nextLine();
-          System.out.print("Enter day: ");
-          int day = sc.nextInt();
-          sc.nextLine();
+          askNewPriceAndWriteToDB(settingsDB, choice, SeatType.values()[seatTypeChoice-1].name());
+          break;
+
+        case 8:
+          displayHolidayDates();
+          System.out.print("\nEnter Holiday Date to add/remove (dd-MM-yyyy, eg. 01-01-2022): ");
+          String inputDateString = sc.nextLine();
 
           int dateAlreadyExistsAtPosition = -1;
-          LocalDate inputDate = LocalDate.of(year, month, day);
+          ArrayList<LocalDate> holidayDates = settingsObj.getHolidayDates();
+          DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+          LocalDate inputDate = LocalDate.parse(inputDateString, dFormatter);
+
           for (int i = 0; i < holidayDates.size(); i++) {
             if (holidayDates.get(i).equals(inputDate)) {
               dateAlreadyExistsAtPosition = i;
@@ -185,9 +240,11 @@ public class SettingsModule {
           settingsObj.setHolidayDates(holidayDates);
           settingsDB.write(settingsObj);
           break;
-        case 6:
+
+        case 9:
           running = false;
           break;
+
         default:
           System.out.println("Invalid Choice, Please try again.\n");
           break;

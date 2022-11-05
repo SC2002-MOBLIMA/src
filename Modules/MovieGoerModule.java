@@ -16,13 +16,13 @@ import Comparators.SortBySales;
 
 public class MovieGoerModule {
     private Scanner sc;
-    // private boolean running;
-    // private boolean signedIn;
-    private MovieGoer movieGoerObject;
-    private ArrayList<Movie> allmovies;
+    private boolean isLoggedIn;
+    private MovieGoer movieGoerObj;
+    private ArrayList<Movie> allMovies;
 
     public MovieGoerModule(Scanner sc) {
         this.sc = sc;
+        this.isLoggedIn = true; // TODO: toggle this to false
     }
 
     public void run() {
@@ -30,25 +30,28 @@ public class MovieGoerModule {
         MovieGoerDB movieGoerDB = new MovieGoerDB();
         System.out.println("***********************************************");
         System.out.println("MOBLIMA -- Movie Goer Module:\n");
-        ArrayList<Movie> readMovies = (ArrayList<Movie>) movieDB.read();
-        ArrayList<MovieGoer> readMovieGoers = (ArrayList<MovieGoer>) movieGoerDB.read();
-        allmovies = readMovies;
+        allMovies = movieDB.read();
+        ArrayList<MovieGoer> readMovieGoers = movieGoerDB.read();
         String keywords = "";
 
-        boolean validUsername = false;
-        while (true) {
+        if (isLoggedIn) {
+            movieGoerObj = readMovieGoers.get(0);
+        }
+
+        while (!isLoggedIn) {
             System.out.print("Please enter your username: ");
             String username = sc.nextLine();
-
+            
+            boolean validUsername = false;
             for (MovieGoer mg : readMovieGoers) {
                 String mgUsername = mg.getName();
                 if (mgUsername.equals(username)) {
                     validUsername = true;
-                    movieGoerObject = mg;
+                    movieGoerObj = mg;
                 }
             }
             if (validUsername) {
-                break;
+                isLoggedIn = true;
             } else {
                 System.out.println("Error: Username not found. Please try again");
             }
@@ -56,7 +59,7 @@ public class MovieGoerModule {
         int input = 0;
         while (input != 8) {
             System.out.println("***********************************************");
-            System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObject.getName() + "):");
+            System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObj.getName() + "):");
             System.out.println("[1] Search Movies\n"
                     + "[2] List movies\n"
                     + "[3] View movie details\n"
@@ -72,27 +75,27 @@ public class MovieGoerModule {
                 case 1:
                     System.out.print("Please enter the keywords: ");
                     keywords = sc.nextLine();
-                    printMovieSearch(keywords, false, allmovies);
+                    printMoviesSearch(keywords, false);
                     keywords = "";
                     break;
                 case 2:
-                    printMovieSearch(keywords, false, allmovies);
+                    printMoviesSearch(keywords, false);
                     break;
                 case 3:
                     System.out.print("Please enter the keywords: ");
                     keywords = sc.nextLine();
-                    printMovieSearch(keywords, true, allmovies);
+                    printMoviesSearch(keywords, true);
                     break;
                 case 4:
-                    BookingModule bookingModule = new BookingModule(sc, movieGoerObject);
+                    BookingModule bookingModule = new BookingModule(sc, movieGoerObj);
                     bookingModule.run();
                     movieGoerDB.write(readMovieGoers);
-                    movieDB.write(readMovies);
+                    movieDB.write(allMovies);
                     break;
                 case 5:
                     System.out.println("**************** Booking History *****************");
-                    if (!movieGoerObject.getMovieTicketList().isEmpty()) {
-                        ArrayList<MovieTicket> mtList = movieGoerObject.getMovieTicketList();
+                    if (!movieGoerObj.getMovieTicketList().isEmpty()) {
+                        ArrayList<MovieTicket> mtList = movieGoerObj.getMovieTicketList();
                         for (MovieTicket m : mtList) {
                             m.printTicket();
                         }
@@ -101,10 +104,10 @@ public class MovieGoerModule {
                     }
                     break;
                 case 6:
-                    printMovieBySales();
+                    printMovieListBySales();
                     break;
                 case 7:
-                    printMovieByRating();
+                    printMovieListByRating();
                     break;
                 case 8:
                     break;
@@ -113,10 +116,10 @@ public class MovieGoerModule {
         }
     }
 
-    public void printMovieSearch(String phrase, Boolean detailed, ArrayList<Movie> movies) {
+    private void printMoviesSearch(String phrase, boolean detailed) {
         System.out.println("**************** Results *****************");
         int index = 0;
-        for (Movie m : movies) {
+        for (Movie m : allMovies) {
             if (m.getStatus() == (MovieStatus.NOW_SHOWING) && m.getTitle().contains(phrase)) {
                 if (detailed == false) {
                     System.out.println("[" + index + "] " + m.getTitle());
@@ -147,14 +150,14 @@ public class MovieGoerModule {
 
                     }
 
-                    System.out.println("Sales Count: " + m.getSalesCount());
+                    System.out.println("Sales Count: " + m.getSaleCount());
                     System.out.println("Movie Type: " + m.getType() + "\n");
                 }
             }
         }
     }
 
-    public void printMovieByRating() {
+    private void printMovieListByRating() {
         System.out.println("**************** Top 5 Movies *****************");
         int counter = 1;
         MovieDB movieDB = new MovieDB();
@@ -176,7 +179,7 @@ public class MovieGoerModule {
         }
     }
 
-    public void printMovieBySales() {
+    private void printMovieListBySales() {
         System.out.println("**************** Top 5 Movies *****************");
         int counter = 1;
         MovieDB movieDB = new MovieDB();
@@ -185,7 +188,7 @@ public class MovieGoerModule {
         for (Movie m : movieList) {
             System.out.print("[" + counter + "] ");
             System.out.print(m.getTitle());
-            System.out.print(" - Total Sales: " + m.getSalesCount() + "\n");
+            System.out.print(" - Total Sales: " + m.getSaleCount() + "\n");
             counter++;
 
             if (counter >= 6) {

@@ -3,7 +3,9 @@ package Objects;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import Enums.DateType;
+import Enums.SeatType;
 
 import Databases.CineplexDB;
 
@@ -24,11 +26,16 @@ public class Showing implements Serializable {
     this.showTime = showTime;
     this.dateType = dateType;
 
-    Seat[][] layout = new Seat[9][10];
+    Seat[][] layout = new Seat[9][8]; // rows 0 - 8
+
+    int ultimaSeatRowCount = layout.length - 1; // 1 row of ultima / elite seats | row 8
+    int coupleSeatRowCount = ultimaSeatRowCount - 2; // 2 rows of couple seats | rows 6-7
+
     for (int i = 0; i < layout.length; i++) {
       for (int j = 0; j < layout[i].length; j++) {
+        SeatType seatType = i < coupleSeatRowCount ? SeatType.REGULAR : i < ultimaSeatRowCount ? SeatType.COUPLE : j <= 3 ? SeatType.ELITE : SeatType.ULTIMA;
         String seatId = (char) (i + 65) + String.valueOf(j);
-        layout[i][j] = new Seat(seatId);
+        layout[i][j] = new Seat(seatId, seatType);
       }
     }
     this.seatLayout = layout;
@@ -76,18 +83,14 @@ public class Showing implements Serializable {
   public void printSeating() {
     System.out.println("************** Movie Screen *******************");
     System.out.println();
-    System.out.println("   0  1  2  3  4 \t 5  6  7  8  9");
+    System.out.println("   1  2  3  4 \t 5  6  7  8");
     for (int i = 0; i < this.seatLayout.length; i++) {
       for (int j = 0; j < this.seatLayout[i].length; j++) {
         if (j == 0) {
           System.out.print((char)(i+65) + " ");
         }
-        if (this.seatLayout[i][j].isAvailable()) {
-          System.out.print("[ ]");
-        } else {
-          System.out.print("[X]");
-        }
-        if (j == 4) {
+        this.seatLayout[i][j].printSeat();
+        if (j == this.seatLayout[i].length/2 - 1) {
           System.out.print("\t");
         }
         if (j == this.seatLayout[i].length - 1) {
@@ -95,19 +98,24 @@ public class Showing implements Serializable {
         }
       }
     }
+    System.out.println("\nLegend: ");
+    System.out.println("REGULAR: [ ][ ] | [X][ ] | [X][X]");
+    System.out.println("COUPLE:  [    ] | [X   ] | [X  X]");
+    System.out.println("ELITE:   { }{ } | {X}{ } | {X}{X}");
+    System.out.println("ULTIMA:  {    } | {X   } | {X  X}");
     System.out.println("\n***********************************************");
   }
 
   public boolean isAvailable(String seatId) {
     int row = (int) seatId.charAt(0) - 65;
-    int column = Character.valueOf(seatId.charAt(1)) - 48;
+    int column = Character.valueOf(seatId.charAt(1)) - 49;
     Seat seat = this.seatLayout[row][column];
     return seat.isAvailable();
   }
 
   public void assignSeat(MovieGoer movieGoer, String seatId) {
     int row = (int) seatId.charAt(0) - 65;
-    int column = Character.valueOf(seatId.charAt(1)) - 48;
+    int column = Character.valueOf(seatId.charAt(1)) - 49;
     Seat seat = this.seatLayout[row][column];
     seat.assignSeat(movieGoer);
   }
@@ -135,10 +143,13 @@ public class Showing implements Serializable {
   //   Seat[][] layout = showing.getSeatLayout();
   //   layout[0][0].assignSeat(movieGoer);
   //   showing.printSeating();
-  //   System.out.println(showing.isAvailable("A0"));
   //   System.out.println(showing.isAvailable("A1"));
+  //   System.out.println(showing.isAvailable("A2"));
 
-  //   showing.assignSeat(movieGoer, "A1");
+  //   showing.assignSeat(movieGoer, "A2");
+  //   showing.assignSeat(movieGoer, "I1");
+  //   showing.assignSeat(movieGoer, "H6");
+  //   showing.assignSeat(movieGoer, "H5");
   //   showing.printSeating();
   // }
 }
