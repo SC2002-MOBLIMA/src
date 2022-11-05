@@ -4,8 +4,7 @@ import java.util.Scanner;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import Databases.SettingsDB;
 import Enums.AgeType;
@@ -13,28 +12,75 @@ import Enums.CinemaType;
 import Enums.DateType;
 import Enums.MovieType;
 
+import Objects.Settings;
+
 public class SettingsModule {
   private Scanner sc;
+  private Settings settingsObj;
 
   public SettingsModule(Scanner sc) {
     this.sc = sc;
   }
 
-  private void askNewPriceAndWriteToDB(SettingsDB settingsDB, ArrayList settingsList, int choice, String typeChoice) {
-    System.out.println("Old Price was: " + ((HashMap) settingsList.get(choice - 1)).get(typeChoice));
+  private void askNewPriceAndWriteToDB(SettingsDB settingsDB, int choice, String typeChoice) {
+    int price = 0;
+    switch (choice) {
+      case 1:
+        price = settingsObj.getMovieTypePrice(typeChoice);
+        break;
+
+      case 2:
+        price = settingsObj.getCinemaClassPrice(typeChoice);
+        break;
+
+      case 3:
+        price = settingsObj.getAgeTypePrice(typeChoice);
+        break;
+
+      case 4:
+        price = settingsObj.getDayTypePrice(typeChoice);
+        break;
+    
+      default:
+        break;
+    }
+    System.out.println("Old Price was: " + price);
 
     System.out.print("Set New Price: ");
     int newPrice = sc.nextInt();
     sc.nextLine();
 
     System.out.println("Writing to database...");
-    ((HashMap) settingsList.get(choice - 1)).put(typeChoice, newPrice);
-    settingsDB.write(settingsList);
+    switch (choice) {
+      case 1:
+        settingsObj.setMovieTypePrice(typeChoice, newPrice);
+        break;
+
+      case 2:
+        settingsObj.setCinemaClassPrice(typeChoice, newPrice);
+        break;
+
+      case 3:
+        settingsObj.setAgeTypePrice(typeChoice, newPrice);
+        break;
+
+      case 4:
+        settingsObj.setDayTypePriceMap(typeChoice, newPrice);
+        break;
+    
+      default:
+        break;
+    }
+    settingsDB.write(settingsObj);
   }
 
   public void run() {
     SettingsDB settingsDB = new SettingsDB();
-    ArrayList settingsList = (ArrayList) settingsDB.read();
+    settingsObj = (Settings)settingsDB.read();
+    
+    if (settingsObj == null) {
+      settingsObj = new Settings();
+    }
 
     boolean running = true;
     while (running) {
@@ -62,7 +108,7 @@ public class SettingsModule {
             movieTypeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, MovieType.values()[movieTypeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice, MovieType.values()[movieTypeChoice-1].name());
           break;
 
         case 2:
@@ -76,7 +122,7 @@ public class SettingsModule {
             cinemaClassChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, CinemaType.values()[cinemaClassChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice, CinemaType.values()[cinemaClassChoice-1].name());
           break;
 
         case 3:
@@ -89,7 +135,7 @@ public class SettingsModule {
             movieGoerAgeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, AgeType.values()[movieGoerAgeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice, AgeType.values()[movieGoerAgeChoice-1].name());
           break;
 
         case 4:
@@ -102,13 +148,13 @@ public class SettingsModule {
             dayTypeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, settingsList, choice, DateType.values()[dayTypeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice, DateType.values()[dayTypeChoice-1].name());
           break;
         case 5:
           System.out.println("Current Holiday Dates are: ");
-          ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
-          for (LocalDateTime date: holidayDates) {
-            System.out.println(date.toLocalDate());
+          ArrayList<LocalDate> holidayDates = settingsObj.getHolidayDates();
+          for (LocalDate date: holidayDates) {
+            System.out.println(date);
           }
           System.out.print("\nEnter year: ");
           int year = sc.nextInt();
@@ -121,21 +167,23 @@ public class SettingsModule {
           sc.nextLine();
 
           int dateAlreadyExistsAtPosition = -1;
+          LocalDate inputDate = LocalDate.of(year, month, day);
           for (int i = 0; i < holidayDates.size(); i++) {
-            if (holidayDates.get(i).equals(LocalDateTime.of(year, month, day, 0, 0))) {
+            if (holidayDates.get(i).equals(inputDate)) {
               dateAlreadyExistsAtPosition = i;
               break;
             }
           }
 
           if (dateAlreadyExistsAtPosition != -1) {
-            ((ArrayList) settingsList.get(4)).remove(dateAlreadyExistsAtPosition);
+            holidayDates.remove(dateAlreadyExistsAtPosition);
             dateAlreadyExistsAtPosition = -1;
           } else {
-            ((ArrayList) settingsList.get(4)).add(LocalDateTime.of(year, month, day, 0, 0));
+            holidayDates.add(inputDate);
           }
-          Collections.sort((ArrayList) settingsList.get(4));
-          settingsDB.write(settingsList);
+          Collections.sort(holidayDates);
+          settingsObj.setHolidayDates(holidayDates);
+          settingsDB.write(settingsObj);
           break;
         case 6:
           running = false;

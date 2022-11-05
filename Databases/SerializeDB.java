@@ -5,22 +5,21 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
 // Note : When structure of the Object type (the class file) in the list changed
 // the Serialized file may fail.
 public abstract class SerializeDB<T> {
     protected String filename;
 
-    public ArrayList<T> read() {
-        ArrayList<T> data = null;
+    public T read() {
+        T data = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
         try {
             fis = new FileInputStream(filename);
             in = new ObjectInputStream(fis);
             @SuppressWarnings("unchecked")
-            ArrayList<T>readData = (ArrayList<T>) in.readObject();
+            T readData = (T) in.readObject();
             data = readData;
             // The method readObject is used to read an object from the stream. Java's safe
             // casting should be used to get the desired type.
@@ -33,7 +32,7 @@ public abstract class SerializeDB<T> {
         return data;
     }
 
-    public void write(ArrayList<T> data) {
+    public void write(T data) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {

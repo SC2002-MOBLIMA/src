@@ -4,7 +4,9 @@ import java.lang.System;
 import Objects.Cineplex;
 import Objects.Cinema;
 
-public class CineplexDB extends SerializeDB<Cineplex> {
+import java.util.ArrayList;
+
+public class CineplexDB extends SerializeDB<ArrayList<Cineplex>> {
     public CineplexDB() {
         this.filename = "Databases/cineplex.dat";
     }

@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.DayOfWeek;
 
 import Databases.MovieDB;
@@ -15,6 +16,7 @@ import Objects.Cineplex;
 import Objects.Cinema;
 import Objects.Showing;
 import Objects.Movie;
+import Objects.Settings;
 
 
 public class CineplexModule {
@@ -22,7 +24,7 @@ public class CineplexModule {
   private ArrayList<Cineplex> cineplexList;
   private Cineplex cineplexReq;
   private Cinema cinemaReq;
-  // private Showing showReq;
+  private ArrayList<LocalDate> holidayDates;
   private Movie movieReq;
 
   public CineplexModule(Scanner sc) {
@@ -159,9 +161,8 @@ public class CineplexModule {
     int day = dayofWeek.getValue();
     
     SettingsDB settingsDB = new SettingsDB();
-    // @SuppressWarnings("unchecked")
-    ArrayList settingsList = (ArrayList) settingsDB.read();
-    ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
+    Settings settingsObj = settingsDB.read();
+    holidayDates = settingsObj.getHolidayDates();
     LocalDate date = dateTime.toLocalDate();
 
     DateType inputDateType = DateType.WEEKDAY;
@@ -273,16 +274,13 @@ public class CineplexModule {
                   System.out.println("Showtime has been updated");
                   DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
                   int day = dayofWeek.getValue();
-                  SettingsDB settingsDB = new SettingsDB();
-                  ArrayList settingsList = (ArrayList) settingsDB.read();
-                  ArrayList<LocalDateTime> holidayDates = (ArrayList<LocalDateTime>)settingsList.get(4);
                   LocalDate date_check = dateTime.toLocalDate();
                   DateType inputDateType = DateType.WEEKDAY;
                   boolean filter = true;
                   for(int i=0; i<holidayDates.size(); i++){
                     if(holidayDates.get(i).equals(date_check)){
                       inputDateType = DateType.PUBLIC_HOLIDAY;
-                      // System.out.println("Public holiday detected");
+                      System.out.println("Public holiday detected");
                       filter = false;
                     }
                   }

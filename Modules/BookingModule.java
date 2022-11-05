@@ -2,7 +2,6 @@ package Modules;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.HashMap;
 
 import Databases.CineplexDB;
 import Databases.SettingsDB;
@@ -17,11 +16,12 @@ import Objects.Cineplex;
 import Objects.Movie;
 import Objects.MovieGoer;
 import Objects.MovieTicket;
+import Objects.Settings;
 import Objects.Showing;
 
 public class BookingModule {
     private Scanner sc;
-    private ArrayList settingsList;
+    private Settings settingsObj;
     private ArrayList<Cineplex> cineplexList;
     private ArrayList<Cinema> cinemaList;
     private Cineplex cineplexObj;
@@ -40,7 +40,7 @@ public class BookingModule {
         ArrayList<Cineplex> readList = (ArrayList<Cineplex>) cineplexDB.read();
 
         SettingsDB settingsDB = new SettingsDB();
-        settingsList = (ArrayList) settingsDB.read();
+        settingsObj = (Settings) settingsDB.read();
 
         cineplexList = readList;
         selectCineplex();
@@ -268,19 +268,19 @@ public class BookingModule {
         String movieGoerAgeChoice = movieGoerAge.name();
         String showingDateTypeChoice = showingDateType.name();
         // MovieType
-        int movieTypePrice = ((HashMap<String, Integer>)settingsList.get(0)).get(movieTypeChoice);
+        int movieTypePrice = settingsObj.getMovieTypePrice(movieTypeChoice);
         price *= movieTypePrice;
 
         // CinemaClass
-        int cinemaClassPrice = ((HashMap<String, Integer>)settingsList.get(1)).get(cinemaClassChoice);
+        int cinemaClassPrice = settingsObj.getCinemaClassPrice(cinemaClassChoice);
         price *= cinemaClassPrice;
 
         // MovieGoer Age
-        int movieGoerAgePrice = ((HashMap<String, Integer>)settingsList.get(2)).get(movieGoerAgeChoice);
+        int movieGoerAgePrice = settingsObj.getAgeTypePrice(movieGoerAgeChoice);
         price *= movieGoerAgePrice;
 
         // DateType
-        int showingDateTypePrice = ((HashMap<String, Integer>)settingsList.get(3)).get(showingDateTypeChoice);
+        int showingDateTypePrice = settingsObj.getDayTypePrice(showingDateTypeChoice);
         price *= showingDateTypePrice;
 
         return Math.round(price * 100) / 100;
