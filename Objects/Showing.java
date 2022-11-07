@@ -18,8 +18,8 @@ public class Showing implements Serializable {
   private int id;
   private Movie movie;
   private LocalDateTime showTime; // YYYY-MM-DDT00:00:00
-  private DateType dateType; // Weekend/ Weekday/ PublicHoliday
-  private Seat[][] seatLayout; // 9 rows, 10 columns
+  private DateType dateType; // Weekend / Weekday / PublicHoliday
+  private Seat[][] seatLayout; // 9 rows, 8 columns
 
   public Showing(Movie movie, LocalDateTime showTime, DateType dateType) {
     this.movie = movie;
@@ -60,10 +60,6 @@ public class Showing implements Serializable {
 
   public Movie setMovie(Movie movie){
     return this.movie = movie;
-  }
-
-  public String getMovieTitle() {
-    return this.movie.getTitle();
   }
 
   public DateType getDateType() {

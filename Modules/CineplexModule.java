@@ -31,8 +31,6 @@ public class CineplexModule {
         this.sc = sc;
     }
 
-    boolean main = true;
-
     public void run() {
 
         boolean main = true;

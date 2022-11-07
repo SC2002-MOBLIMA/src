@@ -37,7 +37,7 @@ public class MovieTicket implements Serializable {
         System.out.println("Email: " + movieGoer.getEmail());
         System.out.println("***********************************************");
         System.out.println("Movie Information: ");
-        System.out.println("Movie: " + showing.getMovieTitle());
+        System.out.println("Movie: " + showing.getMovie().getTitle());
         System.out.println("Cineplex: " + cineplex.getCineplexName());
         System.out.println("Cinema: " + cinema.getCinemaNum());
         System.out.println("Price: " + price + " | Time: " + showing.getFormattedTime() + " | Seat: " + seatId);

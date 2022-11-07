@@ -130,7 +130,7 @@ public class BookingModule {
         Showing showingObj = selectShowing(cinemaObj);
         Movie movieObj = showingObj.getMovie();
         System.out.println("***********************************************");
-        System.out.println("Chosen Movie: " + showingObj.getMovieTitle());
+        System.out.println("Chosen Movie: " + movieObj.getTitle());
         System.out.print("Please enter the number of tickets: ");
         int ticketCount = sc.nextInt();
 
@@ -202,7 +202,7 @@ public class BookingModule {
         cineplexDB.write(cineplexList);
     }
 
-  // SELECTION HELPERS
+    // SELECTION HELPERS
 
     private void selectCineplex() {
         int choice;
@@ -259,7 +259,7 @@ public class BookingModule {
         return showing;
     }
 
-  // PRICE HELPER
+    // PRICE HELPER
 
     private double calculatePrice(MovieType movieType, CinemaType cinemaClass, AgeType movieGoerAge, DateType showingDateType, SeatType seatType) {
         String movieTypeChoice = movieType.name();
