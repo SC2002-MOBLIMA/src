@@ -31,7 +31,6 @@ public class Seat implements Serializable {
         return seatType;
     }
 
-    
     public void printSeat() {
 
         // Seat Legend:
