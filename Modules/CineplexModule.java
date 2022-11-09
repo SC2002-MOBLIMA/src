@@ -12,6 +12,7 @@ import Databases.CineplexDB;
 import Databases.SettingsDB;
 
 import Enums.DateType;
+import Interfaces.ModuleInterface;
 import Objects.Cineplex;
 import Objects.Cinema;
 import Objects.Showing;
@@ -19,7 +20,7 @@ import Objects.Movie;
 import Objects.Settings;
 
 
-public class CineplexModule {
+public class CineplexModule implements ModuleInterface {
     private Scanner sc;
     private ArrayList<Cineplex> cineplexList;
     private Cineplex cineplexObj;

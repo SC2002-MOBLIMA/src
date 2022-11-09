@@ -75,8 +75,26 @@ public class Cinema implements Serializable {
   }
 
   public void addShow(Movie movie, LocalDateTime showTime, DateType dateType) {
-    Showing show = new Showing(movie, showTime, dateType);
-    showList.add(show);
+    Showing show;
+    switch (cinemaType) {
+      case DELUXE:
+        show = new DeluxeShowing(movie, showTime, dateType);
+        showList.add(show);
+        break;
+
+      case REGULAR:
+        show = new RegularShowing(movie, showTime, dateType);
+        showList.add(show);
+        break;
+
+      case GOLD_CLASS:
+        show = new GoldShowing(movie, showTime, dateType);
+        showList.add(show);
+;       break;
+    
+      default:
+        break;
+    }
   }
 
   public void removeShow(Showing show) {

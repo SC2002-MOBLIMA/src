@@ -11,13 +11,16 @@ import Objects.Movie;
 import Objects.Review;
 import Objects.MovieTicket;
 import Enums.MovieStatus;
+import Interfaces.LoginModuleInterface;
+import Interfaces.ModuleInterface;
 import Comparators.SortByRating;
 import Comparators.SortBySales;
 
-public class MovieGoerModule {
+public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
     private Scanner sc;
     private boolean isLoggedIn;
     private MovieGoer movieGoerObj;
+    private ArrayList<MovieGoer> movieGoerList;
     private ArrayList<Movie> allMovies;
 
     public MovieGoerModule(Scanner sc) {
@@ -34,28 +37,8 @@ public class MovieGoerModule {
         ArrayList<MovieGoer> readMovieGoers = movieGoerDB.read();
         String keywords = "";
 
-        if (isLoggedIn) {
-            movieGoerObj = readMovieGoers.get(0);
-        }
+        login();
 
-        while (!isLoggedIn) {
-            System.out.print("Please enter your username: ");
-            String username = sc.nextLine();
-            
-            boolean validUsername = false;
-            for (MovieGoer mg : readMovieGoers) {
-                String mgUsername = mg.getName();
-                if (mgUsername.equals(username)) {
-                    validUsername = true;
-                    movieGoerObj = mg;
-                }
-            }
-            if (validUsername) {
-                isLoggedIn = true;
-            } else {
-                System.out.println("Error: Username not found. Please try again");
-            }
-        }
         int input = 0;
         while (input != 8) {
             System.out.println("***********************************************");
@@ -113,6 +96,31 @@ public class MovieGoerModule {
                     break;
             }
 
+        }
+    }
+
+    public void login() {
+        if (isLoggedIn) {
+            movieGoerObj = movieGoerList.get(0);
+        }
+
+        while (!isLoggedIn) {
+            System.out.print("Please enter your username: ");
+            String username = sc.nextLine();
+            
+            boolean validUsername = false;
+            for (MovieGoer mg : movieGoerList) {
+                String mgUsername = mg.getName();
+                if (mgUsername.equals(username)) {
+                    validUsername = true;
+                    movieGoerObj = mg;
+                }
+            }
+            if (validUsername) {
+                isLoggedIn = true;
+            } else {
+                System.out.println("Error: Username not found. Please try again");
+            }
         }
     }
 

@@ -27,6 +27,10 @@ public class Seat implements Serializable {
         this.movieGoer = movieGoer;
     }
 
+    public void unassignSeat() {
+        this.movieGoer = null;
+    }
+
     public SeatType getSeatType() {
         return seatType;
     }

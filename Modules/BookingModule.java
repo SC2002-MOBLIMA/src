@@ -14,6 +14,8 @@ import Enums.MovieType;
 import Enums.DateType;
 import Enums.SeatType;
 
+import Interfaces.ModuleInterface;
+
 import Objects.Cinema;
 import Objects.Cineplex;
 import Objects.Movie;
@@ -22,7 +24,7 @@ import Objects.MovieTicket;
 import Objects.Settings;
 import Objects.Showing;
 
-public class BookingModule {
+public class BookingModule implements ModuleInterface {
     private Scanner sc;
     private Settings settingsObj;
     private ArrayList<Cineplex> cineplexList;
@@ -131,17 +133,20 @@ public class BookingModule {
         Movie movieObj = showingObj.getMovie();
         System.out.println("***********************************************");
         System.out.println("Chosen Movie: " + movieObj.getTitle());
-        System.out.print("Please enter the number of tickets: ");
-        int ticketCount = sc.nextInt();
+        // System.out.print("Please enter the number of tickets: ");
+        // int ticketCount = sc.nextInt();
 
         HashMap<String, Double> idPriceMap = new HashMap<String, Double>();
         double totalPrice = 0;
-        for (int i = 0; i < ticketCount; i++) {
+        int ticketCount = 1;
+        while (true) {
+            int ticketsBooked = 1;
             do {
                 showingObj.printSeating();
-                System.out.print("Ticket " + (i + 1) + " | ");
-                System.out.print("Please enter seat to book (eg. A0): ");
+                System.out.print("Ticket " + ticketCount + " | ");
+                System.out.print("Please enter seat to book (eg. A1): ");
                 String seatId = sc.next();
+                
                 if (showingObj.isAvailable(seatId)) {
                     Movie movie = showingObj.getMovie();
                     MovieType movieType = movie.getType();
@@ -150,14 +155,47 @@ public class BookingModule {
                     DateType showingDateType = showingObj.getDateType();
                     SeatType seatType = showingObj.getSeatType(seatId);
                     double price = calculatePrice(movieType, cinemaClass, movieGoerAge, showingDateType, seatType);
+
                     totalPrice += price;
                     idPriceMap.put(seatId, price);
+                    showingObj.assignSeat(movieGoerObj, seatId);
+
+                    // book adjacent seat if couple / ultima
+                    if (seatType == SeatType.COUPLE || seatType == SeatType.ULTIMA) {
+                        int col = Character.getNumericValue(seatId.charAt(1));
+                        int adjCol = col % 2 == 0 ? col - 1 : col + 1;
+                        String adjSeatId = "" + seatId.charAt(0) + Character.forDigit(adjCol, 10);
+
+                        totalPrice += price;
+                        idPriceMap.put(adjSeatId, price);
+                        showingObj.assignSeat(movieGoerObj, adjSeatId);
+                        ticketsBooked++;
+                    }
                     break;
                 } else {
-                    System.out.print("Ticket " + i + 1 + " | ");
+                    System.out.print("Ticket " + ticketCount + " | ");
                     System.out.println("Seat already occupied, Please try again.\n");
                 }
             } while (true);
+            
+            showingObj.printSeating();
+
+            char confirmInput;
+            do {
+                System.out.print("Ticket " + ticketCount + " | Would you like to book more tickets? (Y/N): ");
+                confirmInput = Character.toUpperCase(sc.next().charAt(0));
+                if (confirmInput == 'Y' || confirmInput == 'N') {
+                    break;
+                } else {
+                    System.out.println("Invalid input, Please try again\n");
+                }
+            } while (true);
+
+            if (confirmInput == 'N') {
+                break;
+            }
+
+            ticketCount += ticketsBooked;
         }
 
         System.out.println("Please confirm the details of your booking: ");
@@ -187,7 +225,6 @@ public class BookingModule {
             for (Map.Entry<String, Double> entry: idPriceMap.entrySet()) {
                 String seatId = entry.getKey();
                 double price = entry.getValue();
-                showingObj.assignSeat(movieGoerObj, seatId);
                 MovieTicket movieTicket = new MovieTicket(movieGoerObj, price, showingObj, cineplexObj, cinemaObj, seatId);
                 movieGoerObj.addMovieTicket(movieTicket);
                 movieObj.incrementSaleCount();
@@ -196,6 +233,9 @@ public class BookingModule {
                 movieTicket.printTicket();
             }
         } else {
+            for (String seatId: idPriceMap.keySet()) {
+                showingObj.unassignSeat(seatId);
+            }
             System.out.println("Booking Cancelled!\n");
         }
         CineplexDB cineplexDB = new CineplexDB();
@@ -268,33 +308,25 @@ public class BookingModule {
         String showingDateTypeChoice = showingDateType.name();
         String seatTypeChoice = seatType.name();
 
-        System.out.println(movieTypeChoice + cinemaClassChoice + movieGoerAgeChoice + showingDateTypeChoice + seatTypeChoice);
         // MovieType
         double price = settingsObj.getMovieTypePrice(movieTypeChoice);
-        System.out.println("Price (MovieType): " + price);
+
         // CinemaClass
         double cinemaClassPrice = settingsObj.getCinemaClassPrice(cinemaClassChoice);
         price *= cinemaClassPrice;
-        System.out.println("Price (cinemaClassPrice): " + price + " | " + cinemaClassPrice);
-
 
         // MovieGoer Age
         double movieGoerAgePrice = settingsObj.getAgeTypePrice(movieGoerAgeChoice);
         price *= movieGoerAgePrice;
-        System.out.println("Price (movieGoerAgePrice): " + price + " | " + movieGoerAgePrice);
-
 
         // DateType
         double showingDateTypePrice = settingsObj.getDayTypePrice(showingDateTypeChoice);
         price *= showingDateTypePrice;
-        System.out.println("Price (showingDateTypePrice): " + price + " | " + showingDateTypePrice);
 
 
         // SeatType
         double seatTypePrice = settingsObj.getSeatTypePrice(seatTypeChoice);
         price *= seatTypePrice;
-        System.out.println("Price (seatTypePrice): " + price + " | " + seatTypePrice);
-
 
         return Math.round(price * 100) / 100;
     }

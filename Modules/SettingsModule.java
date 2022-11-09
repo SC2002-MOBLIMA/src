@@ -13,9 +13,10 @@ import Enums.CinemaType;
 import Enums.DateType;
 import Enums.MovieType;
 import Enums.SeatType;
+import Interfaces.ModuleInterface;
 import Objects.Settings;
 
-public class SettingsModule {
+public class SettingsModule implements ModuleInterface {
   private Scanner sc;
   private Settings settingsObj;
 

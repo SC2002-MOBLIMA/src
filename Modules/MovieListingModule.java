@@ -8,9 +8,12 @@ import java.util.Scanner;
 import Databases.MovieDB;
 import Enums.MovieStatus;
 import Enums.MovieType;
+
+import Interfaces.ModuleInterface;
+
 import Objects.Movie;
 
-public class MovieListingModule {
+public class MovieListingModule implements ModuleInterface {
     private Scanner sc;
     private ArrayList<Movie> movieList;
 

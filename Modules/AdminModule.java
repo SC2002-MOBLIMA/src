@@ -4,11 +4,14 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import Databases.AdminDB;
+import Interfaces.LoginModuleInterface;
+import Interfaces.ModuleInterface;
 import Objects.Admin;
 
-public class AdminModule {
+public class AdminModule implements ModuleInterface, LoginModuleInterface {
     private Scanner sc;
     private boolean isLoggedIn;
+    private ArrayList<Admin> adminList;
 
     public AdminModule(Scanner sc) {
         this.sc = sc;
@@ -17,30 +20,9 @@ public class AdminModule {
 
     public void run() {
         AdminDB adminDB = new AdminDB();
-        ArrayList<Admin> adminList = (ArrayList<Admin>) adminDB.read();
+        adminList = (ArrayList<Admin>) adminDB.read();
 
-        while (!isLoggedIn) {
-            System.out.println("***********************************************");
-            System.out.println("MOBLIMA -- Admin Module:\n");
-            System.out.print("Please enter your username: ");
-            String username = sc.next();
-            System.out.print("Please enter your password: ");
-            String password = sc.next();
-
-            System.out.println("Admin: " + username + " Password: " + password);
-
-            for (Admin admin : adminList) {
-                System.out.println("Admin: " + admin.getUsername() + " Password: " + admin.getPassword());
-                if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
-                    isLoggedIn = true;
-                    System.out.println("\nWelcome, " + username + "!\n");
-                    break;
-                }
-            }
-            if (!isLoggedIn) {
-                System.out.println("Invalid Credentials, Please try again.\n");
-            }
-        }
+        login();
 
         boolean running = true;
         while (running) {
@@ -76,6 +58,31 @@ public class AdminModule {
                 default:
                     System.out.println("Invalid Choice, Please try again.\n");
                     break;
+            }
+        }
+    }
+
+    public void login() {
+        while (!isLoggedIn) {
+            System.out.println("***********************************************");
+            System.out.println("MOBLIMA -- Admin Module:\n");
+            System.out.print("Please enter your username: ");
+            String username = sc.next();
+            System.out.print("Please enter your password: ");
+            String password = sc.next();
+
+            System.out.println("Admin: " + username + " Password: " + password);
+
+            for (Admin admin : adminList) {
+                System.out.println("Admin: " + admin.getUsername() + " Password: " + admin.getPassword());
+                if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
+                    isLoggedIn = true;
+                    System.out.println("\nWelcome, " + username + "!\n");
+                    break;
+                }
+            }
+            if (!isLoggedIn) {
+                System.out.println("Invalid Credentials, Please try again.\n");
             }
         }
     }
