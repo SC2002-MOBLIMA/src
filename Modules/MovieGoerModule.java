@@ -34,7 +34,7 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
         System.out.println("***********************************************");
         System.out.println("MOBLIMA -- Movie Goer Module:\n");
         allMovies = movieDB.read();
-        ArrayList<MovieGoer> readMovieGoers = movieGoerDB.read();
+        movieGoerList = movieGoerDB.read();
         String keywords = "";
 
         login();
@@ -72,7 +72,7 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
                 case 4:
                     BookingModule bookingModule = new BookingModule(sc, movieGoerObj);
                     bookingModule.run();
-                    movieGoerDB.write(readMovieGoers);
+                    movieGoerDB.write(movieGoerList);
                     movieDB.write(allMovies);
                     break;
                 case 5:
