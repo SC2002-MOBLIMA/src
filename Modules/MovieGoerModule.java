@@ -173,7 +173,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                         System.out.println("-");
                     }
 
-                    System.out.println("\n Overall rating: " + m.getOverallRating());
+                    System.out.println("\nOverall rating: " + m.getOverallRating());
                     System.out.println("Sales Count: " + m.getSaleCount());
                     System.out.println("Movie Type: " + m.getType() + "\n");
                 }

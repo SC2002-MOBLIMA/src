@@ -94,9 +94,7 @@ public class MovieListingModule implements ModuleInterface {
 
         for (Movie m : movieList) {
             if (m.getTitle().equalsIgnoreCase(title)) {
-                movieList.remove(m);
-                Movie updatedMovie = getUpdatedMovie(m);
-                movieList.add(updatedMovie);
+                updateMovie(m);
                 foundMovie = true;
             }
         }
@@ -109,7 +107,7 @@ public class MovieListingModule implements ModuleInterface {
         System.out.println("***********************************************");
     }
 
-    private Movie getUpdatedMovie(Movie movie) {
+    private void updateMovie(Movie movie) {
         boolean run = true;
 
         do {
@@ -198,9 +196,7 @@ public class MovieListingModule implements ModuleInterface {
                     System.out.println("Error: Invalid Choice, Please try again.");
                     break;
             }
-            } while (run);
-
-        return movie;
+        } while (run);
     }
 
     // Update the status of the Movie Listing as "END_OF_SHOWING"
