@@ -12,7 +12,7 @@ import Enums.SeatType;
 public class RegularShowing extends Showing {
   public RegularShowing(Movie movie, LocalDateTime showTime, DateType dateType) {
     super(movie, showTime, dateType);
-    Seat[][] layout = new Seat[9][8]; // rows 0 - 8
+    Seat[][] layout = new Seat[9][8]; // rows 1 - 8
 
     int coupleSeatRowCount = layout.length - 2; // 2 rows of couple seats | rows 7-8
 

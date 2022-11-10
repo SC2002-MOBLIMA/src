@@ -35,7 +35,6 @@ public class SettingsModule implements ModuleInterface {
 
   private void askNewPriceAndWriteToDB(SettingsDB settingsDB, int choice, String typeChoice) {
     double price = 0;
-    System.out.println("Choice: " + choice + "TypeChoice: " + typeChoice);
     switch (choice) {
       case 1:
         price = settingsObj.getMovieTypePrice(typeChoice);
@@ -66,7 +65,7 @@ public class SettingsModule implements ModuleInterface {
     double newPrice = sc.nextDouble();
     sc.nextLine();
 
-    System.out.println("Writing to database...");
+    System.out.println("Price successfully updated!");
     switch (choice) {
       case 1:
         settingsObj.setMovieTypePrice(typeChoice, newPrice);
@@ -120,27 +119,49 @@ public class SettingsModule implements ModuleInterface {
       System.out.println("***********************************************");
       switch (choice) {
         case 1:
-          System.out.println("Movie Types \t| Cinema Classes \t| Movie Goer Age\t| Days");
+          System.out.println("MOBLIMA -- Admin -- Settings Module (Display All Prices):");
+          System.out.println("Movie Types \t\t| Cinema Classes \t| Movie Goer Age\t| Days\t\t\t| Seat Types");
           for (int i = 0; i<3; i++) {
             String movieType = MovieType.values()[i].name();
             String cinemaClass = CinemaType.values()[i].name();
             String ageType = AgeType.values()[i].name();
             String dayType = DateType.values()[i].name();
-            // if (i == 0) {
+            String seatType = SeatType.values()[i].name();
+            if (i == 0) {
+              System.out.println(
+                movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t\t| " +
+                cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t| " +
+                ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
+                dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t| " +
+                seatType + ": x" + settingsObj.getSeatTypePrice(seatType)
+              );
+            } else if (i == 1) {
               System.out.println(
                 movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t\t| " +
                 cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t\t| " +
                 ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
-                dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t"
+                dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t\t| " +
+                seatType + ": x" + settingsObj.getSeatTypePrice(seatType)
               );
+            } else {
+              System.out.println(
+                movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t| " +
+                cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t\t| " +
+                ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
+                dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t| " +
+                seatType + ": x" + settingsObj.getSeatTypePrice(seatType)
+              );
+            }
           }
           break;
 
         case 2:
+          System.out.println("MOBLIMA -- Admin -- Settings Module (Display Holiday Dates):");
           displayHolidayDates();
           break;
 
         case 3:
+          System.out.println("MOBLIMA -- Admin -- Settings Module (Edit Movie Type Prices):");
           int movieTypeChoice = 0;;
           while (movieTypeChoice < 1 || movieTypeChoice > 3) {
             System.out.println("\n[1] Regular");
@@ -155,6 +176,7 @@ public class SettingsModule implements ModuleInterface {
           break;
 
         case 4:
+          System.out.println("MOBLIMA -- Admin -- Settings Module (Edit Cinema Class Prices):");
           int cinemaClassChoice = 0;
           while (cinemaClassChoice < 1 || cinemaClassChoice > 3) {
             System.out.println("\n[1] Gold Class");
@@ -169,6 +191,7 @@ public class SettingsModule implements ModuleInterface {
           break;
 
         case 5:
+          System.out.println("MOBLIMA -- Admin -- Settings Module (Edit Movie Goer Age Prices):");
           int movieGoerAgeChoice = 0;
           while (movieGoerAgeChoice < 1 || movieGoerAgeChoice > 3) {
             System.out.println("\n[1] Child");
@@ -182,6 +205,7 @@ public class SettingsModule implements ModuleInterface {
           break;
 
         case 6:
+          System.out.println("MOBLIMA -- Admin -- Settings Module (Edit Day Type Prices):");
           int dayTypeChoice = 0;
           while (dayTypeChoice < 1 || dayTypeChoice > 3) {
             System.out.println("\n[1] Weekend");
@@ -195,6 +219,7 @@ public class SettingsModule implements ModuleInterface {
           break;
 
         case 7:
+          System.out.println("MOBLIMA -- Admin -- Settings Module (Edit Seat Type Prices):");
           int seatTypeChoice = 0;
           while (seatTypeChoice < 1 || seatTypeChoice > 4) {
             System.out.println("\n[1] Regular");
@@ -209,6 +234,7 @@ public class SettingsModule implements ModuleInterface {
           break;
 
         case 8:
+          System.out.println("MOBLIMA -- Admin -- Settings Module (Edit Holiday Dates):");
           displayHolidayDates();
           System.out.print("\nEnter Holiday Date to add/remove (dd-MM-yyyy, eg. 01-01-2022): ");
           String inputDateString = sc.nextLine();

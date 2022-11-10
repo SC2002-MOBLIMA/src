@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Databases.MovieDB;
+import Databases.CineplexDB;
+
 import Enums.MovieStatus;
 import Enums.MovieType;
 
 import Interfaces.ModuleInterface;
 
 import Objects.Movie;
+import Objects.Cineplex;
 
 public class MovieListingModule implements ModuleInterface {
     private Scanner sc;
@@ -60,7 +63,7 @@ public class MovieListingModule implements ModuleInterface {
                             System.out.println(name);
                         }
                     }
-                    
+
                     break;
 
                 case 2:
@@ -88,6 +91,7 @@ public class MovieListingModule implements ModuleInterface {
         boolean foundMovie = false;
         System.out.print("\nPlease enter the title of the movie: ");
         String title = sc.nextLine();
+
         for (Movie m : movieList) {
             if (m.getTitle().equalsIgnoreCase(title)) {
                 movieList.remove(m);
@@ -141,6 +145,13 @@ public class MovieListingModule implements ModuleInterface {
                     }
                     MovieStatus status = MovieStatus.values()[updateChoice-1];
                     movie.setStatus(status);
+                    if (status == MovieStatus.END_OF_SHOWING) {
+                        CineplexDB cineplexDB = new CineplexDB();
+                        ArrayList<Cineplex> cineplexList = cineplexDB.read();
+                        for (Cineplex c: cineplexList) {
+                            c.removeMovieShowings(movie);
+                        }
+                    }
                     break;
                 case 2:
                     System.out.print("Input New Sale Count: ");
@@ -200,20 +211,28 @@ public class MovieListingModule implements ModuleInterface {
         boolean foundMovie = false;
         System.out.print("\nPlease enter the title of the movie: ");
         String title = sc.nextLine();
+        CineplexDB cineplexDB = new CineplexDB();
+        ArrayList<Cineplex> cineplexList = cineplexDB.read();
+
         for (Movie m : movieList) {
             if (m.getTitle().equalsIgnoreCase(title)) {
                 m.setStatus(MovieStatus.END_OF_SHOWING);
+                for (Cineplex c: cineplexList) {
+                    c.removeMovieShowings(m);
+                }
                 foundMovie = true;
             }
         }
+
         if (foundMovie) {
             movieDB.write(movieList);
+            cineplexDB.write(cineplexList);
             System.out.println("Movie Listing successfully removed");
         } else {
             System.out.println("Movie not found");
         }
-        System.out.println("***********************************************");
 
+        System.out.println("***********************************************");
     }
 
     private void createNewMovieListing(MovieDB movieDB) {

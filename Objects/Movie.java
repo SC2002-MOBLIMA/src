@@ -126,8 +126,12 @@ public class Movie implements Serializable, Comparable<Movie> {
       totalRating += r.getRating();
       count++;
     }
-    int overallRating = totalRating / count;
-    return overallRating;
+
+    if (count == 0) {
+      return 0;
+    } else {
+      return totalRating / count; 
+    }
   }
 
   @Override
@@ -147,7 +151,7 @@ public class Movie implements Serializable, Comparable<Movie> {
     }
 
     Movie m = (Movie) o;
-    if (this.title == m.getTitle()) {
+    if (this.title.equals(m.getTitle())) {
       return true;
     }
     return false;

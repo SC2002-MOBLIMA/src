@@ -3,6 +3,7 @@ package Objects;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import Enums.CinemaType;
 import Enums.DateType;
@@ -39,23 +40,27 @@ public class Cinema implements Serializable {
   }
 
   public void displayShowList() {
+    int showsAvailable = 0;
     for (int i = 0; i < showList.size(); i++) {
       Showing show = showList.get(i);
       Movie movie = show.getMovie();
       System.out.println("[" + (i + 1) + "]: " + movie.getTitle() + " " + show.getFormattedTime());
-      // System.out.println(showList.get(i).getMovieTitle());
-      // System.out.println("Show Timte: " + showList.get(i).getShowTime());
+      showsAvailable = 1;
+    }
+
+    if (showsAvailable == 0) {
+      System.out.println("No Shows Found.");
     }
   }
 
   public void displayAvailableShows() { // Come back to finish this
-    // int index = 1;
+    int index = 1;
     int showsAvailable = 0;
     for (Showing showing: showList) {
       Movie movie = showing.getMovie();
       if (movie.getStatus() == MovieStatus.NOW_SHOWING) {
-        System.out.println("[ID - #" + showing.getId() + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
-        // index++;
+        System.out.println("[" + index + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
+        index++;
         showsAvailable = 1;
       }
     }
@@ -64,11 +69,16 @@ public class Cinema implements Serializable {
     }
   }
 
-  public Showing searchShow(int id) {
+  public Showing searchShow(int searchIndex) {
+    int index = 1;
     for (int i = 0; i < showList.size(); i++) {
-      int check = showList.get(i).getId();
-      if (check == id) {
-        return showList.get(i);
+      Showing s = showList.get(i);
+      Movie m = s.getMovie();
+      if (m.getStatus() == MovieStatus.NOW_SHOWING) {
+        if (index == searchIndex) {
+          return s;
+        }
+        index++;
       }
     }
     return null;
@@ -99,5 +109,17 @@ public class Cinema implements Serializable {
 
   public void removeShow(Showing show) {
     showList.remove(show);
+  }
+
+  public void removeMovieShowings(Movie movie) {
+    Iterator<Showing> i = showList.iterator();
+
+    while (i.hasNext()) {
+      Showing s = i.next();
+      Movie m = s.getMovie();
+      if (m.equals(movie)) {
+        i.remove();
+      }
+    }
   }
 }

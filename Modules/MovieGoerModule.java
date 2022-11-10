@@ -11,12 +11,12 @@ import Objects.Movie;
 import Objects.Review;
 import Objects.MovieTicket;
 import Enums.MovieStatus;
-import Interfaces.LoginModuleInterface;
+import Interfaces.LoginInterface;
 import Interfaces.ModuleInterface;
 import Comparators.SortByRating;
 import Comparators.SortBySales;
 
-public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
+public class MovieGoerModule implements ModuleInterface, LoginInterface {
     private Scanner sc;
     private boolean isLoggedIn;
     private MovieGoer movieGoerObj;
@@ -25,7 +25,7 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
 
     public MovieGoerModule(Scanner sc) {
         this.sc = sc;
-        this.isLoggedIn = false;
+        this.isLoggedIn = true; // toggle this later
     }
 
     public void run() {
@@ -50,33 +50,43 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
                     + "[5] View Booking History\n"
                     + "[6] List Top 5 Movies Based on Sales\n"
                     + "[7] List Top 5 Movies Based on Ratings\n"
-                    + "[8] Exit");
+                    + "[8] Back");
             System.out.print("Please select an option: ");
             input = sc.nextInt();
             sc.nextLine();
+            System.out.println("***********************************************");
             switch (input) {
                 case 1:
-                    System.out.print("Please enter the keywords: ");
+                    System.out.println("MOBLIMA -- Movie Goer Module (Search Movies): ");
+                    System.out.print("Please enter the keyword(s): ");
                     keywords = sc.nextLine();
+                    System.out.println();
                     printMoviesSearch(keywords, false);
                     keywords = "";
                     break;
                 case 2:
+                    System.out.println("MOBLIMA -- Movie Goer Module (List Movies): ");
+                    System.out.println();
                     printMoviesSearch(keywords, false);
                     break;
                 case 3:
+                    System.out.println("MOBLIMA -- Movie Goer Module (View Movie Details): ");
                     System.out.print("Please enter the keywords: ");
                     keywords = sc.nextLine();
+                    System.out.println();
                     printMoviesSearch(keywords, true);
                     break;
+
                 case 4:
                     BookingModule bookingModule = new BookingModule(sc, movieGoerObj);
                     bookingModule.run();
                     movieGoerDB.write(movieGoerList);
                     movieDB.write(allMovies);
                     break;
+
                 case 5:
-                    System.out.println("**************** Booking History *****************");
+                    System.out.println("MOBLIMA -- Movie Goer Module (View Booking History): ");
+                    System.out.println();
                     if (!movieGoerObj.getMovieTicketList().isEmpty()) {
                         ArrayList<MovieTicket> mtList = movieGoerObj.getMovieTicketList();
                         for (MovieTicket m : mtList) {
@@ -86,14 +96,18 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
                         System.out.println("No Past Bookings\n");
                     }
                     break;
+
                 case 6:
                     printMovieListBySales();
                     break;
+
                 case 7:
                     printMovieListByRating();
                     break;
+
                 case 8:
                     break;
+
             }
 
         }
@@ -125,12 +139,12 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
     }
 
     private void printMoviesSearch(String phrase, boolean detailed) {
-        System.out.println("**************** Results *****************");
         int index = 0;
+        System.out.println("Results: ");
         for (Movie m : allMovies) {
             if (m.getStatus() == (MovieStatus.NOW_SHOWING) && m.getTitle().contains(phrase)) {
                 if (detailed == false) {
-                    System.out.println("[" + index + "] " + m.getTitle());
+                    System.out.println("[" + (index+1) + "] " + m.getTitle());
                     index++;
                 } else {
                     System.out.println("Title: " + m.getTitle());
@@ -142,13 +156,14 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
                     System.out.println(String.join(", ", castMembers));
                     System.out.print("Reviews: ");
                     if (!m.getReviewList().isEmpty()) {
-                        for (Review moviereview : m.getReviewList()) {
-                            System.out.println("Name: " + moviereview.getName());
-                            System.out.println("Rating: " + moviereview.getRating());
-                            System.out.println("Review: " + moviereview.getReview());
+                        for (Review movieReview : m.getReviewList()) {
+                            System.out.println();
+                            System.out.println("Name: "  + movieReview.getName());
+                            System.out.println("Rating: "  + movieReview.getRating());
+                            System.out.println("Review: "  + movieReview.getReview());
                         }
                     } else {
-                        System.out.println("No reviews");
+                        System.out.println("-");
                     }
 
                     try {
@@ -165,7 +180,8 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
     }
 
     private void printMovieListByRating() {
-        System.out.println("**************** Top 5 Movies *****************");
+        System.out.println("MOBLIMA -- Movie Goer Module (Top 5 Movies Based on Rating): ");
+        System.out.println();
         int counter = 1;
         MovieDB movieDB = new MovieDB();
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
@@ -173,11 +189,7 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
         for (Movie m : movieList) {
             System.out.print("[" + counter + "] ");
             System.out.print(m.getTitle());
-            try {
-                System.out.print(" - Overall Rating: " + m.getOverallRating() + "\n");
-            } catch (ArithmeticException e) {
-                System.out.print(" - Overall Rating: 0" + "\n");
-            }
+            System.out.print(" - Overall Rating: " + m.getOverallRating() + "\n");
             counter++;
 
             if (counter >= 6) {
@@ -187,7 +199,8 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
     }
 
     private void printMovieListBySales() {
-        System.out.println("**************** Top 5 Movies *****************");
+        System.out.println("MOBLIMA -- Movie Goer Module (Top 5 Movies Based on Sales): ");
+        System.out.println();
         int counter = 1;
         MovieDB movieDB = new MovieDB();
         ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();

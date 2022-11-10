@@ -4,18 +4,18 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import Databases.AdminDB;
-import Interfaces.LoginModuleInterface;
+import Interfaces.LoginInterface;
 import Interfaces.ModuleInterface;
 import Objects.Admin;
 
-public class AdminModule implements ModuleInterface, LoginModuleInterface {
+public class AdminModule implements ModuleInterface, LoginInterface {
     private Scanner sc;
     private boolean isLoggedIn;
     private ArrayList<Admin> adminList;
 
     public AdminModule(Scanner sc) {
         this.sc = sc;
-        this.isLoggedIn = false;
+        this.isLoggedIn = true; // TODO: toggle this back
     }
 
     public void run() {
@@ -71,10 +71,7 @@ public class AdminModule implements ModuleInterface, LoginModuleInterface {
             System.out.print("Please enter your password: ");
             String password = sc.next();
 
-            // System.out.println("Admin: " + username + " Password: " + password);
-
             for (Admin admin : adminList) {
-                // System.out.println("Admin: " + admin.getUsername() + " Password: " + admin.getPassword());
                 if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
                     isLoggedIn = true;
                     System.out.println("\nWelcome, " + username + "!\n");

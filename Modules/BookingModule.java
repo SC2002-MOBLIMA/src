@@ -42,12 +42,11 @@ public class BookingModule implements ModuleInterface {
         System.out.println("MOBLIMA -- Movie Goer -- Booking Module:");
 
         CineplexDB cineplexDB = new CineplexDB();
-        ArrayList<Cineplex> readList = (ArrayList<Cineplex>) cineplexDB.read();
+        cineplexList = cineplexDB.read();
 
         SettingsDB settingsDB = new SettingsDB();
         settingsObj = settingsDB.read();
 
-        cineplexList = readList;
         selectCineplex();
 
         boolean running = true;
@@ -99,14 +98,14 @@ public class BookingModule implements ModuleInterface {
         for (Cinema cinema : cinemaList) {
             System.out.println("Cinema " + cinema.getCinemaNum() + ":");
             cinema.displayAvailableShows();
-            System.out.println("");
+            System.out.println();
         }
     }
 
     private void displayCinemaShowings() {
         Cinema cinemaObj = selectCinema();
         cinemaObj.displayAvailableShows();
-        System.out.println("");
+        System.out.println();
     }
 
     private void checkSeatAvailability() {
@@ -133,8 +132,6 @@ public class BookingModule implements ModuleInterface {
         Movie movieObj = showingObj.getMovie();
         System.out.println("***********************************************");
         System.out.println("Chosen Movie: " + movieObj.getTitle());
-        // System.out.print("Please enter the number of tickets: ");
-        // int ticketCount = sc.nextInt();
 
         HashMap<String, Double> idPriceMap = new HashMap<String, Double>();
         double totalPrice = 0;
@@ -269,15 +266,16 @@ public class BookingModule implements ModuleInterface {
     private Cinema selectCinema() {
         int cinemaSize = cinemaList.size();
         int cinemaChoice;
+
         do {
-        System.out.print("Please select your cinema of choice (1-" + cinemaSize + "): ");
-        cinemaChoice = sc.nextInt();
-        cinemaChoice = cinemaChoice < 1 || cinemaChoice > cinemaSize ? 0 : cinemaChoice;
-        if (cinemaChoice == 0) {
-            System.out.println("Invalid choice, Please try again.\n");
-        } else {
-            break;
-        }
+            System.out.print("Please select your cinema of choice (1-" + cinemaSize + "): ");
+            cinemaChoice = sc.nextInt();
+            cinemaChoice = cinemaChoice < 1 || cinemaChoice > cinemaSize ? 0 : cinemaChoice;
+            if (cinemaChoice == 0) {
+                System.out.println("Invalid choice, Please try again.\n");
+            } else {
+                break;
+            }
         } while (true);
         Cinema cinema = cinemaList.get(cinemaChoice-1);
         return cinema;

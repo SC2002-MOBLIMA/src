@@ -7,7 +7,14 @@ public class MOBLIMA {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n***********************************************");
-        System.out.println("************* WELCOME TO MOBLIMA **************");
+        // System.out.println("************* WELCOME TO MOBLIMA **************");
+        System.out.println(" __  __  ____  ____  _      _____ __  __");
+        System.out.println("|  \\/  |/ __ \\|  _ \\| |    |_   _|  \\/  |   /\\");
+        System.out.println("| \\  / | |  | | |_) | |      | | | \\  / |  /  \\");
+        System.out.println("| |\\/| | |  | |  _ <| |      | | | |\\/| | / /\\ \\");
+        System.out.println("| |  | | |__| | |_) | |____ _| |_| |  | |/ ____ \\");
+        System.out.println("|_|  |_|\\____/|____/|______|_____|_|  |_/_/    \\_\\");
+        System.out.println();
         int choice;
         boolean running = true;
         while (running) {

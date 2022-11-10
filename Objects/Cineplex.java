@@ -1,4 +1,5 @@
 package Objects;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -21,8 +22,14 @@ public class Cineplex implements Serializable {
   }
 
   public void displayCinemas(){
-    for(int i=0; i<cinemaList.size(); i++){
+    for (int i=0; i<cinemaList.size(); i++){
       System.out.println("Cinema " + cinemaList.get(i).getCinemaNum() + "\n");
+    }
+  }
+
+  public void removeMovieShowings(Movie movie) {
+    for (Cinema c: cinemaList) {
+      c.removeMovieShowings(movie);
     }
   }
 }
