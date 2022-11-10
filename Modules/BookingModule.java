@@ -299,11 +299,11 @@ public class BookingModule implements ModuleInterface {
 
     // PRICE HELPER
 
-    private double calculatePrice(MovieType movieType, CinemaType cinemaClass, AgeType movieGoerAge, DateType showingDateType, SeatType seatType) {
+    private double calculatePrice(MovieType movieType, CinemaType cinemaClass, AgeType movieGoerAge, DayType showingDayType, SeatType seatType) {
         String movieTypeChoice = movieType.name();
         String cinemaClassChoice = cinemaClass.name();
         String movieGoerAgeChoice = movieGoerAge.name();
-        String showingDateTypeChoice = showingDateType.name();
+        String showingDayTypeChoice = showingDayType.name();
         String seatTypeChoice = seatType.name();
 
         // MovieType
@@ -317,8 +317,8 @@ public class BookingModule implements ModuleInterface {
         double movieGoerAgePrice = settingsObj.getAgeTypePrice(movieGoerAgeChoice);
         price *= movieGoerAgePrice;
 
-        // DateType
-        double showingDayTypePrice = settingsObj.getDayTypePrice(showingDateTypeChoice);
+        // DayType
+        double showingDayTypePrice = settingsObj.getDayTypePrice(showingDayTypeChoice);
         price *= showingDayTypePrice;
 
 

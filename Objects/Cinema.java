@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import Enums.CinemaType;
-import Enums.DateType;
+import Enums.DayType;
 import Enums.MovieStatus;
 
 public class Cinema implements Serializable {

@@ -1,6 +1,6 @@
 package Enums;
 
-public enum DateType {
+public enum DayType {
     WEEKEND,
     WEEKDAY,
     PUBLIC_HOLIDAY
