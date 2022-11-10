@@ -44,7 +44,7 @@ public class MOBLIMA {
                     break;
 
                 default:
-                    System.out.println("Invalid Choice, Please try again!\n");
+                    System.out.println("Error: Invalid Choice, Please try again.\n");
                     break;
             }
         }

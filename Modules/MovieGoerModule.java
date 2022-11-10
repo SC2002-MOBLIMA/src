@@ -81,7 +81,6 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     BookingModule bookingModule = new BookingModule(sc, movieGoerObj);
                     bookingModule.run();
                     movieGoerDB.write(movieGoerList);
-                    movieDB.write(allMovies);
                     break;
 
                 case 5:
@@ -93,7 +92,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                             m.printTicket();
                         }
                     } else {
-                        System.out.println("No Past Bookings\n");
+                        System.out.println("No Past Bookings.\n");
                     }
                     break;
 
@@ -133,7 +132,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
             if (validUsername) {
                 isLoggedIn = true;
             } else {
-                System.out.println("Error: Username not found. Please try again");
+                System.out.println("Error: Username not found. Please try again.");
             }
         }
     }
@@ -184,9 +183,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         System.out.println();
         int counter = 1;
         MovieDB movieDB = new MovieDB();
-        ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
-        Collections.sort(movieList, new SortByRating());
-        for (Movie m : movieList) {
+        allMovies = movieDB.read();
+        Collections.sort(allMovies, new SortByRating());
+        for (Movie m : allMovies) {
             System.out.print("[" + counter + "] ");
             System.out.print(m.getTitle());
             System.out.print(" - Overall Rating: " + m.getOverallRating() + "\n");
@@ -203,9 +202,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         System.out.println();
         int counter = 1;
         MovieDB movieDB = new MovieDB();
-        ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
-        Collections.sort(movieList, new SortBySales());
-        for (Movie m : movieList) {
+        allMovies = movieDB.read();
+        Collections.sort(allMovies, new SortBySales());
+        for (Movie m : allMovies) {
             System.out.print("[" + counter + "] ");
             System.out.print(m.getTitle());
             System.out.print(" - Total Sales: " + m.getSaleCount() + "\n");

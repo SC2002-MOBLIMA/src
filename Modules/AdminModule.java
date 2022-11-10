@@ -56,7 +56,7 @@ public class AdminModule implements ModuleInterface, LoginInterface {
                     break;
 
                 default:
-                    System.out.println("Invalid Choice, Please try again.\n");
+                    System.out.println("Error: Invalid Choice, Please try again.\n");
                     break;
             }
         }
@@ -79,7 +79,7 @@ public class AdminModule implements ModuleInterface, LoginInterface {
                 }
             }
             if (!isLoggedIn) {
-                System.out.println("Invalid Credentials, Please try again.\n");
+                System.out.println("Error: Invalid Credentials, Please try again.\n");
             }
         }
     }

@@ -67,12 +67,12 @@ public class CineplexModule implements ModuleInterface {
                     }
                     
                     if (main_cinema) {
-                        System.out.println("Error: Cinema not found. Please try again\n");
+                        System.out.println("Error: Cinema not found. Please try again.\n");
                     }
                 }
                 break;
             }     
-            System.out.println("Error: Cineplex not found. Please try again");
+            System.out.println("Error: Cineplex not found. Please try again.");
         }
 
         boolean main_final = true;
@@ -135,7 +135,7 @@ public class CineplexModule implements ModuleInterface {
                 main = false;
                 movieObj = currentMovies.get(selection - 1);
             } else {
-                System.out.println("Error: Invalid value keyed in. Please try again\n");
+                System.out.println("Error: Invalid value keyed in. Please try again.\n");
             } 
         }
     }
@@ -153,15 +153,15 @@ public class CineplexModule implements ModuleInterface {
                 dateTime = LocalDateTime.parse(input, myFormatObj);
 
                 if (dateTime.compareTo(movieObj.getEndOfShowingDate()) > 0) {
-                    System.out.println("Error: Date keyed in exceeds the end of showing of movie. Please try again\n");
+                    System.out.println("Error: Date keyed in exceeds the end of showing of movie. Please try again.\n");
                 }
                 else if (dateTime.compareTo(LocalDateTime.now()) < 0){
-                    System.out.println("Error: Date keyed in has already passed. Please try again");
+                    System.out.println("Error: Date keyed in has already passed. Please try again.");
                 } else {
                     break;
                 }
             } catch (Exception e) {
-                System.out.println("Error: Invalid date format. Please try again");
+                System.out.println("Error: Invalid date format. Please try again.");
             }
         }
 
@@ -209,7 +209,7 @@ public class CineplexModule implements ModuleInterface {
         while (main) {
             ArrayList<Showing> showList = cinemaObj.getShowList();
             if (showList.size()==0) {
-                System.out.println("There are no showings to remove");
+                System.out.println("There are no showings to remove.");
                 break;
             }
             cinemaObj.displayShowList();
@@ -219,9 +219,9 @@ public class CineplexModule implements ModuleInterface {
                 Showing selectedShow = showList.get(selection-1);
                 cinemaObj.removeShow(selectedShow);
                 main = false;
-                System.out.println("Selection has been successfully removed");
+                System.out.println("Selection has been successfully removed.");
             } else {
-                System.out.println("Error: Invalid value keyed in. Please try again");
+                System.out.println("Error: Invalid value keyed in. Please try again.");
             }
         }
         CineplexDB cineplexDB = new CineplexDB();
@@ -234,7 +234,7 @@ public class CineplexModule implements ModuleInterface {
         boolean main = true; 
         while (main) {
             if (showList.size() == 0){
-                System.out.println("There are no showings to remove");
+                System.out.println("There are no showings to remove.");
                 break;
             }
             cinemaObj.displayShowList();
@@ -252,7 +252,7 @@ public class CineplexModule implements ModuleInterface {
                 case 1:
                     selectMovie();
                     show.setMovie(movieObj);
-                    System.out.println("Movie has been successfully updated");
+                    System.out.println("Movie has been successfully updated.");
                     main = false;
                     break;
 
@@ -268,7 +268,7 @@ public class CineplexModule implements ModuleInterface {
                             dateTime = LocalDateTime.parse(date, myFormatObj);
                             if (dateTime.compareTo(movieObj.getEndOfShowingDate())<0) {
                                 show.setShowTime(dateTime);
-                                System.out.println("Showtime has been updated");
+                                System.out.println("Showtime has been updated.");
                                 DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
                                 int day = dayofWeek.getValue();
                                 LocalDate date_check = dateTime.toLocalDate();
@@ -277,7 +277,6 @@ public class CineplexModule implements ModuleInterface {
                                 for (int i=0; i<holidayDates.size(); i++) {
                                     if (holidayDates.get(i).equals(date_check)) {
                                         inputDayType = DayType.PUBLIC_HOLIDAY;
-                                        System.out.println("Public holiday detected");
                                         filter = false;
                                     }
                                 }
@@ -291,10 +290,10 @@ public class CineplexModule implements ModuleInterface {
                                 main = false;
                                 break;
                             } else {
-                                System.out.println("Error: Showtime keyed in exceeds movie's end of showing date. Please try again");
+                                System.out.println("Error: Showtime keyed in exceeds movie's end of showing date. Please try again.");
                             }
                         } catch (Exception e) {
-                            System.out.println("Error: Invalid date format. Please try again");
+                            System.out.println("Error: Invalid date format. Please try again.");
                         }
                     }
                     break;
@@ -303,7 +302,7 @@ public class CineplexModule implements ModuleInterface {
                     break;
                 }
             } else {
-                System.out.println("Error: Key in a valid value");
+                System.out.println("Error: Key in a valid value.");
             }
         }
         CineplexDB cineplexDB = new CineplexDB();

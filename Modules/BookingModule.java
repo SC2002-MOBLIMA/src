@@ -63,6 +63,8 @@ public class BookingModule implements ModuleInterface {
         System.out.print("Please enter your choice: ");
 
         int choice = sc.nextInt();
+        System.out.println("***********************************************");
+
         switch (choice) {
             case 1:
                 displayAllCinemaShowings();
@@ -77,10 +79,11 @@ public class BookingModule implements ModuleInterface {
                 break;
 
             case 4:
-                bookSeat();
+                bookSeats();
                 break;
 
             case 5:
+                System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Reselect Cineplex):\n");
                 selectCineplex();
                 break;
 
@@ -89,13 +92,14 @@ public class BookingModule implements ModuleInterface {
                 break;
 
             default:
-                System.out.println("Invalid Choice, Please try again.\n");
+                System.out.println("Error: Invalid Choice, Please try again.\n");
                 break;
         }
         }
     }
 
     private void displayAllCinemaShowings() {
+        System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Display All Cinema Showings):\n");
         for (Cinema cinema : cinemaList) {
             System.out.println("Cinema " + cinema.getCinemaNum() + ":");
             cinema.displayAvailableShows();
@@ -104,12 +108,14 @@ public class BookingModule implements ModuleInterface {
     }
 
     private void displayCinemaShowings() {
+        System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Display Cinema Showings):\n");
         Cinema cinemaObj = selectCinema();
         cinemaObj.displayAvailableShows();
         System.out.println();
     }
 
     private void checkSeatAvailability() {
+        System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Check Seat Availability):\n");
         Cinema cinemaObj = selectCinema();
         cinemaObj.displayAvailableShows();
 
@@ -121,7 +127,8 @@ public class BookingModule implements ModuleInterface {
         showingObj.printSeating();
     }
 
-    private void bookSeat() {
+    private void bookSeats() {
+        System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Book Seats):\n");
         Cinema cinemaObj = selectCinema();
         cinemaObj.displayAvailableShows();
 
@@ -175,7 +182,7 @@ public class BookingModule implements ModuleInterface {
                     break;
                 } else {
                     System.out.print("Ticket " + ticketCount + " | ");
-                    System.out.println("Seat already occupied, Please try again.\n");
+                    System.out.println("Error: Seat already occupied, Please try again.\n");
                 }
             } while (true);
             
@@ -188,7 +195,7 @@ public class BookingModule implements ModuleInterface {
                 if (confirmInput == 'Y' || confirmInput == 'N') {
                     break;
                 } else {
-                    System.out.println("Invalid input, Please try again\n");
+                    System.out.println("Error: Invalid input, Please try again.\n");
                 }
             } while (true);
 
@@ -217,20 +224,27 @@ public class BookingModule implements ModuleInterface {
             if (confirmInput == 'Y' || confirmInput == 'N') {
                 break;
             } else {
-                System.out.println("Invalid input, Please try again\n");
+                System.out.println("Error: Invalid input, Please try again.\n");
             }
         } while (true);
         System.out.println("***********************************************");
         if (confirmInput == 'Y') {
-            System.out.println("Booking Successful! Here are the details of your Movie Ticket(s)\n");
+            System.out.println("Booking Successful! Here are the details of your Movie Ticket(s): \n");
             for (Map.Entry<String, Double> entry: idPriceMap.entrySet()) {
                 String seatId = entry.getKey();
                 double price = entry.getValue();
                 MovieTicket movieTicket = new MovieTicket(movieGoerObj, price, showingObj, cineplexObj, cinemaObj, seatId);
                 movieGoerObj.addMovieTicket(movieTicket);
-                movieObj.incrementSaleCount();
 
-                System.out.println("Movie Ticket " + (seatId + 1) + ": ");
+                // increment movie sales
+                movieObj.incrementSaleCount();
+                for (Movie m: movieList) {
+                    if (m.equals(movieObj)) {
+                        m.incrementSaleCount();
+                    }
+                }
+
+                System.out.println("Movie Ticket " + seatId + ": ");
                 movieTicket.printTicket();
             }
         } else {
@@ -259,7 +273,7 @@ public class BookingModule implements ModuleInterface {
             choice = sc.nextInt();
             choice = choice < 1 || choice > cineplexSize ? 0 : choice;
             if (choice == 0) {
-                System.out.println("Invalid choice, Please try again.\n");
+                System.out.println("Error: Invalid choice, Please try again.\n");
             } else {
                 break;
             }
@@ -277,7 +291,7 @@ public class BookingModule implements ModuleInterface {
             cinemaChoice = sc.nextInt();
             cinemaChoice = cinemaChoice < 1 || cinemaChoice > cinemaSize ? 0 : cinemaChoice;
             if (cinemaChoice == 0) {
-                System.out.println("Invalid choice, Please try again.\n");
+                System.out.println("Error: Invalid choice, Please try again.\n");
             } else {
                 break;
             }
@@ -289,11 +303,11 @@ public class BookingModule implements ModuleInterface {
     private Showing selectShowing(Cinema cinema) {
         Showing showing;
         do {
-            System.out.print("Please enter the ID of the show of your choice: ");
+            System.out.print("Please enter the show of your choice: ");
             int showingId = sc.nextInt();
             showing = cinema.searchShow(showingId);
             if (showing == null) {
-                System.out.println("Invalid Showing ID, Please try again. \n");
+                System.out.println("Error: Invalid choice, Please try again. \n");
             } else {
                 break;
             }

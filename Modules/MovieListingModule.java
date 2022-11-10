@@ -102,9 +102,9 @@ public class MovieListingModule implements ModuleInterface {
         }
         if (foundMovie) {
             movieDB.write(movieList);
-            System.out.println("Movie Listing successfully updated");
+            System.out.println("Movie Listing successfully updated.");
         } else {
-            System.out.println("Movie not found");
+            System.out.println("Movie not found.");
         }
         System.out.println("***********************************************");
     }
@@ -140,7 +140,7 @@ public class MovieListingModule implements ModuleInterface {
                         if (updateChoice <= 4 && updateChoice >= 1) {
                             break;
                         } else {
-                            System.out.println("Error: Invalid Movie Status. Please try again");
+                            System.out.println("Error: Invalid Movie Status. Please try again.");
                         }
                     }
                     MovieStatusType status = MovieStatusType.values()[updateChoice-1];
@@ -170,7 +170,7 @@ public class MovieListingModule implements ModuleInterface {
                         if (updateChoice <= 3 && updateChoice >= 1) {
                             break;
                         } else {
-                            System.out.println("Error: Invalid Movie Type. Please try again");
+                            System.out.println("Error: Invalid Movie Type. Please try again.");
                         }
                     }
                     MovieType type = MovieType.values()[updateChoice-1];
@@ -186,7 +186,7 @@ public class MovieListingModule implements ModuleInterface {
                             endOfShowingDate = LocalDateTime.parse(dateString + " 00:00", dtFormatter);
                             break;
                         } catch (Exception e) {
-                            System.out.println("Error: Invalid Date Format. Please try again");
+                            System.out.println("Error: Invalid Date Format. Please try again.");
                         }
                     }
                     movie.setEndOfShowingDate(endOfShowingDate);
@@ -195,7 +195,7 @@ public class MovieListingModule implements ModuleInterface {
                     run = false;
                     break;
                 default:
-                    System.out.println("Error: Invalid Choice, Please try again");
+                    System.out.println("Error: Invalid Choice, Please try again.");
                     break;
             }
             } while (run);
@@ -227,9 +227,9 @@ public class MovieListingModule implements ModuleInterface {
         if (foundMovie) {
             movieDB.write(movieList);
             cineplexDB.write(cineplexList);
-            System.out.println("Movie Listing successfully removed");
+            System.out.println("Movie Listing successfully removed.");
         } else {
-            System.out.println("Movie not found");
+            System.out.println("Movie not found.");
         }
 
         System.out.println("***********************************************");
@@ -253,7 +253,7 @@ public class MovieListingModule implements ModuleInterface {
             if (choice <= 4 && choice >= 1) {
                 break;
             } else {
-                System.out.println("Error: Invalid Movie Status. Please try again\n");
+                System.out.println("Error: Invalid Movie Status. Please try again.\n");
             }
         }
         MovieStatusType status = MovieStatusType.values()[choice-1];
@@ -276,7 +276,7 @@ public class MovieListingModule implements ModuleInterface {
             if (choice <= 3 && choice >= 1) {
                 break;
             } else {
-                System.out.println("Error: Invalid Movie Type. Please try again");
+                System.out.println("Error: Invalid Movie Type. Please try again.");
             }
         }
         MovieType type = MovieType.values()[choice-1];
@@ -293,11 +293,11 @@ public class MovieListingModule implements ModuleInterface {
                 movieDB.write(movieList);
                 break;
             } catch (Exception e) {
-                System.out.println("Error: Invalid Date Format. Please try again");
+                System.out.println("Error: Invalid Date Format. Please try again.");
             }
         }
 
-        System.out.println("New Movie Listing successfully added");
+        System.out.println("New Movie Listing successfully added.");
         System.out.println("***********************************************");
     }
 
