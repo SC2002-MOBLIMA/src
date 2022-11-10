@@ -44,12 +44,12 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
             System.out.println("***********************************************");
             System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObj.getName() + "):");
             System.out.println("[1] Search Movies\n"
-                    + "[2] List movies\n"
-                    + "[3] View movie details\n"
+                    + "[2] List Movies\n"
+                    + "[3] View Movie Details\n"
                     + "[4] Book Seats\n"
-                    + "[5] View Booking history\n"
-                    + "[6] List top 5 movies based on sales\n"
-                    + "[7] List top 5 movies based on ratings\n"
+                    + "[5] View Booking History\n"
+                    + "[6] List Top 5 Movies Based on Sales\n"
+                    + "[7] List Top 5 Movies Based on Ratings\n"
                     + "[8] Exit");
             System.out.print("Please select an option: ");
             input = sc.nextInt();
@@ -155,7 +155,6 @@ public class MovieGoerModule implements ModuleInterface, LoginModuleInterface {
                         System.out.println("\n Overall rating: " + m.getOverallRating());
                     } catch (ArithmeticException e) {
                         ;
-
                     }
 
                     System.out.println("Sales Count: " + m.getSaleCount());

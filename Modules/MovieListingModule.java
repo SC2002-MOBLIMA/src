@@ -44,11 +44,23 @@ public class MovieListingModule implements ModuleInterface {
                 case 1:
                     System.out.println("***********************************************");
                     System.out.println("MOBLIMA -- Movie Listing Module (Display All Movie Listings):");
-                    System.out.println("List of movies: ");
+                    ArrayList<String> movieNames = new ArrayList<String>();
                     for (Movie m: movieList) {
-                        String name = m.getTitle();
-                        System.out.println(name);
+                        if (m.getStatus() != MovieStatus.END_OF_SHOWING) {
+                            String name = m.getTitle();
+                            movieNames.add(name);
+                        }
                     }
+
+                    if (movieNames.isEmpty()) {
+                        System.out.println("No Movies Found. ");
+                    } else {
+                        System.out.println("List of movies: ");
+                        for (String name: movieNames) {
+                            System.out.println(name);
+                        }
+                    }
+                    
                     break;
 
                 case 2:
@@ -190,9 +202,7 @@ public class MovieListingModule implements ModuleInterface {
         String title = sc.nextLine();
         for (Movie m : movieList) {
             if (m.getTitle().equalsIgnoreCase(title)) {
-                movieList.remove(m);
-                m.setStatus(MovieStatus.COMING_SOON);
-                movieList.add(m);
+                m.setStatus(MovieStatus.END_OF_SHOWING);
                 foundMovie = true;
             }
         }

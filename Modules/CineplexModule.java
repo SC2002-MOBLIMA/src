@@ -12,6 +12,7 @@ import Databases.CineplexDB;
 import Databases.SettingsDB;
 
 import Enums.DateType;
+import Enums.MovieStatus;
 import Interfaces.ModuleInterface;
 import Objects.Cineplex;
 import Objects.Cinema;
@@ -118,15 +119,23 @@ public class CineplexModule implements ModuleInterface {
         boolean main = true;
         while (main) {
             MovieDB movieDB = new MovieDB();
-            ArrayList<Movie> movieList = (ArrayList<Movie>) movieDB.read();
-            for (int i = 0; i < movieList.size(); i++) {
-                System.out.println("[" + (i + 1) + "] " + movieList.get(i).getTitle());
+            ArrayList<Movie> movieList = movieDB.read();
+            ArrayList<Movie> currentMovies = new ArrayList<Movie>();
+            
+            for (Movie m: movieList) {
+                if (m.getStatus() != MovieStatus.END_OF_SHOWING) {
+                    currentMovies.add(m);
+                }
+            }
+
+            for (int i = 0; i < currentMovies.size(); i++) {
+                System.out.println("[" + (i + 1) + "] " + currentMovies.get(i).getTitle());
             }
             System.out.print("Please key in the number of the movie that you would like: ");
             int selection = sc.nextInt();
-            if (!(selection < 1 || selection > movieList.size())) {
+            if (!(selection < 1 || selection > currentMovies.size())) {
                 main = false;
-                movieObj = movieList.get(selection - 1);
+                movieObj = currentMovies.get(selection - 1);
             } else {
                 System.out.println("Error: Invalid value keyed in. Please try again\n");
             } 
