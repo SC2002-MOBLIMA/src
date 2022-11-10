@@ -6,8 +6,8 @@ import Enums.DateType;
 import Enums.SeatType;
 
 // // For Testing
-import Enums.*;
-import java.util.ArrayList;
+// import Enums.*;
+// import java.util.ArrayList;
 
 public class RegularShowing extends Showing {
   public RegularShowing(Movie movie, LocalDateTime showTime, DateType dateType) {
@@ -26,30 +26,30 @@ public class RegularShowing extends Showing {
     this.seatLayout = layout;
   }
 
-  public static void main(String[] args) {
-    ArrayList<String> cast = new ArrayList<>();
-    cast.add("ABC");
-    cast.add("ABC");
-    String[] c = { "A", "Iron B" };
-    Movie m = new Movie("Spider Man", MovieStatus.NOW_SHOWING, "Spider Man", "Spider Man", cast, MovieType.BLOCKBUSTER, LocalDateTime.now());
-    LocalDateTime lTime = LocalDateTime.now();
-    DateType dateType = DateType.WEEKEND;
-    Showing showing = new RegularShowing(m, lTime, dateType);
+  // public static void main(String[] args) {
+  //   ArrayList<String> cast = new ArrayList<>();
+  //   cast.add("ABC");
+  //   cast.add("ABC");
+  //   String[] c = { "A", "Iron B" };
+  //   Movie m = new Movie("Spider Man", MovieStatus.NOW_SHOWING, "Spider Man", "Spider Man", cast, MovieType.BLOCKBUSTER, LocalDateTime.now());
+  //   LocalDateTime lTime = LocalDateTime.now();
+  //   DateType dateType = DateType.WEEKEND;
+  //   Showing showing = new RegularShowing(m, lTime, dateType);
 
-    showing.getFormattedTime();
-    showing.printSeating();
-    System.out.println();
+  //   showing.getFormattedTime();
+  //   showing.printSeating();
+  //   System.out.println();
 
-    MovieGoer movieGoer = new MovieGoer(null, null, null, null);
-    Seat[][] layout = showing.getSeatLayout();
-    layout[0][0].assignSeat(movieGoer);
-    showing.printSeating();
-    System.out.println(showing.isAvailable("A1"));
+  //   MovieGoer movieGoer = new MovieGoer(null, null, null, null);
+  //   Seat[][] layout = showing.getSeatLayout();
+  //   layout[0][0].assignSeat(movieGoer);
+  //   showing.printSeating();
+  //   System.out.println(showing.isAvailable("A1"));
 
-    showing.assignSeat(movieGoer, "A2");
-    showing.assignSeat(movieGoer, "I1");
-    showing.assignSeat(movieGoer, "H6");
-    showing.assignSeat(movieGoer, "H5");
-    showing.printSeating();
-  }
+  //   showing.assignSeat(movieGoer, "A2");
+  //   showing.assignSeat(movieGoer, "I1");
+  //   showing.assignSeat(movieGoer, "H6");
+  //   showing.assignSeat(movieGoer, "H5");
+  //   showing.printSeating();
+  // }
 }
