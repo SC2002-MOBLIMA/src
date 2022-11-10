@@ -153,6 +153,7 @@ public class SettingsModule implements ModuleInterface {
               );
             }
           }
+          System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t| " + SeatType.values()[3].name() + ": x" + settingsObj.getSeatTypePrice(SeatType.values()[3].name()));
           break;
 
         case 2:
@@ -273,12 +274,3 @@ public class SettingsModule implements ModuleInterface {
     }
   }
 }
-
-// // New Blank data for Settings DB
-// ArrayList mockdata = new ArrayList();
-// mockdata.add(new HashMap<String, Integer>());
-// mockdata.add(new HashMap<String, Integer>());
-// mockdata.add(new HashMap<String, Integer>());
-// mockdata.add(new HashMap<String, Integer>());
-// mockdata.add(new ArrayList());
-// settingsDB.write(mockdata);

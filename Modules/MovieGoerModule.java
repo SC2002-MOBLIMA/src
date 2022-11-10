@@ -13,9 +13,12 @@ import Objects.Movie;
 import Objects.Review;
 import Objects.Showing;
 import Objects.MovieTicket;
+
 import Enums.MovieStatusType;
+
 import Interfaces.LoginInterface;
 import Interfaces.ModuleInterface;
+
 import Comparators.SortByRating;
 import Comparators.SortBySales;
 
@@ -189,10 +192,12 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         allMovies = movieDB.read();
         Collections.sort(allMovies, new SortByRating());
         for (Movie m : allMovies) {
-            System.out.print("[" + counter + "] ");
-            System.out.print(m.getTitle());
-            System.out.print(" - Overall Rating: " + m.getOverallRating() + "\n");
-            counter++;
+            if (m.getStatus() == MovieStatusType.NOW_SHOWING) {
+                System.out.print("[" + counter + "] ");
+                System.out.print(m.getTitle());
+                System.out.print(" - Overall Rating: " + m.getOverallRating() + "\n");
+                counter++;
+            }
 
             if (counter >= 6) {
                 break;
@@ -208,10 +213,12 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         allMovies = movieDB.read();
         Collections.sort(allMovies, new SortBySales());
         for (Movie m : allMovies) {
-            System.out.print("[" + counter + "] ");
-            System.out.print(m.getTitle());
-            System.out.print(" - Total Sales: " + m.getSaleCount() + "\n");
-            counter++;
+            if (m.getStatus() == MovieStatusType.NOW_SHOWING) {
+                System.out.print("[" + counter + "] ");
+                System.out.print(m.getTitle());
+                System.out.print(" - Total Sales: " + m.getSaleCount() + "\n");
+                counter++;
+            }
 
             if (counter >= 6) {
                 break;

@@ -1,5 +1,7 @@
 package Modules;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
@@ -161,8 +163,9 @@ public class BookingModule implements ModuleInterface {
                     CinemaType cinemaClass = cinemaObj.getCinemaType();
                     AgeType movieGoerAge = movieGoerObj.getAgeType();
                     DayType showingDayType = showingObj.getDayType();
+                    LocalDateTime showingTime = showingObj.getShowTime();
                     SeatType seatType = showingObj.getSeatType(seatId);
-                    double price = calculatePrice(movieType, cinemaClass, movieGoerAge, showingDayType, seatType);
+                    double price = calculatePrice(movieType, cinemaClass, movieGoerAge, showingDayType, seatType, showingTime);
 
                     totalPrice += price;
                     idPriceMap.put(seatId, price);
@@ -206,11 +209,54 @@ public class BookingModule implements ModuleInterface {
             ticketCount += ticketsBooked;
         }
 
+        String payment = "";
+        do {
+            System.out.println("[1] Cash");
+            System.out.println("[2] Debit Card");
+            System.out.println("[3] Credit Card");
+            System.out.println("[4] Mobile Transfer");
+            System.out.println("[5] Vouchers");
+            System.out.print("Ticket " + ticketCount + " | Please key in your preferred payment method: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            if (choice < 1 || choice > 5) {
+                System.out.println("Error: Invalid Choice. Please try again.");
+            } else {
+                switch (choice) {
+                    case 1:
+                        payment = "Cash";
+                        break;
+
+                    case 2:
+                        payment = "Debit Card";
+                        break;
+
+                    case 3:
+                        payment = "Credit Card";
+                        break;
+
+                    case 4:
+                        payment = "Mobile Transfer";
+                        break;
+
+                    case 5:
+                        payment = "Vouchers";
+                        break;
+                
+                    default:
+                        break;
+                }
+                break;
+            }
+        } while (true);
+
         System.out.println("Please confirm the details of your booking: ");
         System.out.println("Movie:\t\t" + movieObj.getTitle());
         System.out.println("Cineplex:\t" + cineplexObj.getCineplexName());
         System.out.println("Cinema:\t\t" + cinemaObj.getCinemaNum());
         System.out.println("Price:\t\t" + totalPrice);
+        System.out.println("Payment: \t" + payment);
         System.out.println("Time:\t\t" + showingObj.getFormattedTime());
         System.out.print("Seats:\t\t");
         for (String seatId: idPriceMap.keySet()) {
@@ -318,11 +364,11 @@ public class BookingModule implements ModuleInterface {
 
     // PRICE HELPER
 
-    private double calculatePrice(MovieType movieType, CinemaType cinemaClass, AgeType movieGoerAge, DayType showingDayType, SeatType seatType) {
+    private double calculatePrice(MovieType movieType, CinemaType cinemaClass, AgeType movieGoerAge, DayType showingDayType, SeatType seatType, LocalDateTime showTime) {
         String movieTypeChoice = movieType.name();
         String cinemaClassChoice = cinemaClass.name();
         String movieGoerAgeChoice = movieGoerAge.name();
-        String showingDayTypeChoice = showingDayType.name();
+        // String showingDayTypeChoice = showingDayType.name();
         String seatTypeChoice = seatType.name();
 
         // MovieType
@@ -332,13 +378,22 @@ public class BookingModule implements ModuleInterface {
         double cinemaClassPrice = settingsObj.getCinemaClassPrice(cinemaClassChoice);
         price *= cinemaClassPrice;
 
-        // MovieGoer Age
+        // MovieGoer Age + DayType
         double movieGoerAgePrice = settingsObj.getAgeTypePrice(movieGoerAgeChoice);
-        price *= movieGoerAgePrice;
-
-        // DayType
-        double showingDayTypePrice = settingsObj.getDayTypePrice(showingDayTypeChoice);
-        price *= showingDayTypePrice;
+        // double showingDayTypePrice = settingsObj.getDayTypePrice(showingDayTypeChoice);
+        DayOfWeek dow = DayOfWeek.from(showTime);
+        int day = dow.getValue();
+        if (showingDayType == DayType.PUBLIC_HOLIDAY) {
+            price *= settingsObj.getAgeTypePrice("PUBLIC_HOLIDAY");
+        } else if (showingDayType == DayType.WEEKDAY && showTime.getHour() < 18 && (movieGoerAge == AgeType.SENIOR || movieGoerAge == AgeType.CHILD)) {
+            price *= movieGoerAgePrice;
+        } else if ((day == 5 && showTime.getHour() >= 18) || showingDayType == DayType.WEEKEND) {
+            price *= settingsObj.getDayTypePrice("WEEKEND");
+            price *= settingsObj.getAgeTypePrice("ADULT");
+        } else {
+            price *= settingsObj.getDayTypePrice("WEEKDAY");
+            price *= settingsObj.getAgeTypePrice("ADULT");
+        }
 
 
         // SeatType

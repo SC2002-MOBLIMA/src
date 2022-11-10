@@ -120,7 +120,7 @@ public class Movie implements Serializable, Comparable<Movie> {
   }
 
   public double getOverallRating() {
-    int totalRating = 0;
+    double totalRating = 0;
     int count = 0;
     for (Review r : reviewList) {
       totalRating += r.getRating();
@@ -130,7 +130,7 @@ public class Movie implements Serializable, Comparable<Movie> {
     if (count == 0) {
       return 0;
     } else {
-      return totalRating / count; 
+      return (totalRating / count); 
     }
   }
 

@@ -165,7 +165,7 @@ public class CineplexModule implements ModuleInterface {
             }
         }
 
-        DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
+        DayOfWeek dayofWeek = DayOfWeek.from(dateTime);
         int day = dayofWeek.getValue();
         
         SettingsDB settingsDB = new SettingsDB();
