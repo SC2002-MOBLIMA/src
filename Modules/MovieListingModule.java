@@ -24,48 +24,48 @@ public class MovieListingModule implements ModuleInterface {
     public void run() {
         boolean running = true;
         while (running) {
-        System.out.println("***********************************************");
-        System.out.println("MOBLIMA -- Admin -- Movie Listing Module:");
-        MovieDB movieDB = new MovieDB();
-        movieList = (ArrayList<Movie>) movieDB.read();
-        if (movieList == null) {
-            movieList = new ArrayList<Movie>();
-        }
-        System.out.println("[1] Display All Movie Listings");
-        System.out.println("[2] Create New Movie Listing");
-        System.out.println("[3] Update Movie Listing");
-        System.out.println("[4] Remove Movie Listing");
-        System.out.println("[5] Back");
-        System.out.print("Please enter your choice: ");
-        int choice = sc.nextInt();
-        sc.nextLine();
+            System.out.println("***********************************************");
+            System.out.println("MOBLIMA -- Admin -- Movie Listing Module:");
+            MovieDB movieDB = new MovieDB();
+            movieList = (ArrayList<Movie>) movieDB.read();
+            if (movieList == null) {
+                movieList = new ArrayList<Movie>();
+            }
+            System.out.println("[1] Display All Movie Listings");
+            System.out.println("[2] Create New Movie Listing");
+            System.out.println("[3] Update Movie Listing");
+            System.out.println("[4] Remove Movie Listing");
+            System.out.println("[5] Back");
+            System.out.print("Please enter your choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
 
-        switch (choice) {
-            case 1:
-                System.out.println("***********************************************");
-                System.out.println("MOBLIMA -- Movie Listing Module (Display All Movie Listings):");
-                System.out.println("List of movies: ");
-                for (Movie m: movieList) {
-                    String name = m.getTitle();
-                    System.out.println(name);
-                }
-                break;
+            switch (choice) {
+                case 1:
+                    System.out.println("***********************************************");
+                    System.out.println("MOBLIMA -- Movie Listing Module (Display All Movie Listings):");
+                    System.out.println("List of movies: ");
+                    for (Movie m: movieList) {
+                        String name = m.getTitle();
+                        System.out.println(name);
+                    }
+                    break;
 
-            case 2:
-                createNewMovieListing(movieDB);
-                break;
+                case 2:
+                    createNewMovieListing(movieDB);
+                    break;
 
-            case 3:
-                updateMovieListing(movieDB);
-                break;
+                case 3:
+                    updateMovieListing(movieDB);
+                    break;
 
-            case 4:
-                removeMovieListing(movieDB);
-                break;
+                case 4:
+                    removeMovieListing(movieDB);
+                    break;
 
-            case 5:
-                running = false;
-                break;
+                case 5:
+                    running = false;
+                    break;
             }
         }
     }

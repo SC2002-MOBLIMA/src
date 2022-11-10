@@ -71,10 +71,10 @@ public class AdminModule implements ModuleInterface, LoginModuleInterface {
             System.out.print("Please enter your password: ");
             String password = sc.next();
 
-            System.out.println("Admin: " + username + " Password: " + password);
+            // System.out.println("Admin: " + username + " Password: " + password);
 
             for (Admin admin : adminList) {
-                System.out.println("Admin: " + admin.getUsername() + " Password: " + admin.getPassword());
+                // System.out.println("Admin: " + admin.getUsername() + " Password: " + admin.getPassword());
                 if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
                     isLoggedIn = true;
                     System.out.println("\nWelcome, " + username + "!\n");
