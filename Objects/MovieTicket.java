@@ -43,4 +43,8 @@ public class MovieTicket implements Serializable {
         System.out.println("Price: " + price + " | Time: " + showing.getFormattedTime() + " | Seat: " + seatId);
         System.out.println("***********************************************");
     }
+
+    public Showing getShowing() {
+        return showing;
+    }
 }

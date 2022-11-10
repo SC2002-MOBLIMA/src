@@ -2,13 +2,16 @@ package Modules;
 
 import java.util.Scanner;
 import java.util.Collections;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
+
 import Databases.MovieDB;
 import Databases.MovieGoerDB;
 
-import java.util.ArrayList;
 import Objects.MovieGoer;
 import Objects.Movie;
 import Objects.Review;
+import Objects.Showing;
 import Objects.MovieTicket;
 import Enums.MovieStatusType;
 import Interfaces.LoginInterface;
@@ -50,7 +53,8 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     + "[5] View Booking History\n"
                     + "[6] List Top 5 Movies Based on Sales\n"
                     + "[7] List Top 5 Movies Based on Ratings\n"
-                    + "[8] Back");
+                    + "[8] Add Movie Review"
+                    + "[9] Back");
             System.out.print("Please select an option: ");
             input = sc.nextInt();
             sc.nextLine();
@@ -105,6 +109,10 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     break;
 
                 case 8:
+                    addMovieReview();
+                    break;
+
+                case 9:
                     break;
 
             }
@@ -212,6 +220,66 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
 
             if (counter >= 6) {
                 break;
+            }
+        }
+    }
+
+    private void addMovieReview() {
+        System.out.println("MOBLIMA -- Movie Goer Module (Add Movie Review): \n");
+        MovieDB movieDB = new MovieDB();
+        allMovies = movieDB.read();
+
+        ArrayList<MovieTicket> mtList = movieGoerObj.getMovieTicketList();
+        ArrayList<Movie> pastMovieList = new ArrayList<Movie>();
+        for (MovieTicket mt : mtList) {
+            Showing s = mt.getShowing();
+            if (LocalDateTime.now().compareTo(s.getShowTime()) < 0) {
+                Movie m = s.getMovie();
+                pastMovieList.add(m);
+            }
+        }
+
+        if (pastMovieList.isEmpty()) {
+            System.out.println("No Past Movies.");
+        } else {
+            for (int i = 0; i<pastMovieList.size(); i++) {
+                Movie m = pastMovieList.get(i);
+                System.out.println("[" + (i+1) + "]: " + m.getTitle());
+            }
+            System.out.println("Enter the movie which you would like to review: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            Movie chosenMovie = pastMovieList.get(choice-1);
+            boolean foundMovie = false;
+
+            for (Movie m: allMovies) {
+                if (m.equals(chosenMovie)) {
+                    Movie movieToUpdate = m;
+                    int rating = 0;
+                    while (true) {
+                        System.out.print("Key in your Movie Rating (1-5): ");
+                        rating = sc.nextInt();
+                        sc.nextLine();
+        
+                        if (rating < 1 || rating > 5) {
+                            System.out.println("Error: Invalid Rating. Please try again.");
+                        } else {
+                            break;
+                        }
+                    }
+        
+                    System.out.print("Key in your Movie Review: ");
+                    String reviewString = sc.nextLine();
+        
+                    movieToUpdate.addReview(movieGoerObj.getName(), rating, reviewString);
+                    foundMovie = true;
+                    break;
+                }
+            }
+
+            if (!foundMovie) {
+                System.out.println("No Past Movies.");
             }
         }
     }
