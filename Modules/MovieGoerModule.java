@@ -43,7 +43,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         login();
 
         int input = 0;
-        while (input != 8) {
+        while (input != 9) {
             System.out.println("***********************************************");
             System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObj.getName() + "):");
             System.out.println("[1] Search Movies\n"
@@ -53,7 +53,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     + "[5] View Booking History\n"
                     + "[6] List Top 5 Movies Based on Sales\n"
                     + "[7] List Top 5 Movies Based on Ratings\n"
-                    + "[8] Add Movie Review"
+                    + "[8] Add Movie Review\n"
                     + "[9] Back");
             System.out.print("Please select an option: ");
             input = sc.nextInt();
@@ -173,12 +173,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                         System.out.println("-");
                     }
 
-                    try {
-                        System.out.println("\n Overall rating: " + m.getOverallRating());
-                    } catch (ArithmeticException e) {
-                        ;
-                    }
-
+                    System.out.println("\n Overall rating: " + m.getOverallRating());
                     System.out.println("Sales Count: " + m.getSaleCount());
                     System.out.println("Movie Type: " + m.getType() + "\n");
                 }
@@ -235,7 +230,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
             Showing s = mt.getShowing();
             if (LocalDateTime.now().compareTo(s.getShowTime()) < 0) {
                 Movie m = s.getMovie();
-                pastMovieList.add(m);
+                if (!pastMovieList.contains(m)) {
+                    pastMovieList.add(m);
+                }
             }
         }
 
@@ -246,7 +243,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                 Movie m = pastMovieList.get(i);
                 System.out.println("[" + (i+1) + "]: " + m.getTitle());
             }
-            System.out.println("Enter the movie which you would like to review: ");
+            System.out.print("Enter the movie which you would like to review: ");
             int choice = sc.nextInt();
             sc.nextLine();
 
@@ -255,7 +252,6 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
 
             for (Movie m: allMovies) {
                 if (m.equals(chosenMovie)) {
-                    Movie movieToUpdate = m;
                     int rating = 0;
                     while (true) {
                         System.out.print("Key in your Movie Rating (1-5): ");
@@ -272,7 +268,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     System.out.print("Key in your Movie Review: ");
                     String reviewString = sc.nextLine();
         
-                    movieToUpdate.addReview(movieGoerObj.getName(), rating, reviewString);
+                    m.addReview(movieGoerObj.getName(), rating, reviewString);
+                    movieDB.write(allMovies);
+                    System.out.println("Movie Review Added.");
                     foundMovie = true;
                     break;
                 }
