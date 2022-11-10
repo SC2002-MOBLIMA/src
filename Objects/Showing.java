@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import Enums.DateType;
+import Enums.DayType;
 import Enums.SeatType;
 
 import Databases.CineplexDB;
@@ -13,13 +13,13 @@ abstract public class Showing implements Serializable {
   private int id;
   private Movie movie;
   private LocalDateTime showTime; // YYYY-MM-DDT00:00:00
-  private DateType dateType; // Weekend / Weekday / PublicHoliday
+  private DayType dayType; // Weekend / Weekday / PublicHoliday
   protected Seat[][] seatLayout; // 9 rows, 8 columns
 
-  public Showing(Movie movie, LocalDateTime showTime, DateType dateType) {
+  public Showing(Movie movie, LocalDateTime showTime, DayType dayType) {
     this.movie = movie;
     this.showTime = showTime;
-    this.dateType = dateType;
+    this.dayType = dayType;
     this.id = CineplexDB.generateShowingId();
   }
 
@@ -43,12 +43,12 @@ abstract public class Showing implements Serializable {
     return this.movie = movie;
   }
 
-  public DateType getDateType() {
-    return this.dateType;
+  public DayType getDayType() {
+    return this.dayType;
   }
 
-  public DateType setDateType(DateType dateType){
-    return this.dateType = dateType;
+  public DayType setDayType(DayType dayType){
+    return this.dayType = dayType;
   }
 
   public String getFormattedTime() {

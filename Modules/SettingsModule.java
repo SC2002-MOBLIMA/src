@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import Databases.SettingsDB;
 import Enums.AgeType;
 import Enums.CinemaType;
-import Enums.DateType;
+import Enums.DayType;
 import Enums.MovieType;
 import Enums.SeatType;
 import Interfaces.ModuleInterface;
@@ -125,7 +125,7 @@ public class SettingsModule implements ModuleInterface {
             String movieType = MovieType.values()[i].name();
             String cinemaClass = CinemaType.values()[i].name();
             String ageType = AgeType.values()[i].name();
-            String dayType = DateType.values()[i].name();
+            String dayType = DayType.values()[i].name();
             String seatType = SeatType.values()[i].name();
             if (i == 0) {
               System.out.println(
@@ -215,7 +215,7 @@ public class SettingsModule implements ModuleInterface {
             dayTypeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice-2, DateType.values()[dayTypeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice-2, DayType.values()[dayTypeChoice-1].name());
           break;
 
         case 7:

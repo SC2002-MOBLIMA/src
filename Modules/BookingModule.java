@@ -11,7 +11,7 @@ import Databases.SettingsDB;
 import Enums.AgeType;
 import Enums.CinemaType;
 import Enums.MovieType;
-import Enums.DateType;
+import Enums.DayType;
 import Enums.SeatType;
 
 import Interfaces.ModuleInterface;
@@ -149,9 +149,9 @@ public class BookingModule implements ModuleInterface {
                     MovieType movieType = movie.getType();
                     CinemaType cinemaClass = cinemaObj.getCinemaType();
                     AgeType movieGoerAge = movieGoerObj.getAgeType();
-                    DateType showingDateType = showingObj.getDateType();
+                    DayType showingDayType = showingObj.getDayType();
                     SeatType seatType = showingObj.getSeatType(seatId);
-                    double price = calculatePrice(movieType, cinemaClass, movieGoerAge, showingDateType, seatType);
+                    double price = calculatePrice(movieType, cinemaClass, movieGoerAge, showingDayType, seatType);
 
                     totalPrice += price;
                     idPriceMap.put(seatId, price);
@@ -318,8 +318,8 @@ public class BookingModule implements ModuleInterface {
         price *= movieGoerAgePrice;
 
         // DateType
-        double showingDateTypePrice = settingsObj.getDayTypePrice(showingDateTypeChoice);
-        price *= showingDateTypePrice;
+        double showingDayTypePrice = settingsObj.getDayTypePrice(showingDateTypeChoice);
+        price *= showingDayTypePrice;
 
 
         // SeatType

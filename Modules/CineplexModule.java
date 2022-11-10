@@ -11,7 +11,7 @@ import Databases.MovieDB;
 import Databases.CineplexDB;
 import Databases.SettingsDB;
 
-import Enums.DateType;
+import Enums.DayType;
 import Enums.MovieStatus;
 import Interfaces.ModuleInterface;
 import Objects.Cineplex;
@@ -173,21 +173,21 @@ public class CineplexModule implements ModuleInterface {
         holidayDates = settingsObj.getHolidayDates();
         LocalDate date = dateTime.toLocalDate();
 
-        DateType inputDateType = DateType.WEEKDAY;
+        DayType inputDayType = DayType.WEEKDAY;
         
         boolean filter = true;
         for(int i=0; i<holidayDates.size(); i++){
             if(holidayDates.get(i).equals(date)){
-                inputDateType = DateType.PUBLIC_HOLIDAY;
+                inputDayType = DayType.PUBLIC_HOLIDAY;
                 filter = false;
             }
         }
         if (filter) {
             if (day == 6 || day == 7) {
-                inputDateType = DateType.WEEKEND;
+                inputDayType = DayType.WEEKEND;
             }
         }
-        cinemaObj.addShow(movieObj, dateTime, inputDateType);
+        cinemaObj.addShow(movieObj, dateTime, inputDayType);
         CineplexDB cineplexDB = new CineplexDB();
         cineplexDB.write(cineplexList);
         System.out.println("Show has been sucessfully added.");
@@ -272,21 +272,21 @@ public class CineplexModule implements ModuleInterface {
                                 DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
                                 int day = dayofWeek.getValue();
                                 LocalDate date_check = dateTime.toLocalDate();
-                                DateType inputDateType = DateType.WEEKDAY;
+                                DayType inputDayType = DayType.WEEKDAY;
                                 boolean filter = true;
                                 for (int i=0; i<holidayDates.size(); i++) {
                                     if (holidayDates.get(i).equals(date_check)) {
-                                        inputDateType = DateType.PUBLIC_HOLIDAY;
+                                        inputDayType = DayType.PUBLIC_HOLIDAY;
                                         System.out.println("Public holiday detected");
                                         filter = false;
                                     }
                                 }
                                 if (filter) {
                                     if (day == 6 || day == 7) {
-                                        inputDateType = DateType.WEEKEND;
+                                        inputDayType = DayType.WEEKEND;
                                     }       
                                 }
-                                show.setDateType(inputDateType);
+                                show.setDayType(inputDayType);
                                 main_loop = false;
                                 main = false;
                                 break;
