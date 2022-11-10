@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Databases.CineplexDB;
+import Databases.MovieDB;
 import Databases.SettingsDB;
 
 import Enums.AgeType;
@@ -128,6 +129,9 @@ public class BookingModule implements ModuleInterface {
             return;
         }
 
+        MovieDB movieDB = new MovieDB();
+        ArrayList<Movie> movieList = movieDB.read();
+
         Showing showingObj = selectShowing(cinemaObj);
         Movie movieObj = showingObj.getMovie();
         System.out.println("***********************************************");
@@ -237,6 +241,7 @@ public class BookingModule implements ModuleInterface {
         }
         CineplexDB cineplexDB = new CineplexDB();
         cineplexDB.write(cineplexList);
+        movieDB.write(movieList);
     }
 
     // SELECTION HELPERS
