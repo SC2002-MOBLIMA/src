@@ -8,7 +8,7 @@ import java.util.Scanner;
 import Databases.MovieDB;
 import Databases.CineplexDB;
 
-import Enums.MovieStatus;
+import Enums.MovieStatusType;
 import Enums.MovieType;
 
 import Interfaces.ModuleInterface;
@@ -49,7 +49,7 @@ public class MovieListingModule implements ModuleInterface {
                     System.out.println("MOBLIMA -- Movie Listing Module (Display All Movie Listings):");
                     ArrayList<String> movieNames = new ArrayList<String>();
                     for (Movie m: movieList) {
-                        if (m.getStatus() != MovieStatus.END_OF_SHOWING) {
+                        if (m.getStatus() != MovieStatusType.END_OF_SHOWING) {
                             String name = m.getTitle();
                             movieNames.add(name);
                         }
@@ -143,9 +143,9 @@ public class MovieListingModule implements ModuleInterface {
                             System.out.println("Error: Invalid Movie Status. Please try again");
                         }
                     }
-                    MovieStatus status = MovieStatus.values()[updateChoice-1];
+                    MovieStatusType status = MovieStatusType.values()[updateChoice-1];
                     movie.setStatus(status);
-                    if (status == MovieStatus.END_OF_SHOWING) {
+                    if (status == MovieStatusType.END_OF_SHOWING) {
                         CineplexDB cineplexDB = new CineplexDB();
                         ArrayList<Cineplex> cineplexList = cineplexDB.read();
                         for (Cineplex c: cineplexList) {
@@ -216,7 +216,7 @@ public class MovieListingModule implements ModuleInterface {
 
         for (Movie m : movieList) {
             if (m.getTitle().equalsIgnoreCase(title)) {
-                m.setStatus(MovieStatus.END_OF_SHOWING);
+                m.setStatus(MovieStatusType.END_OF_SHOWING);
                 for (Cineplex c: cineplexList) {
                     c.removeMovieShowings(m);
                 }
@@ -256,7 +256,7 @@ public class MovieListingModule implements ModuleInterface {
                 System.out.println("Error: Invalid Movie Status. Please try again\n");
             }
         }
-        MovieStatus status = MovieStatus.values()[choice-1];
+        MovieStatusType status = MovieStatusType.values()[choice-1];
 
         System.out.print("\nInput Movie Synopsis: ");
         String synopsis = sc.nextLine();

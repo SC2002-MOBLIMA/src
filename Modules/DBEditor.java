@@ -16,7 +16,7 @@ import Objects.Cinema;
 import Objects.Movie;
 // import Modules.MovieGoerModule;
 import Objects.MovieGoer;
-import Enums.MovieStatus;
+import Enums.MovieStatusType;
 import Enums.MovieType;
 import Enums.CinemaType;
 import Enums.AgeType;
@@ -121,7 +121,7 @@ public class DBEditor {
             System.out.println("title: ");
             String title = sc.nextLine();
             System.out.println("status: (COMING_SOON, PREVIEW, NOW_SHOWING)");
-            MovieStatus status = MovieStatus.valueOf(sc.nextLine());
+            MovieStatusType status = MovieStatusType.valueOf(sc.nextLine());
             System.out.println("synopsis: ");
             String synopsis = sc.nextLine();
             System.out.println("director: ");

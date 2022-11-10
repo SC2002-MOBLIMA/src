@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 import Enums.CinemaType;
 import Enums.DayType;
-import Enums.MovieStatus;
+import Enums.MovieStatusType;
 
 public class Cinema implements Serializable {
 
@@ -58,7 +58,7 @@ public class Cinema implements Serializable {
     int showsAvailable = 0;
     for (Showing showing: showList) {
       Movie movie = showing.getMovie();
-      if (movie.getStatus() == MovieStatus.NOW_SHOWING) {
+      if (movie.getStatus() == MovieStatusType.NOW_SHOWING) {
         System.out.println("[" + index + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
         index++;
         showsAvailable = 1;
@@ -74,7 +74,7 @@ public class Cinema implements Serializable {
     for (int i = 0; i < showList.size(); i++) {
       Showing s = showList.get(i);
       Movie m = s.getMovie();
-      if (m.getStatus() == MovieStatus.NOW_SHOWING) {
+      if (m.getStatus() == MovieStatusType.NOW_SHOWING) {
         if (index == searchIndex) {
           return s;
         }

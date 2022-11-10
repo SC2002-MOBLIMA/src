@@ -3,12 +3,12 @@ package Objects;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import Enums.MovieStatus;
+import Enums.MovieStatusType;
 import Enums.MovieType;
 
 public class Movie implements Serializable, Comparable<Movie> {
   private String title;
-  private MovieStatus status;
+  private MovieStatusType status;
   private String synopsis;
   private String director;
   private ArrayList<String> cast;
@@ -17,7 +17,7 @@ public class Movie implements Serializable, Comparable<Movie> {
   private MovieType type;
   private LocalDateTime endOfShowingDate; // YYYY-MM-DDT00:00:00
 
-  public Movie(String title, MovieStatus status, String synopsis, String director, ArrayList<String> cast,
+  public Movie(String title, MovieStatusType status, String synopsis, String director, ArrayList<String> cast,
       MovieType type, LocalDateTime endOfShowingDate) {
     this.title = title;
     this.status = status;
@@ -38,11 +38,11 @@ public class Movie implements Serializable, Comparable<Movie> {
     this.title = title;
   }
 
-  public MovieStatus getStatus() {
+  public MovieStatusType getStatus() {
     return this.status;
   }
 
-  public void setStatus(MovieStatus status) {
+  public void setStatus(MovieStatusType status) {
     this.status = status;
   }
 

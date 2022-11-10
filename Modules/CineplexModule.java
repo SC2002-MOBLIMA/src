@@ -12,7 +12,7 @@ import Databases.CineplexDB;
 import Databases.SettingsDB;
 
 import Enums.DayType;
-import Enums.MovieStatus;
+import Enums.MovieStatusType;
 import Interfaces.ModuleInterface;
 import Objects.Cineplex;
 import Objects.Cinema;
@@ -121,7 +121,7 @@ public class CineplexModule implements ModuleInterface {
             ArrayList<Movie> currentMovies = new ArrayList<Movie>();
             
             for (Movie m: movieList) {
-                if (m.getStatus() != MovieStatus.END_OF_SHOWING) {
+                if (m.getStatus() != MovieStatusType.END_OF_SHOWING) {
                     currentMovies.add(m);
                 }
             }

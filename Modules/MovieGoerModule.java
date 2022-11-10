@@ -10,7 +10,7 @@ import Objects.MovieGoer;
 import Objects.Movie;
 import Objects.Review;
 import Objects.MovieTicket;
-import Enums.MovieStatus;
+import Enums.MovieStatusType;
 import Interfaces.LoginInterface;
 import Interfaces.ModuleInterface;
 import Comparators.SortByRating;
@@ -142,7 +142,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         int index = 0;
         System.out.println("Results: ");
         for (Movie m : allMovies) {
-            if (m.getStatus() == (MovieStatus.NOW_SHOWING) && m.getTitle().contains(phrase)) {
+            if (m.getStatus() == (MovieStatusType.NOW_SHOWING) && m.getTitle().contains(phrase)) {
                 if (detailed == false) {
                     System.out.println("[" + (index+1) + "] " + m.getTitle());
                     index++;
