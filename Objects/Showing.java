@@ -62,6 +62,7 @@ abstract public class Showing implements Serializable {
     System.out.print("=".repeat(seatLayout[0].length));
     System.out.print(" Movie Screen ");
     System.out.print("=".repeat(seatLayout[0].length) + "\n");
+    System.out.println("{STAIRS}");
     System.out.println();
 
     // print labels on top 
