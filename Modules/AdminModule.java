@@ -8,16 +8,41 @@ import Interfaces.LoginInterface;
 import Interfaces.ModuleInterface;
 import Objects.Admin;
 
+/** 
+ * Represents the Module for Admin functions.
+ * @author Chay Hui Xiang
+ * @version 1.0
+ * @since 2022-11-11
+ */
 public class AdminModule implements ModuleInterface, LoginInterface {
+
+    /**
+     * Scanner to query users for inputs.
+     */
     private Scanner sc;
+
+    /**
+     * Stores whether the Admin is currently logged in.
+     */
     private boolean isLoggedIn;
+
+    /**
+     * List of all Admins in the database.
+     */
     private ArrayList<Admin> adminList;
 
+    /**
+     * Creates a new AdminModule for Admin functionality.
+     * @param sc Scanner to query for user's inputs.
+     */
     public AdminModule(Scanner sc) {
         this.sc = sc;
         this.isLoggedIn = true; // TODO: toggle this back
     }
 
+    /**
+     * Runs the AdminModule.
+     */
     public void run() {
         AdminDB adminDB = new AdminDB();
         adminList = (ArrayList<Admin>) adminDB.read();
@@ -62,6 +87,9 @@ public class AdminModule implements ModuleInterface, LoginInterface {
         }
     }
 
+    /**
+     * Prompts the user to login as Admin.
+     */
     public void login() {
         while (!isLoggedIn) {
             System.out.println("***********************************************");
