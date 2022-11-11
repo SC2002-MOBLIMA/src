@@ -8,8 +8,9 @@ import Interfaces.LoginInterface;
 import Interfaces.ModuleInterface;
 import Objects.Admin;
 
-/** 
+/**
  * Represents the Module for Admin functions.
+ * 
  * @author Chay Hui Xiang
  * @version 1.0
  * @since 2022-11-11
@@ -33,6 +34,7 @@ public class AdminModule implements ModuleInterface, LoginInterface {
 
     /**
      * Creates a new AdminModule for Admin functionality.
+     * 
      * @param sc Scanner to query for user's inputs.
      */
     public AdminModule(Scanner sc) {
@@ -58,31 +60,33 @@ public class AdminModule implements ModuleInterface, LoginInterface {
             System.out.println("[3] Configure system settings");
             System.out.println("[4] Back");
             System.out.print("Please Select Option: ");
-            int choice = sc.nextInt();
-            System.out.println("***********************************************");
-            switch (choice) {
-                case 1:
-                    MovieListingModule movieListingModule = new MovieListingModule(sc);
-                    movieListingModule.run();
-                    break;
 
-                case 2:
-                    CineplexModule cineplexModule = new CineplexModule(sc);
-                    cineplexModule.run();
-                    break;
+            try {
+                int choice = sc.nextInt();
+                System.out.println("***********************************************");
+                switch (choice) {
+                    case 1:
+                        MovieListingModule movieListingModule = new MovieListingModule(sc);
+                        movieListingModule.run();
+                        break;
 
-                case 3:
-                    SettingsModule settingsModule = new SettingsModule(sc);
-                    settingsModule.run();
-                    break;
+                    case 2:
+                        CineplexModule cineplexModule = new CineplexModule(sc);
+                        cineplexModule.run();
+                        break;
 
-                case 4:
-                    running = false;
-                    break;
+                    case 3:
+                        SettingsModule settingsModule = new SettingsModule(sc);
+                        settingsModule.run();
+                        break;
 
-                default:
-                    System.out.println("Error: Invalid Choice, Please try again.\n");
-                    break;
+                    case 4:
+                        running = false;
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Error: Invalid Choice, Please try again.\n");
+                sc.nextLine();
             }
         }
     }

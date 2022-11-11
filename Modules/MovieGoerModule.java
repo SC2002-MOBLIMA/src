@@ -59,67 +59,70 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     + "[8] Add Movie Review\n"
                     + "[9] Back");
             System.out.print("Please select an option: ");
-            input = sc.nextInt();
-            sc.nextLine();
-            System.out.println("***********************************************");
-            switch (input) {
-                case 1:
-                    System.out.println("MOBLIMA -- Movie Goer Module (Search Movies): ");
-                    System.out.print("Please enter the keyword(s): ");
-                    keywords = sc.nextLine();
-                    System.out.println();
-                    printMoviesSearch(keywords, false);
-                    keywords = "";
-                    break;
-                case 2:
-                    System.out.println("MOBLIMA -- Movie Goer Module (List Movies): ");
-                    System.out.println();
-                    printMoviesSearch(keywords, false);
-                    break;
-                case 3:
-                    System.out.println("MOBLIMA -- Movie Goer Module (View Movie Details): ");
-                    System.out.print("Please enter the keywords: ");
-                    keywords = sc.nextLine();
-                    System.out.println();
-                    printMoviesSearch(keywords, true);
-                    break;
+            try {
+                input = sc.nextInt();
+                sc.nextLine();
+                System.out.println("***********************************************");
+                switch (input) {
+                    case 1:
+                        System.out.println("MOBLIMA -- Movie Goer Module (Search Movies): ");
+                        System.out.print("Please enter the keyword(s): ");
+                        keywords = sc.nextLine();
+                        System.out.println();
+                        printMoviesSearch(keywords, false);
+                        keywords = "";
+                        break;
+                    case 2:
+                        System.out.println("MOBLIMA -- Movie Goer Module (List Movies): ");
+                        System.out.println();
+                        printMoviesSearch(keywords, false);
+                        break;
+                    case 3:
+                        System.out.println("MOBLIMA -- Movie Goer Module (View Movie Details): ");
+                        System.out.print("Please enter the keywords: ");
+                        keywords = sc.nextLine();
+                        System.out.println();
+                        printMoviesSearch(keywords, true);
+                        break;
 
-                case 4:
-                    BookingModule bookingModule = new BookingModule(sc, movieGoerObj);
-                    bookingModule.run();
-                    movieGoerDB.write(movieGoerList);
-                    break;
+                    case 4:
+                        BookingModule bookingModule = new BookingModule(sc, movieGoerObj);
+                        bookingModule.run();
+                        movieGoerDB.write(movieGoerList);
+                        break;
 
-                case 5:
-                    System.out.println("MOBLIMA -- Movie Goer Module (View Booking History): ");
-                    System.out.println();
-                    if (!movieGoerObj.getMovieTicketList().isEmpty()) {
-                        ArrayList<MovieTicket> mtList = movieGoerObj.getMovieTicketList();
-                        for (MovieTicket m : mtList) {
-                            m.printTicket();
+                    case 5:
+                        System.out.println("MOBLIMA -- Movie Goer Module (View Booking History): ");
+                        System.out.println();
+                        if (!movieGoerObj.getMovieTicketList().isEmpty()) {
+                            ArrayList<MovieTicket> mtList = movieGoerObj.getMovieTicketList();
+                            for (MovieTicket m : mtList) {
+                                m.printTicket();
+                            }
+                        } else {
+                            System.out.println("No Past Bookings.\n");
                         }
-                    } else {
-                        System.out.println("No Past Bookings.\n");
-                    }
-                    break;
+                        break;
 
-                case 6:
-                    printMovieListBySales();
-                    break;
+                    case 6:
+                        printMovieListBySales();
+                        break;
 
-                case 7:
-                    printMovieListByRating();
-                    break;
+                    case 7:
+                        printMovieListByRating();
+                        break;
 
-                case 8:
-                    addMovieReview();
-                    break;
+                    case 8:
+                        addMovieReview();
+                        break;
 
-                case 9:
-                    break;
-
+                    case 9:
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Error: Invalid Choice, Please try again.\n");
+                sc.nextLine();
             }
-
         }
     }
 
