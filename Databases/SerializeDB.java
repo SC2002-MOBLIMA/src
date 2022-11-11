@@ -6,11 +6,24 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-// Note : When structure of the Object type (the class file) in the list changed
-// the Serialized file may fail.
+/**
+ * Represents the abstract DB class for users to read and write from DBs.
+ * 
+ * @author Aaron Chua
+ * @version 1.0
+ * @since 2022-11-11
+ */
 public abstract class SerializeDB<T> {
+    /**
+     * The filepath to the .dat file.
+     */
     protected String filename;
 
+    /**
+     * Reads the file.
+     * 
+     * @return the data contained in the file.
+     */
     public T read() {
         T data = null;
         FileInputStream fis = null;
@@ -32,6 +45,12 @@ public abstract class SerializeDB<T> {
         return data;
     }
 
+    /**
+     * Writes to the file.
+     * 
+     * @param data the data to be stored in the file.
+     * @return void
+     */
     public void write(T data) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;

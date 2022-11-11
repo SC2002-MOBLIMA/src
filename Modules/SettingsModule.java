@@ -16,14 +16,35 @@ import Enums.SeatType;
 import Interfaces.ModuleInterface;
 import Objects.Settings;
 
+/**
+ * Represents the entry point for admin users to edit settings.
+ * 
+ * @author Aaron Chua
+ * @version 1.0
+ * @since 2022-11-11
+ */
 public class SettingsModule implements ModuleInterface {
   private Scanner sc;
+
+  /**
+   * The actual settings object to be edited.
+   */
   private Settings settingsObj;
 
+  /**
+   * Creates a new SettingsModule with a scanner to receive user input.
+   * 
+   * @param sc The Scanner.
+   */
   public SettingsModule(Scanner sc) {
     this.sc = sc;
   }
 
+  /**
+   * Prints all holidays dates.
+   * 
+   * @return void.
+   */
   private void displayHolidayDates() {
     System.out.println("Current Holiday Dates are: ");
     ArrayList<LocalDate> holidayDates = settingsObj.getHolidayDates();
@@ -33,6 +54,14 @@ public class SettingsModule implements ModuleInterface {
     }
   }
 
+  /**
+   * Prints old prices of and allows user to set new prices.
+   * 
+   * @param settingsDB an object instance of the settingsDB class.
+   * @param choice     the user's selection of which price factor.
+   * @param typeChoice the user's selection of which price factor option.
+   * @return void.
+   */
   private void askNewPriceAndWriteToDB(SettingsDB settingsDB, int choice, String typeChoice) {
     double price = 0;
     switch (choice) {
@@ -92,6 +121,11 @@ public class SettingsModule implements ModuleInterface {
     settingsDB.write(settingsObj);
   }
 
+  /**
+   * Runs the SettingsModule.
+   * 
+   * @return void.
+   */
   public void run() {
     SettingsDB settingsDB = new SettingsDB();
     settingsObj = settingsDB.read();
