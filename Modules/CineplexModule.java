@@ -121,7 +121,7 @@ public class CineplexModule implements ModuleInterface {
             ArrayList<Movie> currentMovies = new ArrayList<Movie>();
             
             for (Movie m: movieList) {
-                if (m.getStatus() != MovieStatusType.END_OF_SHOWING && m.getStatus() != MovieStatusType.COMING_SOON) {
+                if (m.getStatus() != MovieStatusType.END_OF_SHOWING) {
                     currentMovies.add(m);
                 }
             }
@@ -154,7 +154,7 @@ public class CineplexModule implements ModuleInterface {
 
                 if (dateTime.compareTo(movieObj.getEndOfShowingDate()) > 0) {
                     System.out.println("Error: Date keyed in exceeds the end of showing of movie. Please try again.\n");
-                // } // TODO: Comment out this else if block to add past showings
+                // } // XXX: Comment out this else if block to add past showings
                 // else if (dateTime.compareTo(LocalDateTime.now()) < 0){ // 
                 //     System.out.println("Error: Date keyed in has already passed. Please try again."); //
                 } else {
@@ -261,16 +261,12 @@ public class CineplexModule implements ModuleInterface {
                     if (main_loop) { 
                         LocalDateTime dateTime = null;
                         movieObj = show.getMovie();
-                        System.out.print("Key in the new show time in the following format (yyyyMMddHHmm): ");
+                        System.out.println("Key in the new show time in the following format (yyyyMMddHHmm): ");
                         String date = sc.next();
                         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
                         try {
                             dateTime = LocalDateTime.parse(date, myFormatObj);
-                            if (dateTime.compareTo(movieObj.getEndOfShowingDate()) > 0) {
-                                System.out.println("Error: Showtime keyed in exceeds movie's end of showing date. Please try again.");
-                            } else if (dateTime.compareTo(LocalDateTime.now()) < 0){ // 
-                                System.out.println("Error: Date keyed in has already passed. Please try again."); // 
-                            } else {
+                            if (dateTime.compareTo(movieObj.getEndOfShowingDate())<0) {
                                 show.setShowTime(dateTime);
                                 System.out.println("Showtime has been updated.");
                                 DayOfWeek dayofWeek= DayOfWeek.from(dateTime);
@@ -293,6 +289,8 @@ public class CineplexModule implements ModuleInterface {
                                 main_loop = false;
                                 main = false;
                                 break;
+                            } else {
+                                System.out.println("Error: Showtime keyed in exceeds movie's end of showing date. Please try again.");
                             }
                         } catch (Exception e) {
                             System.out.println("Error: Invalid date format. Please try again.");
