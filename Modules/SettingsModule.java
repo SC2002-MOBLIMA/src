@@ -28,7 +28,7 @@ public class SettingsModule implements ModuleInterface {
     System.out.println("Current Holiday Dates are: ");
     ArrayList<LocalDate> holidayDates = settingsObj.getHolidayDates();
     DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    for (LocalDate date: holidayDates) {
+    for (LocalDate date : holidayDates) {
       System.out.println(date.format(dFormatter));
     }
   }
@@ -55,7 +55,7 @@ public class SettingsModule implements ModuleInterface {
       case 5:
         price = settingsObj.getSeatTypePrice(typeChoice);
         break;
-    
+
       default:
         break;
     }
@@ -85,7 +85,7 @@ public class SettingsModule implements ModuleInterface {
 
       case 5:
         settingsObj.setSeatTypePrice(typeChoice, newPrice);
-    
+
       default:
         break;
     }
@@ -95,7 +95,7 @@ public class SettingsModule implements ModuleInterface {
   public void run() {
     SettingsDB settingsDB = new SettingsDB();
     settingsObj = settingsDB.read();
-    
+
     if (settingsObj == null) {
       settingsObj = new Settings();
     }
@@ -121,7 +121,7 @@ public class SettingsModule implements ModuleInterface {
         case 1:
           System.out.println("MOBLIMA -- Admin -- Settings Module (Display All Prices):");
           System.out.println("Movie Types \t\t| Cinema Classes \t| Movie Goer Age\t| Days\t\t\t| Seat Types");
-          for (int i = 0; i<3; i++) {
+          for (int i = 0; i < 3; i++) {
             String movieType = MovieType.values()[i].name();
             String cinemaClass = CinemaType.values()[i].name();
             String ageType = AgeType.values()[i].name();
@@ -129,31 +129,29 @@ public class SettingsModule implements ModuleInterface {
             String seatType = SeatType.values()[i].name();
             if (i == 0) {
               System.out.println(
-                movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t\t| " +
-                cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t| " +
-                ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
-                dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t| " +
-                seatType + ": x" + settingsObj.getSeatTypePrice(seatType)
-              );
+                  movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t\t| " +
+                      cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t| " +
+                      ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +
+                      dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t| " +
+                      seatType + ": x" + settingsObj.getSeatTypePrice(seatType));
             } else if (i == 1) {
               System.out.println(
-                movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t\t| " +
-                cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t\t| " +
-                ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
-                dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t\t| " +
-                seatType + ": x" + settingsObj.getSeatTypePrice(seatType)
-              );
+                  movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t\t| " +
+                      cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t\t| " +
+                      ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +
+                      dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t\t| " +
+                      seatType + ": x" + settingsObj.getSeatTypePrice(seatType));
             } else {
               System.out.println(
-                movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t| " +
-                cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t\t| " +
-                ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +  
-                dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t| " +
-                seatType + ": x" + settingsObj.getSeatTypePrice(seatType)
-              );
+                  movieType + ": $" + settingsObj.getMovieTypePrice(movieType) + "\t| " +
+                      cinemaClass + ": x" + settingsObj.getCinemaClassPrice(cinemaClass) + "\t\t| " +
+                      ageType + ": x" + settingsObj.getAgeTypePrice(ageType) + "\t\t| " +
+                      dayType + ": x" + settingsObj.getDayTypePrice(dayType) + "\t| " +
+                      seatType + ": x" + settingsObj.getSeatTypePrice(seatType));
             }
           }
-          System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t| " + SeatType.values()[3].name() + ": x" + settingsObj.getSeatTypePrice(SeatType.values()[3].name()));
+          System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t| " + SeatType.values()[3].name() + ": x"
+              + settingsObj.getSeatTypePrice(SeatType.values()[3].name()));
           break;
 
         case 2:
@@ -163,7 +161,8 @@ public class SettingsModule implements ModuleInterface {
 
         case 3:
           System.out.println("MOBLIMA -- Admin -- Settings Module (Edit Movie Type Prices):");
-          int movieTypeChoice = 0;;
+          int movieTypeChoice = 0;
+          ;
           while (movieTypeChoice < 1 || movieTypeChoice > 3) {
             System.out.println("\n[1] Regular");
             System.out.println("[2] 3D");
@@ -173,7 +172,7 @@ public class SettingsModule implements ModuleInterface {
             movieTypeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice-2, MovieType.values()[movieTypeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice - 2, MovieType.values()[movieTypeChoice - 1].name());
           break;
 
         case 4:
@@ -188,7 +187,7 @@ public class SettingsModule implements ModuleInterface {
             cinemaClassChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice-2, CinemaType.values()[cinemaClassChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice - 2, CinemaType.values()[cinemaClassChoice - 1].name());
           break;
 
         case 5:
@@ -202,7 +201,7 @@ public class SettingsModule implements ModuleInterface {
             movieGoerAgeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice-2, AgeType.values()[movieGoerAgeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice - 2, AgeType.values()[movieGoerAgeChoice - 1].name());
           break;
 
         case 6:
@@ -216,7 +215,7 @@ public class SettingsModule implements ModuleInterface {
             dayTypeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice-2, DayType.values()[dayTypeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice - 2, DayType.values()[dayTypeChoice - 1].name());
           break;
 
         case 7:
@@ -231,13 +230,14 @@ public class SettingsModule implements ModuleInterface {
             seatTypeChoice = sc.nextInt();
             sc.nextLine();
           }
-          askNewPriceAndWriteToDB(settingsDB, choice-2, SeatType.values()[seatTypeChoice-1].name());
+          askNewPriceAndWriteToDB(settingsDB, choice - 2, SeatType.values()[seatTypeChoice - 1].name());
           break;
 
         case 8:
           System.out.println("MOBLIMA -- Admin -- Settings Module (Edit Holiday Dates):");
           displayHolidayDates();
-          System.out.print("\nEnter Holiday Date to add/remove (dd-MM-yyyy, eg. 01-01-2022): ");
+          System.out.print(
+              "\nEnter Holiday Date (dd-MM-yyyy, eg. 01-01-2022).\nIf input date is not in list, then input date will be added to list\nIf input date is already in list, then input date will be removed from list: ");
           String inputDateString = sc.nextLine();
 
           int dateAlreadyExistsAtPosition = -1;
@@ -253,7 +253,8 @@ public class SettingsModule implements ModuleInterface {
           }
 
           if (dateAlreadyExistsAtPosition != -1) {
-            System.out.println("Error: Input Date is already a Holiday Date. ");
+            holidayDates.remove(dateAlreadyExistsAtPosition);
+            dateAlreadyExistsAtPosition = -1;
           } else {
             holidayDates.add(inputDate);
           }
