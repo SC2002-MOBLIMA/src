@@ -153,11 +153,15 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
 
     private void printMoviesSearch(String phrase, boolean detailed) {
         int index = 0;
+        phrase = phrase.toLowerCase();
         System.out.println("Results: ");
+        boolean foundMovie = false;
         for (Movie m : allMovies) {
-            if (m.getStatus() == (MovieStatusType.NOW_SHOWING) && m.getTitle().contains(phrase)) {
+            MovieStatusType mStatus = m.getStatus();
+            if ((mStatus == MovieStatusType.PREVIEW || mStatus == MovieStatusType.NOW_SHOWING) && m.getTitle().toLowerCase().contains(phrase)) {
+                foundMovie = true;
                 if (detailed == false) {
-                    System.out.println("[" + (index + 1) + "] " + m.getTitle());
+                    System.out.println("(" + (index + 1) + ") " + m.getTitle());
                     index++;
                 } else {
                     System.out.println("Title: " + m.getTitle());
@@ -185,6 +189,10 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     System.out.println("End of showing: " + m.getEndOfShowingDate() + "\n");
                 }
             }
+        }
+
+        if (!foundMovie) {
+            System.out.println("No Movies found.");
         }
     }
 

@@ -120,8 +120,9 @@ public class MovieListingModule implements ModuleInterface {
             System.out.println("[5] Back / Done");
             System.out.println("******************************");
 
-            System.out.println("What do you want to update?");
+            System.out.print("What do you want to update? ");
             int choice = sc.nextInt();
+            sc.nextLine();
             int updateChoice = 0;
 
             switch (choice) {
@@ -241,12 +242,11 @@ public class MovieListingModule implements ModuleInterface {
             System.out.println("\n[1] COMING SOON");
             System.out.println("[2] PREVIEW");
             System.out.println("[3] NOW SHOWING");
-            System.out.println("[4] END OF SHOWING");
             System.out.print("\nInput Movie Status: ");
             choice = sc.nextInt();
             sc.nextLine();
 
-            if (choice <= 4 && choice >= 1) {
+            if (choice <= 3 && choice >= 1) {
                 break;
             } else {
                 System.out.println("Error: Invalid Movie Status. Please try again.\n");
