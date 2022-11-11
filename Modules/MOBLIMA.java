@@ -2,8 +2,9 @@ package Modules;
 
 import java.util.Scanner;
 
-/** 
+/**
  * Represents the main entry point into the entire MOBLIMA application.
+ * 
  * @author Chay Hui Xiang
  * @version 1.0
  * @since 2022-11-11
@@ -11,8 +12,9 @@ import java.util.Scanner;
 public class MOBLIMA {
 
     /**
-     * Main Function of the MOBLIMA class. Entry point of the entire MOBLIMA application
-     * Requests for the user's target role (ie. Admin/MovieGoer) and 
+     * Main Function of the MOBLIMA class. Entry point of the entire MOBLIMA
+     * application
+     * Requests for the user's target role (ie. Admin/MovieGoer) and
      * calls the respective module (ie. AdminModule & MovieGoerModule)
      */
     public static void main(String[] args) {
@@ -36,28 +38,33 @@ public class MOBLIMA {
             System.out.println("[2] Admin");
             System.out.println("[3] Exit");
             System.out.print("Please Select Target Role: ");
-            choice = sc.nextInt();
-            sc.nextLine();
-            System.out.println("***********************************************");
-            switch (choice) {
-                case 1:
-                    MovieGoerModule movieGoerModule = new MovieGoerModule(sc);
-                    movieGoerModule.run();
-                    break;
+            try {
+                choice = sc.nextInt();
+                sc.nextLine();
+                System.out.println("***********************************************");
+                switch (choice) {
+                    case 1:
+                        MovieGoerModule movieGoerModule = new MovieGoerModule(sc);
+                        movieGoerModule.run();
+                        break;
 
-                case 2:
-                    AdminModule adminModule = new AdminModule(sc);
-                    adminModule.run();
-                    break;
+                    case 2:
+                        AdminModule adminModule = new AdminModule(sc);
+                        adminModule.run();
+                        break;
 
-                case 3:
-                    System.out.println("Bye Bye!");
-                    running = false;
-                    break;
+                    case 3:
+                        System.out.println("Bye Bye!");
+                        running = false;
+                        break;
 
-                default:
-                    System.out.println("Error: Invalid Choice, Please try again.\n");
-                    break;
+                    default:
+                        System.out.println("Error: Invalid Choice, Please try again.\n");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Error: Invalid Choice, Please try again.\n");
+                sc.nextLine();
             }
         }
         sc.close();
