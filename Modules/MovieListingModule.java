@@ -49,7 +49,7 @@ public class MovieListingModule implements ModuleInterface {
                     System.out.println("***********************************************");
                     System.out.println("MOBLIMA -- Movie Listing Module (Display All Movie Listings):");
                     ArrayList<String> movieNames = new ArrayList<String>();
-                    for (Movie m: movieList) {
+                    for (Movie m : movieList) {
                         if (m.getStatus() != MovieStatusType.END_OF_SHOWING) {
                             String name = m.getTitle();
                             movieNames.add(name);
@@ -60,10 +60,8 @@ public class MovieListingModule implements ModuleInterface {
                         System.out.println("No Movies Found. ");
                     } else {
                         System.out.println("List of movies: ");
-                        int index = 1;
-                        for (String name: movieNames) {
-                            System.out.println("("+ index + ") " + name);
-                            index++;
+                        for (String name : movieNames) {
+                            System.out.println(name);
                         }
                     }
 
@@ -113,15 +111,14 @@ public class MovieListingModule implements ModuleInterface {
 
         do {
             System.out.println("******************************");
+            System.out.println("What do you want to update?");
             System.out.println("Possible List of Updates:");
             System.out.println("[1] Status");
             System.out.println("[2] Sale Count");
             System.out.println("[3] Type");
             System.out.println("[4] End Of Showing Date");
             System.out.println("[5] Back / Done");
-            System.out.println("******************************");
-
-            System.out.println("What do you want to update?");
+            System.out.print("Please enter your choice:");
             int choice = sc.nextInt();
             int updateChoice = 0;
 
@@ -142,12 +139,12 @@ public class MovieListingModule implements ModuleInterface {
                             System.out.println("Error: Invalid Movie Status. Please try again.");
                         }
                     }
-                    MovieStatusType status = MovieStatusType.values()[updateChoice-1];
+                    MovieStatusType status = MovieStatusType.values()[updateChoice - 1];
                     movie.setStatus(status);
                     if (status == MovieStatusType.END_OF_SHOWING) {
                         CineplexDB cineplexDB = new CineplexDB();
                         ArrayList<Cineplex> cineplexList = cineplexDB.read();
-                        for (Cineplex c: cineplexList) {
+                        for (Cineplex c : cineplexList) {
                             c.removeMovieShowings(movie);
                         }
                     }
@@ -175,7 +172,7 @@ public class MovieListingModule implements ModuleInterface {
                             System.out.println("Error: Invalid Movie Type. Please try again.");
                         }
                     }
-                    MovieType type = MovieType.values()[updateChoice-1];
+                    MovieType type = MovieType.values()[updateChoice - 1];
                     movie.setType(type);
                     break;
                 case 4:
@@ -222,7 +219,7 @@ public class MovieListingModule implements ModuleInterface {
         for (Movie m : movieList) {
             if (m.equals(movieToRemove)) {
                 m.setStatus(MovieStatusType.END_OF_SHOWING);
-                for (Cineplex c: cineplexList) {
+                for (Cineplex c : cineplexList) {
                     c.removeMovieShowings(m);
                 }
             }
@@ -255,7 +252,7 @@ public class MovieListingModule implements ModuleInterface {
                 System.out.println("Error: Invalid Movie Status. Please try again.\n");
             }
         }
-        MovieStatusType status = MovieStatusType.values()[choice-1];
+        MovieStatusType status = MovieStatusType.values()[choice - 1];
 
         System.out.print("\nInput Movie Synopsis: ");
         String synopsis = sc.nextLine();
@@ -278,7 +275,7 @@ public class MovieListingModule implements ModuleInterface {
                 System.out.println("Error: Invalid Movie Type. Please try again.");
             }
         }
-        MovieType type = MovieType.values()[choice-1];
+        MovieType type = MovieType.values()[choice - 1];
 
         while (true) {
             try {
@@ -286,7 +283,7 @@ public class MovieListingModule implements ModuleInterface {
                 String dateString = sc.nextLine();
                 DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                 LocalDateTime endOfShowingDate = LocalDateTime.parse(dateString + " 00:00", dtFormatter);
-        
+
                 Movie newMovie = new Movie(title, status, synopsis, director, cast, type, endOfShowingDate);
                 movieList.add(newMovie);
                 movieDB.write(movieList);
