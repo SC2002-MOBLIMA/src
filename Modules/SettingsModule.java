@@ -253,8 +253,7 @@ public class SettingsModule implements ModuleInterface {
           }
 
           if (dateAlreadyExistsAtPosition != -1) {
-            holidayDates.remove(dateAlreadyExistsAtPosition);
-            dateAlreadyExistsAtPosition = -1;
+            System.out.println("Error: Input Date is already a Holiday Date. ");
           } else {
             holidayDates.add(inputDate);
           }
