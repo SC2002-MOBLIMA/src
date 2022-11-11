@@ -124,6 +124,7 @@ public class MovieListingModule implements ModuleInterface {
             System.out.println("[5] Back / Done");
             System.out.print("Please enter your choice:");
             int choice = sc.nextInt();
+            sc.nextLine();
             int updateChoice = 0;
 
             switch (choice) {
@@ -374,7 +375,7 @@ public class MovieListingModule implements ModuleInterface {
         int choice = 0;
         do {
             for (int i = 0; i < availableMovies.size(); i++) {
-                System.out.println("(" + (i + 1) + ") " + availableMovies.get(i).getTitle());
+                System.out.println("[" + (i + 1) + "] " + availableMovies.get(i).getTitle());
             }
             System.out.print("\nPlease key in the number of the movie that you would like to select: ");
             choice = sc.nextInt();
