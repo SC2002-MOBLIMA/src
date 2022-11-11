@@ -131,7 +131,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         while (!isLoggedIn) {
             System.out.print("Please enter your username: ");
             String username = sc.nextLine();
-            
+
             boolean validUsername = false;
             for (MovieGoer mg : movieGoerList) {
                 String mgUsername = mg.getName();
@@ -155,7 +155,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         for (Movie m : allMovies) {
             if (m.getStatus() == (MovieStatusType.NOW_SHOWING) && m.getTitle().toLowerCase().contains(phrase)) {
                 if (detailed == false) {
-                    System.out.println("[" + (index+1) + "] " + m.getTitle());
+                    System.out.println("[" + (index + 1) + "] " + m.getTitle());
                     index++;
                 } else {
                     System.out.println("Title: " + m.getTitle());
@@ -169,9 +169,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     if (!m.getReviewList().isEmpty()) {
                         for (Review movieReview : m.getReviewList()) {
                             System.out.println();
-                            System.out.println("Name: "  + movieReview.getName());
-                            System.out.println("Rating: "  + movieReview.getRating());
-                            System.out.println("Review: "  + movieReview.getReview());
+                            System.out.println("Name: " + movieReview.getName());
+                            System.out.println("Rating: " + movieReview.getRating());
+                            System.out.println("Review: " + movieReview.getReview());
                         }
                     } else {
                         System.out.println("-");
@@ -180,6 +180,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     System.out.println("\nOverall rating: " + m.getOverallRating());
                     System.out.println("Sales Count: " + m.getSaleCount());
                     System.out.println("Movie Type: " + m.getType() + "\n");
+                    System.out.println("End of showing: " + m.getEndOfShowingDate() + "\n");
                 }
             }
         }
@@ -247,35 +248,35 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         if (pastMovieList.isEmpty()) {
             System.out.println("No Past Movies.");
         } else {
-            for (int i = 0; i<pastMovieList.size(); i++) {
+            for (int i = 0; i < pastMovieList.size(); i++) {
                 Movie m = pastMovieList.get(i);
-                System.out.println("[" + (i+1) + "]: " + m.getTitle());
+                System.out.println("[" + (i + 1) + "]: " + m.getTitle());
             }
             System.out.print("Enter the movie which you would like to review: ");
             int choice = sc.nextInt();
             sc.nextLine();
 
-            Movie chosenMovie = pastMovieList.get(choice-1);
+            Movie chosenMovie = pastMovieList.get(choice - 1);
             boolean foundMovie = false;
 
-            for (Movie m: allMovies) {
+            for (Movie m : allMovies) {
                 if (m.equals(chosenMovie)) {
                     int rating = 0;
                     while (true) {
                         System.out.print("Key in your Movie Rating (1-5): ");
                         rating = sc.nextInt();
                         sc.nextLine();
-        
+
                         if (rating < 1 || rating > 5) {
                             System.out.println("Error: Invalid Rating. Please try again.");
                         } else {
                             break;
                         }
                     }
-        
+
                     System.out.print("Key in your Movie Review: ");
                     String reviewString = sc.nextLine();
-        
+
                     m.addReview(movieGoerObj.getName(), rating, reviewString);
                     movieDB.write(allMovies);
                     System.out.println("Movie Review Added.");
