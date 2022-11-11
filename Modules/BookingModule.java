@@ -29,7 +29,6 @@ import Objects.Showing;
 
 /**
  * Represents the Module for MovieGoers to book seats.
- * 
  * @author Chay Hui Xiang
  * @version 1.0
  * @since 2022-11-11

@@ -2,7 +2,6 @@ package Enums;
 
 /**
  * Different Seat Types.
- * 
  * {@link #REGULAR}
  * {@link #COUPLE}
  * {@link #ELITE}

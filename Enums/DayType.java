@@ -2,7 +2,6 @@ package Enums;
 
 /**
  * Different Day Types when Showings are aired.
- * 
  * {@link #WEEKEND}
  * {@link #WEEKDAY}
  * {@link #PUBLIC_HOLIDAY}

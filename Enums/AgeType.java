@@ -2,7 +2,6 @@ package Enums;
 
 /**
  * Different Age Groups of MovieGoers.
- * 
  * {@link #CHILD}
  * {@link #ADULT}
  * {@link #SENIOR}

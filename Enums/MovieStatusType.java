@@ -2,7 +2,6 @@ package Enums;
 
 /**
  * Different Movie Statuses.
- * 
  * {@link #COMING_SOON}
  * {@link #PREVIEW}
  * {@link #NOW_SHOWING}
