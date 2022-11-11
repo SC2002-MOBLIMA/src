@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import Databases.MovieDB;
 import Databases.MovieGoerDB;
@@ -183,7 +185,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     System.out.println("\nOverall rating: " + m.getOverallRating());
                     System.out.println("Sales Count: " + m.getSaleCount());
                     System.out.println("Movie Type: " + m.getType() + "\n");
-                    System.out.println("End of showing: " + m.getEndOfShowingDate() + "\n");
+                    LocalDate currentEOSD = m.getEndOfShowingDate().toLocalDate();
+                    System.out.println(
+                            "End of showing: " + currentEOSD.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "\n");
                 }
             }
         }
