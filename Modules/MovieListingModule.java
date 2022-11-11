@@ -14,6 +14,8 @@ import Enums.MovieType;
 import Interfaces.ModuleInterface;
 
 import Objects.Movie;
+import Objects.Showing;
+import Objects.Cinema;
 import Objects.Cineplex;
 
 public class MovieListingModule implements ModuleInterface {
@@ -48,7 +50,7 @@ public class MovieListingModule implements ModuleInterface {
                     System.out.println("***********************************************");
                     System.out.println("MOBLIMA -- Movie Listing Module (Display All Movie Listings):");
                     ArrayList<String> movieNames = new ArrayList<String>();
-                    for (Movie m: movieList) {
+                    for (Movie m : movieList) {
                         if (m.getStatus() != MovieStatusType.END_OF_SHOWING) {
                             String name = m.getTitle();
                             movieNames.add(name);
@@ -59,7 +61,7 @@ public class MovieListingModule implements ModuleInterface {
                         System.out.println("No Movies Found. ");
                     } else {
                         System.out.println("List of movies: ");
-                        for (String name: movieNames) {
+                        for (String name : movieNames) {
                             System.out.println(name);
                         }
                     }
@@ -141,12 +143,12 @@ public class MovieListingModule implements ModuleInterface {
                             System.out.println("Error: Invalid Movie Status. Please try again.");
                         }
                     }
-                    MovieStatusType status = MovieStatusType.values()[updateChoice-1];
+                    MovieStatusType status = MovieStatusType.values()[updateChoice - 1];
                     movie.setStatus(status);
                     if (status == MovieStatusType.END_OF_SHOWING) {
                         CineplexDB cineplexDB = new CineplexDB();
                         ArrayList<Cineplex> cineplexList = cineplexDB.read();
-                        for (Cineplex c: cineplexList) {
+                        for (Cineplex c : cineplexList) {
                             c.removeMovieShowings(movie);
                         }
                     }
@@ -171,7 +173,7 @@ public class MovieListingModule implements ModuleInterface {
                             System.out.println("Error: Invalid Movie Type. Please try again.");
                         }
                     }
-                    MovieType type = MovieType.values()[updateChoice-1];
+                    MovieType type = MovieType.values()[updateChoice - 1];
                     movie.setType(type);
                     break;
                 case 4:
@@ -188,6 +190,20 @@ public class MovieListingModule implements ModuleInterface {
                         }
                     }
                     movie.setEndOfShowingDate(endOfShowingDate);
+                    CineplexDB cineplexDB = new CineplexDB();
+                    ArrayList<Cineplex> cineplexList = cineplexDB.read();
+                    for (Cineplex c : cineplexList) {
+                        for (Cinema cin : c.getListOfCinemas()) {
+                            for (Showing s : cin.getShowList()) {
+                                if (s.getMovie().getTitle().equals(movie.getTitle())) {
+                                    System.out.println("FUCK\n");
+                                    Movie movie1 = s.getMovie();
+                                    movie1.setEndOfShowingDate(endOfShowingDate);
+                                }
+                            }
+                        }
+                    }
+                    System.out.println(movie.getEndOfShowingDate());
                     break;
                 case 5:
                     run = false;
@@ -213,7 +229,7 @@ public class MovieListingModule implements ModuleInterface {
         for (Movie m : movieList) {
             if (m.getTitle().equalsIgnoreCase(title)) {
                 m.setStatus(MovieStatusType.END_OF_SHOWING);
-                for (Cineplex c: cineplexList) {
+                for (Cineplex c : cineplexList) {
                     c.removeMovieShowings(m);
                 }
                 foundMovie = true;
@@ -252,7 +268,7 @@ public class MovieListingModule implements ModuleInterface {
                 System.out.println("Error: Invalid Movie Status. Please try again.\n");
             }
         }
-        MovieStatusType status = MovieStatusType.values()[choice-1];
+        MovieStatusType status = MovieStatusType.values()[choice - 1];
 
         System.out.print("\nInput Movie Synopsis: ");
         String synopsis = sc.nextLine();
@@ -275,7 +291,7 @@ public class MovieListingModule implements ModuleInterface {
                 System.out.println("Error: Invalid Movie Type. Please try again.");
             }
         }
-        MovieType type = MovieType.values()[choice-1];
+        MovieType type = MovieType.values()[choice - 1];
 
         while (true) {
             try {
@@ -283,7 +299,7 @@ public class MovieListingModule implements ModuleInterface {
                 String dateString = sc.nextLine();
                 DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                 LocalDateTime endOfShowingDate = LocalDateTime.parse(dateString + " 00:00", dtFormatter);
-        
+
                 Movie newMovie = new Movie(title, status, synopsis, director, cast, type, endOfShowingDate);
                 movieList.add(newMovie);
                 movieDB.write(movieList);
