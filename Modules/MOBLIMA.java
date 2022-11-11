@@ -2,7 +2,19 @@ package Modules;
 
 import java.util.Scanner;
 
+/** 
+ * Represents the main entry point into the entire MOBLIMA application.
+ * @author Chay Hui Xiang
+ * @version 1.0
+ * @since 2022-11-11
+ */
 public class MOBLIMA {
+
+    /**
+     * Main Function of the MOBLIMA class. Entry point of the entire MOBLIMA application
+     * Requests for the user's target role (ie. Admin/MovieGoer) and 
+     * calls the respective module (ie. AdminModule & MovieGoerModule)
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 

@@ -27,19 +27,57 @@ import Objects.MovieTicket;
 import Objects.Settings;
 import Objects.Showing;
 
+/** 
+ * Represents the Module for MovieGoers to book seats.
+ * @author Chay Hui Xiang
+ * @version 1.0
+ * @since 2022-11-11
+ */
 public class BookingModule implements ModuleInterface {
+
+    /** 
+     * Scanner to query users for inputs.
+     */
     private Scanner sc;
+
+    /** 
+     * Stores the current Application Settings.
+     */
     private Settings settingsObj;
+
+    /** 
+     * List of all Cineplexes.
+     */
     private ArrayList<Cineplex> cineplexList;
+
+    /** 
+     * List of Cinemas within the selected Cineplex.
+     */
     private ArrayList<Cinema> cinemaList;
+
+    /** 
+     * Cineplex that the user has selected for booking.
+     */
     private Cineplex cineplexObj;
+
+    /** 
+     * MovieGoer who is booking a Seat.
+     */
     private MovieGoer movieGoerObj;
 
+    /** 
+     * Creates a new BookingModule to query the user for their booking options.
+     * @param sc Scanner to query for user's inputs.
+     * @param movieGoer MovieGoer who is booking a Seat with the BookingModule.
+     */
     public BookingModule(Scanner sc, MovieGoer movieGoer) {
         this.sc = sc;
         this.movieGoerObj = movieGoer;
     }
-
+    
+    /** 
+     * Runs the BookingModule.
+     */
     public void run() {
         System.out.println("***********************************************");
         System.out.println("MOBLIMA -- Movie Goer -- Booking Module:");
@@ -100,6 +138,9 @@ public class BookingModule implements ModuleInterface {
         }
     }
 
+    /** 
+     * Displays all Showings from all Cinemas within the selected Cineplex.
+     */
     private void displayAllCinemaShowings() {
         System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Display All Cinema Showings):\n");
         for (Cinema cinema : cinemaList) {
@@ -109,6 +150,9 @@ public class BookingModule implements ModuleInterface {
         }
     }
 
+    /** 
+     * Displays all Showings from a particular Cinema selected by the user.
+     */
     private void displayCinemaShowings() {
         System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Display Cinema Showings):\n");
         Cinema cinemaObj = selectCinema();
@@ -116,6 +160,9 @@ public class BookingModule implements ModuleInterface {
         System.out.println();
     }
 
+    /** 
+     * Prints all Seats from a particular Showing selected by the user.
+     */
     private void checkSeatAvailability() {
         System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Check Seat Availability):\n");
         Cinema cinemaObj = selectCinema();
@@ -129,6 +176,9 @@ public class BookingModule implements ModuleInterface {
         showingObj.printSeating();
     }
 
+    /** 
+     * Handles all Seat Booking by the user.
+     */
     private void bookSeats() {
         System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Book Seats):\n");
         Cinema cinemaObj = selectCinema();
@@ -305,7 +355,9 @@ public class BookingModule implements ModuleInterface {
     }
 
     // SELECTION HELPERS
-
+    /** 
+     * Prompts the user to select a Cineplex.
+     */
     private void selectCineplex() {
         int choice;
         do {
@@ -328,6 +380,9 @@ public class BookingModule implements ModuleInterface {
         cinemaList = cineplexObj.getListOfCinemas();
     }
 
+    /** 
+     * Prompts the user to select a Cinema.
+     */
     private Cinema selectCinema() {
         int cinemaSize = cinemaList.size();
         int cinemaChoice;
@@ -346,6 +401,10 @@ public class BookingModule implements ModuleInterface {
         return cinema;
     }
 
+    /** 
+     * Prompts the user to select a Showing.
+     * @return the Showing selected by the user.
+     */
     private Showing selectShowing(Cinema cinema) {
         Showing showing;
         do {
@@ -363,7 +422,16 @@ public class BookingModule implements ModuleInterface {
     }
 
     // PRICE HELPER
-
+    /** 
+     * Algorithm to determine the price of the MovieTicket.
+     * @param movieType type of the Movie booked (ie. REGULAR, 3D, BLOCKBUSTER).
+     * @param cinemaClass class of the Cinema booked (ie. GOLD_GLASS, DELUXE, REGULAR).
+     * @param movieGoerAge age class of the MovieGoer who is booking the MovieTicket (ie. CHILD, ADULT, SENIOR).
+     * @param showingDayType reflects whether the Movie is aired/shown on a WEEKDAY/WEEKEND/PUBLIC_HOLIDAY.
+     * @param seatType type of the Seat booked (ie. REGULAR, COUPLE, ELITE, ULTIMA).
+     * @param showTime time for which the Showing will be aired.
+     * @return calculated price of the MovieTicket.
+     */
     private double calculatePrice(MovieType movieType, CinemaType cinemaClass, AgeType movieGoerAge, DayType showingDayType, SeatType seatType, LocalDateTime showTime) {
         String movieTypeChoice = movieType.name();
         String cinemaClassChoice = cinemaClass.name();
