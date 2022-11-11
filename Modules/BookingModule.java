@@ -105,38 +105,43 @@ public class BookingModule implements ModuleInterface {
             System.out.println("[6] Back");
             System.out.print("Please enter your choice: ");
 
-            int choice = sc.nextInt();
-            System.out.println("***********************************************");
+            try {
+                int choice = sc.nextInt();
+                System.out.println("***********************************************");
 
-            switch (choice) {
-                case 1:
-                    displayAllCinemaShowings();
-                    break;
+                switch (choice) {
+                    case 1:
+                        displayAllCinemaShowings();
+                        break;
 
-                case 2:
-                    displayCinemaShowings();
-                    break;
+                    case 2:
+                        displayCinemaShowings();
+                        break;
 
-                case 3:
-                    checkSeatAvailability();
-                    break;
+                    case 3:
+                        checkSeatAvailability();
+                        break;
 
-                case 4:
-                    bookSeats();
-                    break;
+                    case 4:
+                        bookSeats();
+                        break;
 
-                case 5:
-                    System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Reselect Cineplex):\n");
-                    selectCineplex();
-                    break;
+                    case 5:
+                        System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Reselect Cineplex):\n");
+                        selectCineplex();
+                        break;
 
-                case 6:
-                    running = false;
-                    break;
+                    case 6:
+                        running = false;
+                        break;
 
-                default:
-                    System.out.println("Error: Invalid Choice, Please try again.\n");
-                    break;
+                    default:
+                        System.out.println("Error: Invalid Choice, Please try again.\n");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Error: Invalid Choice, Please try again.\n");
+                sc.nextLine();
             }
         }
     }
