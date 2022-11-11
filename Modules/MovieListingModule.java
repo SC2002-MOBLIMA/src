@@ -111,6 +111,8 @@ public class MovieListingModule implements ModuleInterface {
 
     private void updateMovie(Movie movie) {
         boolean run = true;
+        CineplexDB cineplexDB = new CineplexDB();
+        ArrayList<Cineplex> cineplexList = cineplexDB.read();
 
         do {
             System.out.println("******************************");
@@ -146,8 +148,6 @@ public class MovieListingModule implements ModuleInterface {
                     MovieStatusType status = MovieStatusType.values()[updateChoice - 1];
                     movie.setStatus(status);
                     if (status == MovieStatusType.END_OF_SHOWING) {
-                        CineplexDB cineplexDB = new CineplexDB();
-                        ArrayList<Cineplex> cineplexList = cineplexDB.read();
                         for (Cineplex c : cineplexList) {
                             c.removeMovieShowings(movie);
                         }
@@ -158,6 +158,17 @@ public class MovieListingModule implements ModuleInterface {
                     int saleCount = sc.nextInt();
                     sc.nextLine();
                     movie.setSaleCount(saleCount);
+                    for (Cineplex c : cineplexList) {
+                        for (Cinema cin : c.getListOfCinemas()) {
+                            for (Showing s : cin.getShowList()) {
+                                if (s.getMovie().equals(movie)) {
+                                    Movie movie1 = s.getMovie();
+                                    movie1.setSaleCount(saleCount);
+                                    ;
+                                }
+                            }
+                        }
+                    }
                     break;
                 case 3:
                     while (true) {
@@ -175,6 +186,16 @@ public class MovieListingModule implements ModuleInterface {
                     }
                     MovieType type = MovieType.values()[updateChoice - 1];
                     movie.setType(type);
+                    for (Cineplex c : cineplexList) {
+                        for (Cinema cin : c.getListOfCinemas()) {
+                            for (Showing s : cin.getShowList()) {
+                                if (s.getMovie().equals(movie)) {
+                                    Movie movie1 = s.getMovie();
+                                    movie1.setType(type);
+                                }
+                            }
+                        }
+                    }
                     break;
                 case 4:
                     LocalDateTime endOfShowingDate = LocalDateTime.now();
@@ -190,13 +211,10 @@ public class MovieListingModule implements ModuleInterface {
                         }
                     }
                     movie.setEndOfShowingDate(endOfShowingDate);
-                    CineplexDB cineplexDB = new CineplexDB();
-                    ArrayList<Cineplex> cineplexList = cineplexDB.read();
                     for (Cineplex c : cineplexList) {
                         for (Cinema cin : c.getListOfCinemas()) {
                             for (Showing s : cin.getShowList()) {
                                 if (s.getMovie().getTitle().equals(movie.getTitle())) {
-                                    System.out.println("FUCK\n");
                                     Movie movie1 = s.getMovie();
                                     movie1.setEndOfShowingDate(endOfShowingDate);
                                 }
@@ -213,6 +231,7 @@ public class MovieListingModule implements ModuleInterface {
                     break;
             }
         } while (run);
+        cineplexDB.write(cineplexList);
     }
 
     // Update the status of the Movie Listing as "END_OF_SHOWING"

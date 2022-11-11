@@ -55,13 +55,9 @@ public class Cinema implements Serializable {
 
   public void displayAvailableShows() { // Come back to finish this
     int index = 1;
-    System.out.println(LocalDateTime.now());
     int showsAvailable = 0;
     for (Showing showing : showList) {
       Movie movie = showing.getMovie();
-      System.out.println(movie.getTitle());
-      System.out.println(movie.getEndOfShowingDate());
-      System.out.println(movie.getEndOfShowingDate().compareTo(LocalDateTime.now()) > 0);
       if (movie.getStatus() == MovieStatusType.NOW_SHOWING
           && movie.getEndOfShowingDate().compareTo(LocalDateTime.now()) > 0) {
         System.out.println("[" + index + "]: " + movie.getTitle() + " " + showing.getFormattedTime());
