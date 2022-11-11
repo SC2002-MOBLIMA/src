@@ -105,38 +105,43 @@ public class BookingModule implements ModuleInterface {
             System.out.println("[6] Back");
             System.out.print("Please enter your choice: ");
 
-            int choice = sc.nextInt();
-            System.out.println("***********************************************");
+            try {
+                int choice = sc.nextInt();
+                System.out.println("***********************************************");
 
-            switch (choice) {
-                case 1:
-                    displayAllCinemaShowings();
-                    break;
+                switch (choice) {
+                    case 1:
+                        displayAllCinemaShowings();
+                        break;
 
-                case 2:
-                    displayCinemaShowings();
-                    break;
+                    case 2:
+                        displayCinemaShowings();
+                        break;
 
-                case 3:
-                    checkSeatAvailability();
-                    break;
+                    case 3:
+                        checkSeatAvailability();
+                        break;
 
-                case 4:
-                    bookSeats();
-                    break;
+                    case 4:
+                        bookSeats();
+                        break;
 
-                case 5:
-                    System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Reselect Cineplex):\n");
-                    selectCineplex();
-                    break;
+                    case 5:
+                        System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Reselect Cineplex):\n");
+                        selectCineplex();
+                        break;
 
-                case 6:
-                    running = false;
-                    break;
+                    case 6:
+                        running = false;
+                        break;
 
-                default:
-                    System.out.println("Error: Invalid Choice, Please try again.\n");
-                    break;
+                    default:
+                        System.out.println("Error: Invalid Choice, Please try again.\n");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Error: Invalid Choice, Please try again.\n");
+                sc.nextLine();
             }
         }
     }
@@ -219,36 +224,41 @@ public class BookingModule implements ModuleInterface {
                 System.out.print("Please enter seat to book (eg. A1): ");
                 String seatId = sc.next();
 
-                if (showingObj.isAvailable(seatId)) {
-                    Movie movie = showingObj.getMovie();
-                    MovieType movieType = movie.getType();
-                    CinemaType cinemaClass = cinemaObj.getCinemaType();
-                    AgeType movieGoerAge = movieGoerObj.getAgeType();
-                    DayType showingDayType = showingObj.getDayType();
-                    LocalDateTime showingTime = showingObj.getShowTime();
-                    SeatType seatType = showingObj.getSeatType(seatId);
-                    double price = calculatePrice(movieType, cinemaClass, movieGoerAge, showingDayType, seatType,
-                            showingTime);
-
-                    totalPrice += price;
-                    idPriceMap.put(seatId, price);
-                    showingObj.assignSeat(movieGoerObj, seatId);
-
-                    // book adjacent seat if couple / ultima
-                    if (seatType == SeatType.COUPLE || seatType == SeatType.ULTIMA) {
-                        int col = Character.getNumericValue(seatId.charAt(1));
-                        int adjCol = col % 2 == 0 ? col - 1 : col + 1;
-                        String adjSeatId = "" + seatId.charAt(0) + Character.forDigit(adjCol, 10);
+                // if((int) seatId.charAt(0)<65 || (int) seatId.charAt(0)>75 || .charAt(0) )
+                try {
+                    if (showingObj.isAvailable(seatId)) {
+                        Movie movie = showingObj.getMovie();
+                        MovieType movieType = movie.getType();
+                        CinemaType cinemaClass = cinemaObj.getCinemaType();
+                        AgeType movieGoerAge = movieGoerObj.getAgeType();
+                        DayType showingDayType = showingObj.getDayType();
+                        LocalDateTime showingTime = showingObj.getShowTime();
+                        SeatType seatType = showingObj.getSeatType(seatId);
+                        double price = calculatePrice(movieType, cinemaClass, movieGoerAge, showingDayType, seatType,
+                                showingTime);
 
                         totalPrice += price;
-                        idPriceMap.put(adjSeatId, price);
-                        showingObj.assignSeat(movieGoerObj, adjSeatId);
-                        ticketsBooked++;
+                        idPriceMap.put(seatId, price);
+                        showingObj.assignSeat(movieGoerObj, seatId);
+
+                        // book adjacent seat if couple / ultima
+                        if (seatType == SeatType.COUPLE || seatType == SeatType.ULTIMA) {
+                            int col = Character.getNumericValue(seatId.charAt(1));
+                            int adjCol = col % 2 == 0 ? col - 1 : col + 1;
+                            String adjSeatId = "" + seatId.charAt(0) + Character.forDigit(adjCol, 10);
+
+                            totalPrice += price;
+                            idPriceMap.put(adjSeatId, price);
+                            showingObj.assignSeat(movieGoerObj, adjSeatId);
+                            ticketsBooked++;
+                        }
+                        break;
+                    } else {
+                        System.out.print("Ticket " + ticketCount + " | ");
+                        System.out.println("Error: Seat already occupied, Please try again.\n");
                     }
-                    break;
-                } else {
-                    System.out.print("Ticket " + ticketCount + " | ");
-                    System.out.println("Error: Seat already occupied, Please try again.\n");
+                } catch (Exception e) {
+                    System.out.println("Invalid Seat. Please try again.");
                 }
             } while (true);
 

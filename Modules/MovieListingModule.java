@@ -1,6 +1,7 @@
 package Modules;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -90,22 +91,20 @@ public class MovieListingModule implements ModuleInterface {
     private void updateMovieListing(MovieDB movieDB) {
         System.out.println("***********************************************");
         System.out.println("MOBLIMA -- Movie Listing Module (Update Existing Movie Listing):");
-        boolean foundMovie = false;
-        System.out.print("\nPlease enter the title of the movie: ");
-        String title = sc.nextLine();
+
+        Movie movieToUpdate = selectMovie();
+        if (movieToUpdate == null) {
+            System.out.println("No Movies Available.");
+            return;
+        }
 
         for (Movie m : movieList) {
-            if (m.getTitle().equalsIgnoreCase(title)) {
+            if (m.equals(movieToUpdate)) {
                 updateMovie(m);
-                foundMovie = true;
             }
         }
-        if (foundMovie) {
-            movieDB.write(movieList);
-            System.out.println("Movie Listing successfully updated.");
-        } else {
-            System.out.println("Movie not found.");
-        }
+        movieDB.write(movieList);
+        System.out.println("Movie Listing successfully updated.");
         System.out.println("***********************************************");
     }
 
@@ -116,22 +115,21 @@ public class MovieListingModule implements ModuleInterface {
 
         do {
             System.out.println("******************************");
+            System.out.println("What do you want to update?");
             System.out.println("Possible List of Updates:");
             System.out.println("[1] Status");
             System.out.println("[2] Sale Count");
             System.out.println("[3] Type");
             System.out.println("[4] End Of Showing Date");
             System.out.println("[5] Back / Done");
-            System.out.println("******************************");
-
-            System.out.println("What do you want to update?");
+            System.out.print("Please enter your choice:");
             int choice = sc.nextInt();
             int updateChoice = 0;
 
             switch (choice) {
                 case 1:
                     while (true) {
-                        System.out.println("Input new status (COMING_SOON, PREVIEW, NOW_SHOWING)");
+                        System.out.println("Current Movie Status: " + movie.getStatus());
                         System.out.println("\n[1] COMING SOON");
                         System.out.println("[2] PREVIEW");
                         System.out.println("[3] NOW SHOWING");
@@ -154,6 +152,7 @@ public class MovieListingModule implements ModuleInterface {
                     }
                     break;
                 case 2:
+                    System.out.println("\nCurrent Sale Count: " + movie.getSaleCount());
                     System.out.print("Input New Sale Count: ");
                     int saleCount = sc.nextInt();
                     sc.nextLine();
@@ -170,8 +169,10 @@ public class MovieListingModule implements ModuleInterface {
                         }
                     }
                     break;
+
                 case 3:
                     while (true) {
+                        System.out.println("Current Movie Type: " + movie.getType());
                         System.out.println("\n[1] Regular");
                         System.out.println("[2] 3D");
                         System.out.println("[3] Blockbuster");
@@ -201,7 +202,10 @@ public class MovieListingModule implements ModuleInterface {
                     LocalDateTime endOfShowingDate = LocalDateTime.now();
                     while (true) {
                         try {
-                            System.out.print("\nInput New End Of Showing Date (dd-MM-yyyy): ");
+                            LocalDate currentEOSD = movie.getEndOfShowingDate().toLocalDate();
+                            System.out.println("\nCurrent End Of Showing Date: "
+                                    + currentEOSD.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                            System.out.print("Input New End Of Showing Date (dd-MM-yyyy): ");
                             String dateString = sc.nextLine();
                             DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                             endOfShowingDate = LocalDateTime.parse(dateString + " 00:00", dtFormatter);
@@ -239,30 +243,27 @@ public class MovieListingModule implements ModuleInterface {
         System.out.println("***********************************************");
         System.out.println("MOBLIMA -- Movie Listing Module (Remove Movie Listing):");
 
-        boolean foundMovie = false;
-        System.out.print("\nPlease enter the title of the movie: ");
-        String title = sc.nextLine();
+        Movie movieToRemove = selectMovie();
+        if (movieToRemove == null) {
+            System.out.println("No Movies Available.");
+            return;
+        }
+
         CineplexDB cineplexDB = new CineplexDB();
         ArrayList<Cineplex> cineplexList = cineplexDB.read();
 
         for (Movie m : movieList) {
-            if (m.getTitle().equalsIgnoreCase(title)) {
+            if (m.equals(movieToRemove)) {
                 m.setStatus(MovieStatusType.END_OF_SHOWING);
                 for (Cineplex c : cineplexList) {
                     c.removeMovieShowings(m);
                 }
-                foundMovie = true;
             }
         }
 
-        if (foundMovie) {
-            movieDB.write(movieList);
-            cineplexDB.write(cineplexList);
-            System.out.println("Movie Listing successfully removed.");
-        } else {
-            System.out.println("Movie not found.");
-        }
-
+        movieDB.write(movieList);
+        cineplexDB.write(cineplexList);
+        System.out.println("Movie Listing successfully removed.");
         System.out.println("***********************************************");
     }
 
@@ -356,5 +357,36 @@ public class MovieListingModule implements ModuleInterface {
         }
 
         return cast;
+    }
+
+    private Movie selectMovie() {
+        ArrayList<Movie> availableMovies = new ArrayList<Movie>();
+        for (Movie m : movieList) {
+            if (m.getStatus() != MovieStatusType.END_OF_SHOWING) {
+                availableMovies.add(m);
+            }
+        }
+
+        if (availableMovies.isEmpty()) {
+            return null;
+        }
+
+        int choice = 0;
+        do {
+            for (int i = 0; i < availableMovies.size(); i++) {
+                System.out.println("(" + (i + 1) + ") " + availableMovies.get(i).getTitle());
+            }
+            System.out.print("\nPlease key in the number of the movie that you would like to select: ");
+            choice = sc.nextInt();
+            sc.nextLine();
+            if (choice < 1 || choice > availableMovies.size()) {
+                System.out.println("Error: Invalid input. Please try again.");
+            } else {
+                break;
+            }
+        } while (true);
+
+        return availableMovies.get(choice - 1);
+
     }
 }
