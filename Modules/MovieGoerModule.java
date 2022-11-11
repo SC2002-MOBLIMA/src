@@ -150,9 +150,10 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
 
     private void printMoviesSearch(String phrase, boolean detailed) {
         int index = 0;
+        phrase = phrase.toLowerCase();
         System.out.println("Results: ");
         for (Movie m : allMovies) {
-            if (m.getStatus() == (MovieStatusType.NOW_SHOWING) && m.getTitle().contains(phrase)) {
+            if (m.getStatus() == (MovieStatusType.NOW_SHOWING) && m.getTitle().toLowerCase().contains(phrase)) {
                 if (detailed == false) {
                     System.out.println("[" + (index+1) + "] " + m.getTitle());
                     index++;
