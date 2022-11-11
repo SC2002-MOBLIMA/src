@@ -121,7 +121,7 @@ public class CineplexModule implements ModuleInterface {
             ArrayList<Movie> currentMovies = new ArrayList<Movie>();
             
             for (Movie m: movieList) {
-                if (m.getStatus() != MovieStatusType.END_OF_SHOWING) {
+                if (m.getStatus() != MovieStatusType.END_OF_SHOWING && m.getStatus() != MovieStatusType.COMING_SOON) {
                     currentMovies.add(m);
                 }
             }
