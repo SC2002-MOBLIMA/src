@@ -10,7 +10,6 @@ import Objects.Admin;
 
 /**
  * Represents the Module for Admin functions.
- * 
  * @author Chay Hui Xiang
  * @version 1.0
  * @since 2022-11-11

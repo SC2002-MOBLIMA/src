@@ -2,7 +2,6 @@ package Enums;
 
 /**
  * Different Movie Types.
- * 
  * {@link #REGULAR}
  * {@link #THREE_D}
  * {@link #BLOCKBUSTER}

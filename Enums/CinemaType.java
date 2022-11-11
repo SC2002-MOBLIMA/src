@@ -2,7 +2,6 @@ package Enums;
 
 /**
  * Different Types of Cinemas.
- * 
  * {@link #GOLD_CLASS}
  * {@link #DELUXE}
  * {@link #REGULAR}

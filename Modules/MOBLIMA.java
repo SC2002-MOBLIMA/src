@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 /**
  * Represents the main entry point into the entire MOBLIMA application.
- * 
  * @author Chay Hui Xiang
  * @version 1.0
  * @since 2022-11-11
