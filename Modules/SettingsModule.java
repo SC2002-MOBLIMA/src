@@ -5,8 +5,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 
+import Databases.CineplexDB;
 import Databases.SettingsDB;
 import Enums.AgeType;
 import Enums.CinemaType;
@@ -14,7 +17,11 @@ import Enums.DayType;
 import Enums.MovieType;
 import Enums.SeatType;
 import Interfaces.ModuleInterface;
+
 import Objects.Settings;
+import Objects.Cineplex;
+import Objects.Cinema;
+import Objects.Showing;
 
 /**
  * Represents the entry point for admin users to edit settings.
@@ -189,6 +196,8 @@ public class SettingsModule implements ModuleInterface {
 
                 case 8:
                     System.out.println("MOBLIMA -- Admin -- Settings Module (Edit Holiday Dates):");
+                    CineplexDB cineplexDB = new CineplexDB();
+                    ArrayList<Cineplex> cineplexList = cineplexDB.read();
                     displayHolidayDates();
                     System.out.print(
                         "\nEnter Holiday Date (dd-MM-yyyy, eg. 01-01-2022).\nIf input date is not in list, then input date will be added to list\nIf input date is already in list, then input date will be removed from list: ");
@@ -209,12 +218,43 @@ public class SettingsModule implements ModuleInterface {
                     if (dateAlreadyExistsAtPosition != -1) {
                         holidayDates.remove(dateAlreadyExistsAtPosition);
                         dateAlreadyExistsAtPosition = -1;
+                        for (Cineplex c : cineplexList) {
+                            for (Cinema cin : c.getListOfCinemas()) {
+                                for (Showing s : cin.getShowList()) {
+                                    LocalDateTime showingTime = s.getShowTime();
+                                    LocalDate showingDay = showingTime.toLocalDate();
+                                    if (showingDay.equals(inputDate)) {
+                                        DayOfWeek dayofWeek = DayOfWeek.from(showingTime);
+                                        int day = dayofWeek.getValue();
+                                        if (day == 6 || day == 7) {
+                                            s.setDayType(DayType.WEEKEND);
+                                        } else {
+                                            s.setDayType(DayType.WEEKDAY);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        System.out.println("Holiday Date successfully removed.");
                     } else {
                         holidayDates.add(inputDate);
+                        for (Cineplex c : cineplexList) {
+                            for (Cinema cin : c.getListOfCinemas()) {
+                                for (Showing s : cin.getShowList()) {
+                                    LocalDateTime showingTime = s.getShowTime();
+                                    LocalDate showingDay = showingTime.toLocalDate();
+                                    if (showingDay.equals(inputDate)) {
+                                        s.setDayType(DayType.PUBLIC_HOLIDAY);
+                                    }
+                                }
+                            }
+                        }
+                        System.out.println("Holiday Date successfully added.");
                     }
                     Collections.sort(holidayDates);
                     settingsObj.setHolidayDates(holidayDates);
                     settingsDB.write(settingsObj);
+                    cineplexDB.write(cineplexList);
                     break;
 
                 case 9:
