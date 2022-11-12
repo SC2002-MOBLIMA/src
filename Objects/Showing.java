@@ -234,4 +234,13 @@ abstract public class Showing implements Serializable {
     Seat seat = this.seatLayout[row][column];
     seat.unassignSeat();
   }
+
+  /**
+   * Helper function used to return the seatLayout
+   * 
+   * @return the seatLayout for this Showing
+   */
+  public Seat[][] getSeatLayout() {
+    return this.seatLayout;
+  }
 }
