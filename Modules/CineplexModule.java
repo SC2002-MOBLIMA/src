@@ -22,9 +22,9 @@ import Objects.Settings;
 
 /** 
  * Represents a function in the admin module which can add/remove/update cinema showtimes and movies shown.
- * @author S Jivaganesh.
- * @version 1.0.
- * @since 2022-11-11.
+ * @author S Jivaganesh
+ * @version 1.0
+ * @since 2022-11-11
  */
 
 public class CineplexModule implements ModuleInterface {

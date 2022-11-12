@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 /** 
  * Represents the class of the Cineplex object.
- * @author S Jivaganesh.
- * @version 1.0.
- * @since 2022-11-11.
+ * @author S Jivaganesh
+ * @version 1.0
+ * @since 2022-11-11
  */
 
 public class Cineplex implements Serializable {

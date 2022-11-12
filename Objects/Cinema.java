@@ -11,9 +11,9 @@ import Enums.MovieStatusType;
 
 /** 
  * Represents the class of the Cinema object.
- * @author S Jivaganesh.
- * @version 1.0.
- * @since 2022-11-11.
+ * @author S Jivaganesh
+ * @version 1.0
+ * @since 2022-11-11
  */
 
 public class Cinema implements Serializable {
