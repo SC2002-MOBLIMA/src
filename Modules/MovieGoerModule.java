@@ -65,7 +65,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
      */
     public MovieGoerModule(Scanner sc) {
         this.sc = sc;
-        this.isLoggedIn = false; // TODO: toggle this back
+        this.isLoggedIn = false;
     }
 
     /**
