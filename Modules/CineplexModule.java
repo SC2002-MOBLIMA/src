@@ -312,7 +312,7 @@ public class CineplexModule implements ModuleInterface {
                         if (main_loop) {
                             LocalDateTime dateTime = null;
                             movieObj = show.getMovie();
-                            System.out.println("Key in the new show time in the following format (yyyyMMddHHmm): ");
+                            System.out.print("Key in the new show time in the following format (yyyyMMddHHmm): ");
                             String date = sc.next();
                             DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
                             try {

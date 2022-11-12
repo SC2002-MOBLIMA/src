@@ -188,11 +188,11 @@ public class Cinema implements Serializable {
         Iterator<Showing> i = showList.iterator();
 
         while (i.hasNext()) {
-        Showing s = i.next();
-        Movie m = s.getMovie();
-        if (m.equals(movie)) {
-            i.remove();
-        }
+            Showing s = i.next();
+            Movie m = s.getMovie();
+            if (m.equals(movie)) {
+                i.remove();
+            }
         }
     }
 }

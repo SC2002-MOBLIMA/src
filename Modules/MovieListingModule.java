@@ -86,8 +86,10 @@ public class MovieListingModule implements ModuleInterface {
                     System.out.println("No Movies Found. ");
                 } else {
                     System.out.println("List of movies: ");
+                    int index = 1;
                     for (String name : movieNames) {
-                        System.out.println(name);
+                        System.out.println("(" + index + "): " + name);
+                        index++;
                     }
                 }
                 break;
@@ -263,7 +265,7 @@ public class MovieListingModule implements ModuleInterface {
             System.out.println("[3] Type");
             System.out.println("[4] End Of Showing Date");
             System.out.println("[5] Back / Done");
-            System.out.print("Please enter your choice:");
+            System.out.print("Please enter your choice: ");
             int choice = sc.nextInt();
             sc.nextLine();
             int updateChoice = 0;
@@ -292,6 +294,7 @@ public class MovieListingModule implements ModuleInterface {
                             c.removeMovieShowings(movie);
                         }
                     }
+                    System.out.println("Movie Status successfully updated.");
                     break;
 
                 case 2:
@@ -310,6 +313,7 @@ public class MovieListingModule implements ModuleInterface {
                             }
                         }
                     }
+                    System.out.println("Movie Sale Count successfully updated.");
                     break;
 
                 case 3:
@@ -339,6 +343,7 @@ public class MovieListingModule implements ModuleInterface {
                             }
                         }
                     }
+                    System.out.println("Movie Type successfully updated.");
                     break;
 
                 case 4:
@@ -368,16 +373,16 @@ public class MovieListingModule implements ModuleInterface {
                             }
                         }
                     }
-                    System.out.println(movie.getEndOfShowingDate());
+                    System.out.println("Movie End Of Showing Date successfully updated.");
                     break;
 
                 case 5:
-                run = false;
-                break;
+                    run = false;
+                    break;
 
                 default:
-                System.out.println("Error: Invalid Choice, Please try again.");
-                break;
+                    System.out.println("Error: Invalid Choice, Please try again.");
+                    break;
             }
         } while (run);
         cineplexDB.write(cineplexList);
