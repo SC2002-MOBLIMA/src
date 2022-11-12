@@ -24,6 +24,10 @@ import Objects.Settings;
  * @since 2022-11-11
  */
 public class SettingsModule implements ModuleInterface {
+
+    /**
+     * Scanner to query users for inputs.
+     */
     private Scanner sc;
 
     /**
@@ -38,84 +42,6 @@ public class SettingsModule implements ModuleInterface {
      */
     public SettingsModule(Scanner sc) {
         this.sc = sc;
-    }
-
-    /**
-     * Prints all holidays dates.
-     */
-    private void displayHolidayDates() {
-        System.out.println("Current Holiday Dates are: ");
-        ArrayList<LocalDate> holidayDates = settingsObj.getHolidayDates();
-        DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        for (LocalDate date : holidayDates) {
-            System.out.println(date.format(dFormatter));
-        }
-    }
-
-    /**
-     * Prints old prices of and allows user to set new prices.
-     * 
-     * @param settingsDB an object instance of the settingsDB class.
-     * @param choice     the user's selection of which price factor.
-     * @param typeChoice the user's selection of which price factor option.
-     */
-    private void askNewPriceAndWriteToDB(SettingsDB settingsDB, int choice, String typeChoice) {
-        double price = 0;
-        switch (choice) {
-            case 1:
-                price = settingsObj.getMovieTypePrice(typeChoice);
-                break;
-
-            case 2:
-                price = settingsObj.getCinemaClassPrice(typeChoice);
-                break;
-
-            case 3:
-                price = settingsObj.getAgeTypePrice(typeChoice);
-                break;
-
-            case 4:
-                price = settingsObj.getDayTypePrice(typeChoice);
-                break;
-
-            case 5:
-                price = settingsObj.getSeatTypePrice(typeChoice);
-                break;
-
-            default:
-                break;
-        }
-        System.out.println("Old Price was: " + price);
-
-        System.out.print("Set New Price: ");
-        double newPrice = sc.nextDouble();
-        sc.nextLine();
-
-        System.out.println("Price successfully updated!");
-        switch (choice) {
-            case 1:
-                settingsObj.setMovieTypePrice(typeChoice, newPrice);
-                break;
-
-            case 2:
-                settingsObj.setCinemaClassPrice(typeChoice, newPrice);
-                break;
-
-            case 3:
-                settingsObj.setAgeTypePrice(typeChoice, newPrice);
-                break;
-
-            case 4:
-                settingsObj.setDayTypePrice(typeChoice, newPrice);
-                break;
-
-            case 5:
-                settingsObj.setSeatTypePrice(typeChoice, newPrice);
-
-            default:
-                break;
-        }
-        settingsDB.write(settingsObj);
     }
 
     /**
@@ -300,5 +226,83 @@ public class SettingsModule implements ModuleInterface {
                     break;
             }
         }
+    }
+
+    /**
+     * Prints all holidays dates.
+     */
+    private void displayHolidayDates() {
+        System.out.println("Current Holiday Dates are: ");
+        ArrayList<LocalDate> holidayDates = settingsObj.getHolidayDates();
+        DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        for (LocalDate date : holidayDates) {
+            System.out.println(date.format(dFormatter));
+        }
+    }
+
+    /**
+     * Prints old prices of and allows user to set new prices.
+     * 
+     * @param settingsDB an object instance of the settingsDB class.
+     * @param choice     the user's selection of which price factor.
+     * @param typeChoice the user's selection of which price factor option.
+     */
+    private void askNewPriceAndWriteToDB(SettingsDB settingsDB, int choice, String typeChoice) {
+        double price = 0;
+        switch (choice) {
+            case 1:
+                price = settingsObj.getMovieTypePrice(typeChoice);
+                break;
+
+            case 2:
+                price = settingsObj.getCinemaClassPrice(typeChoice);
+                break;
+
+            case 3:
+                price = settingsObj.getAgeTypePrice(typeChoice);
+                break;
+
+            case 4:
+                price = settingsObj.getDayTypePrice(typeChoice);
+                break;
+
+            case 5:
+                price = settingsObj.getSeatTypePrice(typeChoice);
+                break;
+
+            default:
+                break;
+        }
+        System.out.println("Old Price was: " + price);
+
+        System.out.print("Set New Price: ");
+        double newPrice = sc.nextDouble();
+        sc.nextLine();
+
+        System.out.println("Price successfully updated!");
+        switch (choice) {
+            case 1:
+                settingsObj.setMovieTypePrice(typeChoice, newPrice);
+                break;
+
+            case 2:
+                settingsObj.setCinemaClassPrice(typeChoice, newPrice);
+                break;
+
+            case 3:
+                settingsObj.setAgeTypePrice(typeChoice, newPrice);
+                break;
+
+            case 4:
+                settingsObj.setDayTypePrice(typeChoice, newPrice);
+                break;
+
+            case 5:
+                settingsObj.setSeatTypePrice(typeChoice, newPrice);
+
+            default:
+                break;
+        }
+        settingsDB.write(settingsObj);
     }
 }
