@@ -38,7 +38,7 @@ public class AdminModule implements ModuleInterface, LoginInterface {
      */
     public AdminModule(Scanner sc) {
         this.sc = sc;
-        this.isLoggedIn = false; 
+        this.isLoggedIn = true; // TODO: toggle this later
     }
 
     /**

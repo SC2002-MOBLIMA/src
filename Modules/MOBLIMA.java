@@ -14,7 +14,8 @@ public class MOBLIMA {
      * Main Function of the MOBLIMA class. Entry point of the entire MOBLIMA
      * application.
      * Requests for the user's target role (ie. Admin/MovieGoer) and
-     * calls the respective module (ie. AdminModule & MovieGoerModule).
+     * calls the respective module (ie. AdminModule and MovieGoerModule).
+     * @param args String arguments when the entry point of the application is called.
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

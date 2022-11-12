@@ -57,7 +57,7 @@ public class Movie implements Serializable, Comparable<Movie> {
     private MovieType type;
 
     /**
-     * The date & time when the Movie stops airing.
+     * The date and time when the Movie stops airing.
      */
     private LocalDateTime endOfShowingDate; // YYYY-MM-DDT00:00:00
 
@@ -71,7 +71,7 @@ public class Movie implements Serializable, Comparable<Movie> {
      * @param director         Name of the director of the new Movie.
      * @param cast             List of the names of the cast members.
      * @param type             Type of the new Movie (ie. REGULAR, 3D, BLOCKBUSTER).
-     * @param endOfShowingDate Date & Time when the new Movie stops airing.
+     * @param endOfShowingDate Date and Time when the new Movie stops airing.
      */
     public Movie(String title, MovieStatusType status, String synopsis, String director, ArrayList<String> cast,
         MovieType type, LocalDateTime endOfShowingDate) {
