@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @since 2022-11-11
  */
 public class CineplexDB extends SerializeDB<ArrayList<Cineplex>> {
+    
     /**
      * Creates a new CineplexDB with the given filename.
      */

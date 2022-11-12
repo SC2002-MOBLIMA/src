@@ -9,9 +9,9 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2022-11-11
  */
-
 public class Cineplex implements Serializable {
   
+
   private String cineplexName;
   private ArrayList<Cinema> cinemaList;
 
@@ -25,16 +25,14 @@ public class Cineplex implements Serializable {
     this.cinemaList = cinemaList;
   }
   
-  
   /** 
    * Returns the Cineplex Name when called.
-   * @return String.
+   * @return this Cineplex's name.
    */
   public String getCineplexName() {
     return cineplexName;
   }
 
-  
   /** 
    * Returns a List of Cinemas in the Cineplex when called.
    * @return ArrayList<Cinema>.

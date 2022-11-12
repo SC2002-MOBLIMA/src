@@ -11,6 +11,7 @@ import Objects.MovieGoer;
  * @since 2022-11-11
  */
 public class MovieGoerDB extends SerializeDB<ArrayList<MovieGoer>> {
+    
     /**
      * Creates a new MovieGoerDB with the given filename.
      */

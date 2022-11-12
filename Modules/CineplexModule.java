@@ -28,16 +28,36 @@ import Objects.Settings;
  */
 
 public class CineplexModule implements ModuleInterface {
+
+    /**
+     * Scanner to query users for inputs.
+     */
     private Scanner sc;
+
+    /**
+     * List of all Cineplexes in the database.
+     */
     private ArrayList<Cineplex> cineplexList;
+
+    /**
+     * Chosen Cinema by the Admin.
+     */
     private Cinema cinemaObj;
+
+    /**
+     * List of all Holiday Dates in the Application Settings.
+     */
     private ArrayList<LocalDate> holidayDates;
+
+    /**
+     * Chosen Movie by the Admin.
+     */
     private Movie movieObj;
 
-  /**
-   * Constructor of the Cineplex Module. Once called, a CineplexModule object will be created.
-   * @param sc represents the scanner object taken from the admin module so that CineplexModule can accept inputs from the user.
-   */    
+    /**
+     * Constructor of the Cineplex Module. Once called, a CineplexModule object will be created.
+     * @param sc represents the scanner object taken from the admin module so that CineplexModule can accept inputs from the user.
+     */    
     public CineplexModule(Scanner sc) {
         this.sc = sc;
     }

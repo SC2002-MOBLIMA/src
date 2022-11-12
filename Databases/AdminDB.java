@@ -12,6 +12,7 @@ import Objects.Admin;
  * @since 2022-11-11
  */
 public class AdminDB extends SerializeDB<ArrayList<Admin>> {
+    
     /**
      * Creates a new AdminDB with the given filename.
      */

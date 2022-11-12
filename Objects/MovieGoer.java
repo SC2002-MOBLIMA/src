@@ -14,6 +14,7 @@ import Enums.AgeType;
  */
 
 public class MovieGoer implements Serializable {
+    
     /**
      * The username of this MovieGoer account.
      */

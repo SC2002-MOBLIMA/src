@@ -33,6 +33,7 @@ import Comparators.SortBySales;
  */
 
 public class MovieGoerModule implements ModuleInterface, LoginInterface {
+    
     /**
      * Scanner to query users for inputs.
      */
@@ -294,7 +295,6 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
      * Method allows user to add a Reivew object to a Movie Object which they had
      * previously bought tickets for.
      */
-
     private void addMovieReview() {
         System.out.println("MOBLIMA -- Movie Goer Module (Add Movie Review): \n");
         MovieDB movieDB = new MovieDB();
