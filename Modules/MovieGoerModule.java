@@ -25,7 +25,7 @@ import Comparators.SortByRating;
 import Comparators.SortBySales;
 
 /**
- * Represents the module for MovieGoer functions
+ * Represents the module for MovieGoer functions.
  * 
  * @author Ivan Loke
  * @version 1.0
@@ -34,34 +34,34 @@ import Comparators.SortBySales;
 
 public class MovieGoerModule implements ModuleInterface, LoginInterface {
     /**
-     * Scanner to query users for inputs
+     * Scanner to query users for inputs.
      */
     private Scanner sc;
 
     /**
-     * Stores whether the MovieGoer is currently logged in
+     * Stores whether the MovieGoer is currently logged in.
      */
     private boolean isLoggedIn;
 
     /**
-     * Stores the instance of a MovieGoer object who is currently logged in
+     * Stores the instance of a MovieGoer object who is currently logged in.
      */
     private MovieGoer movieGoerObj;
 
     /**
-     * List of all MovieGoers in the database
+     * List of all MovieGoers in the database.
      */
     private ArrayList<MovieGoer> movieGoerList;
 
     /**
-     * List of all Movies in the database
+     * List of all Movies in the database.
      */
     private ArrayList<Movie> allMovies;
 
     /**
-     * Creates a new MovieGoerModule for MovieGoer functionality
+     * Creates a new MovieGoerModule for MovieGoer functionality.
      * 
-     * @param sc Scanner to query for user's inputs
+     * @param sc Scanner to query for user's inputs.
      */
     public MovieGoerModule(Scanner sc) {
         this.sc = sc;
@@ -69,7 +69,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
     }
 
     /**
-     * Runs the MovieGoerModule
+     * Runs the MovieGoerModule.
      */
     public void run() {
         MovieDB movieDB = new MovieDB();
@@ -166,7 +166,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
     }
 
     /**
-     * Prompts the user to login as MovieGoer
+     * Prompts the user to login as MovieGoer.
      */
     public void login() {
         if (isLoggedIn) {
@@ -194,12 +194,12 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
     }
 
     /**
-     * Prints Movie title and description matching input phrase
+     * Prints Movie title and description matching input phrase.
      * 
      * @param phrase   all movies in database will be checked if it contains this
-     *                 string in its title
+     *                 string in its title.
      * @param detailed represnts if other Movie details, apart from title, will be
-     *                 printed
+     *                 printed.
      */
     private void printMoviesSearch(String phrase, boolean detailed) {
         int index = 0;
@@ -243,7 +243,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
     }
 
     /**
-     * Method prints top 5 Movies which are NOW_SHOWING based on Review ratings
+     * Method prints top 5 Movies which are NOW_SHOWING based on Review ratings.
      */
     private void printMovieListByRating() {
         System.out.println("MOBLIMA -- Movie Goer Module (Top 5 Movies Based on Rating): ");
@@ -267,7 +267,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
     }
 
     /**
-     * Method prints top 5 Movies which are NOW_SHOWING based on ticket sales
+     * Method prints top 5 Movies which are NOW_SHOWING based on ticket sales.
      */
     private void printMovieListBySales() {
         System.out.println("MOBLIMA -- Movie Goer Module (Top 5 Movies Based on Sales): ");
@@ -292,7 +292,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
 
     /**
      * Method allows user to add a Reivew object to a Movie Object which they had
-     * previously bought tickets for
+     * previously bought tickets for.
      */
 
     private void addMovieReview() {
