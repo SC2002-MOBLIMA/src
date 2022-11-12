@@ -497,7 +497,7 @@ public class BookingModule implements ModuleInterface {
     DayOfWeek dow = DayOfWeek.from(showTime);
     int day = dow.getValue();
     if (showingDayType == DayType.PUBLIC_HOLIDAY) {
-      price *= settingsObj.getAgeTypePrice("PUBLIC_HOLIDAY");
+      price *= settingsObj.getDayTypePrice("PUBLIC_HOLIDAY");
     } else if (showingDayType == DayType.WEEKDAY && showTime.getHour() < 18
         && (movieGoerAge == AgeType.SENIOR || movieGoerAge == AgeType.CHILD)) {
       price *= movieGoerAgePrice;
