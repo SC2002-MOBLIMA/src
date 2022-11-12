@@ -42,8 +42,6 @@ public class SettingsModule implements ModuleInterface {
 
   /**
    * Prints all holidays dates.
-   * 
-   * @return void.
    */
   private void displayHolidayDates() {
     System.out.println("Current Holiday Dates are: ");
@@ -60,7 +58,6 @@ public class SettingsModule implements ModuleInterface {
    * @param settingsDB an object instance of the settingsDB class.
    * @param choice     the user's selection of which price factor.
    * @param typeChoice the user's selection of which price factor option.
-   * @return void.
    */
   private void askNewPriceAndWriteToDB(SettingsDB settingsDB, int choice, String typeChoice) {
     double price = 0;
@@ -123,8 +120,6 @@ public class SettingsModule implements ModuleInterface {
 
   /**
    * Runs the SettingsModule.
-   * 
-   * @return void.
    */
   public void run() {
     SettingsDB settingsDB = new SettingsDB();
