@@ -97,7 +97,7 @@ public class BookingModule implements ModuleInterface {
         while (running) {
             System.out.println("***********************************************");
             System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Selected Cineplex: "
-                + cineplexObj.getCineplexName() + "):");
+                    + cineplexObj.getCineplexName() + "):");
             System.out.println("[1] Display All Cinema Showings");
             System.out.println("[2] Display Cinema Showings");
             System.out.println("[3] Check Showing Seat Availability");
@@ -172,9 +172,9 @@ public class BookingModule implements ModuleInterface {
         System.out.println();
     }
 
-  /**
-   * Prints all Seats from a particular Showing selected by the user.
-   */
+    /**
+     * Prints all Seats from a particular Showing selected by the user.
+     */
     private void checkSeatAvailability() {
         System.out.println("MOBLIMA -- Movie Goer -- Booking Module (Check Seat Availability):\n");
         Cinema cinemaObj = selectCinema();
@@ -203,7 +203,8 @@ public class BookingModule implements ModuleInterface {
         cinemaObj.displayAvailableShows();
 
         // This is to check if there are showings that are NOW_SHOWING
-        // There are showings that are not NOW_SHOWING, which leads to erronous logic flow
+        // There are showings that are not NOW_SHOWING, which leads to erronous logic
+        // flow
         int showsAvailable = 0;
         ArrayList<Showing> showList = cinemaObj.getShowList();
         for (Showing showing : showList) {
@@ -244,7 +245,7 @@ public class BookingModule implements ModuleInterface {
                         LocalDateTime showingTime = showingObj.getShowTime();
                         SeatType seatType = showingObj.getSeatType(seatId);
                         double price = calculatePrice(movieType, cinemaClass, movieGoerAge, showingDayType, seatType,
-                            showingTime);
+                                showingTime);
 
                         totalPrice += price;
                         idPriceMap.put(seatId, price);
@@ -252,14 +253,14 @@ public class BookingModule implements ModuleInterface {
 
                         // book adjacent seat if couple / ultima
                         if (seatType == SeatType.COUPLE || seatType == SeatType.ULTIMA) {
-                        int col = Character.getNumericValue(seatId.charAt(1));
-                        int adjCol = col % 2 == 0 ? col - 1 : col + 1;
-                        String adjSeatId = "" + seatId.charAt(0) + Character.forDigit(adjCol, 10);
+                            int col = Character.getNumericValue(seatId.charAt(1));
+                            int adjCol = col % 2 == 0 ? col - 1 : col + 1;
+                            String adjSeatId = "" + seatId.charAt(0) + Character.forDigit(adjCol, 10);
 
-                        totalPrice += price;
-                        idPriceMap.put(adjSeatId, price);
-                        showingObj.assignSeat(movieGoerObj, adjSeatId);
-                        ticketsBooked++;
+                            totalPrice += price;
+                            idPriceMap.put(adjSeatId, price);
+                            showingObj.assignSeat(movieGoerObj, adjSeatId);
+                            ticketsBooked++;
                         }
                         break;
                     } else {
@@ -278,9 +279,9 @@ public class BookingModule implements ModuleInterface {
                 System.out.print("Ticket " + ticketCount + " | Would you like to book more tickets? (Y/N): ");
                 confirmInput = Character.toUpperCase(sc.next().charAt(0));
                 if (confirmInput == 'Y' || confirmInput == 'N') {
-                break;
+                    break;
                 } else {
-                System.out.println("Error: Invalid input, Please try again.\n");
+                    System.out.println("Error: Invalid input, Please try again.\n");
                 }
             } while (true);
 
@@ -362,7 +363,7 @@ public class BookingModule implements ModuleInterface {
                 String seatId = entry.getKey();
                 double price = entry.getValue();
                 MovieTicket movieTicket = new MovieTicket(movieGoerObj, price, showingObj, cineplexObj, cinemaObj,
-                    seatId);
+                        seatId);
                 movieGoerObj.addMovieTicket(movieTicket);
 
                 // increment movie sales
@@ -415,6 +416,8 @@ public class BookingModule implements ModuleInterface {
 
     /**
      * Prompts the user to select a Cinema.
+     * 
+     * @return the cinema selected by the user
      */
     private Cinema selectCinema() {
 
@@ -442,6 +445,7 @@ public class BookingModule implements ModuleInterface {
     /**
      * Prompts the user to select a Showing.
      * 
+     * @param cinema the cinema where the Showings are taking place
      * @return the Showing selected by the user.
      */
     private Showing selectShowing(Cinema cinema) {
@@ -478,7 +482,7 @@ public class BookingModule implements ModuleInterface {
      * @return calculated price of the MovieTicket.
      */
     private double calculatePrice(MovieType movieType, CinemaType cinemaClass, AgeType movieGoerAge,
-        DayType showingDayType, SeatType seatType, LocalDateTime showTime) {
+            DayType showingDayType, SeatType seatType, LocalDateTime showTime) {
         String movieTypeChoice = movieType.name();
         String cinemaClassChoice = cinemaClass.name();
         String movieGoerAgeChoice = movieGoerAge.name();
@@ -499,7 +503,7 @@ public class BookingModule implements ModuleInterface {
         if (showingDayType == DayType.PUBLIC_HOLIDAY) {
             price *= settingsObj.getDayTypePrice("PUBLIC_HOLIDAY");
         } else if (showingDayType == DayType.WEEKDAY && showTime.getHour() < 18
-            && (movieGoerAge == AgeType.SENIOR || movieGoerAge == AgeType.CHILD)) {
+                && (movieGoerAge == AgeType.SENIOR || movieGoerAge == AgeType.CHILD)) {
             price *= movieGoerAgePrice;
         } else if ((day == 5 && showTime.getHour() >= 18) || showingDayType == DayType.WEEKEND) {
             price *= settingsObj.getDayTypePrice("WEEKEND");
