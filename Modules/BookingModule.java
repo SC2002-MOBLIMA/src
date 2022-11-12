@@ -376,6 +376,7 @@ public class BookingModule implements ModuleInterface {
 
                 System.out.println("Movie Ticket " + seatId + ": ");
                 movieTicket.printTicket();
+                System.out.println();
             }
         } else {
             for (String seatId : idPriceMap.keySet()) {
