@@ -15,6 +15,7 @@ import Enums.AgeType;
 import Enums.CinemaType;
 import Enums.MovieType;
 import Enums.DayType;
+import Enums.MovieStatusType;
 import Enums.SeatType;
 
 import Interfaces.ModuleInterface;
@@ -201,7 +202,16 @@ public class BookingModule implements ModuleInterface {
     System.out.println("***********************************************");
     cinemaObj.displayAvailableShows();
 
-    if (cinemaObj.getShowList().size() == 0) {
+    // This is to check if there are showings that are NOW_SHOWING
+    // There are showings that are not NOW_SHOWING, which leads to erronous logic flow
+    int showsAvailable = 0;
+    ArrayList<Showing> showList = cinemaObj.getShowList();
+    for (Showing showing : showList) {
+      if (showing.getMovie().getStatus() == MovieStatusType.NOW_SHOWING) {
+        showsAvailable = 1;
+      }
+    }
+    if (showsAvailable == 0) {
       return;
     }
 
