@@ -86,8 +86,10 @@ public class MovieListingModule implements ModuleInterface {
                     System.out.println("No Movies Found. ");
                 } else {
                     System.out.println("List of movies: ");
+                    int index = 1;
                     for (String name : movieNames) {
-                        System.out.println(name);
+                        System.out.println("(" + index + "): " + name);
+                        index++;
                     }
                 }
                 break;
