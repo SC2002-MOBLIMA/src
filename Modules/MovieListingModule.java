@@ -21,7 +21,7 @@ import Objects.Cineplex;
 
 /**
  * Represents the entry point for Admins to create/ update / remove
- * movieListings
+ * movieListings.
  * 
  * @author Ang Kai Jun
  * @version 1.0
@@ -31,7 +31,7 @@ public class MovieListingModule implements ModuleInterface {
   private Scanner sc;
 
   /**
-   * The list of Movies stored retrieved from the MovieDB
+   * The list of Movies stored retrieved from the MovieDB.
    */
   private ArrayList<Movie> movieList;
 
@@ -45,7 +45,7 @@ public class MovieListingModule implements ModuleInterface {
   }
 
   /**
-   * Runs the MovieListingModule
+   * Runs the MovieListingModule.
    */
   public void run() {
     boolean running = true;
@@ -109,10 +109,10 @@ public class MovieListingModule implements ModuleInterface {
   }
 
   /**
-   * Create a new Movie Listing
+   * Create a new Movie Listing.
    * 
    * @param movieDB movieDB object which is used to write the new MovieList to the
-   *                movie.dat file
+   *                movie.dat file.
    */
   private void createNewMovieListing(MovieDB movieDB) {
     System.out.println("***********************************************");
@@ -182,10 +182,10 @@ public class MovieListingModule implements ModuleInterface {
 
   /**
    * Update infomation about the MovieListing (Status, Sale Count, Type, End Of
-   * Showing Date)
+   * Showing Date).
    * 
    * @param movieDB MovieDB object which is used to write the new MovieListing to
-   *                the movie.dat file
+   *                the movie.dat file.
    */
   private void updateMovieListing(MovieDB movieDB) {
     System.out.println("***********************************************");
@@ -208,10 +208,10 @@ public class MovieListingModule implements ModuleInterface {
   }
 
   /**
-   * Removes a MovieListing by updating the MovieStatus as "END_OF_SHOWING"
+   * Removes a MovieListing by updating the MovieStatus as "END_OF_SHOWING".
    * 
    * @param movieDB movieDB object which is used to write the new MovieList to the
-   *                movie.dat file
+   *                movie.dat file.
    */
   private void removeMovieListing(MovieDB movieDB) {
     System.out.println("***********************************************");
@@ -242,9 +242,9 @@ public class MovieListingModule implements ModuleInterface {
   }
 
   /**
-   * Helper Function to obtain the updated Movie Information
+   * Helper Function to obtain the updated Movie Information.
    * 
-   * @param movie Movie object that is being updated
+   * @param movie Movie object that is being updated.
    */
   private void updateMovie(Movie movie) {
     boolean run = true;
@@ -378,9 +378,9 @@ public class MovieListingModule implements ModuleInterface {
   }
 
   /**
-   * Helper function that is used when creating a new MovieListing
+   * Helper function that is used when creating a new MovieListing.
    * 
-   * @return ArrayList of cast based on user input
+   * @return ArrayList of cast based on user input.
    */
   private ArrayList<String> getCast() {
     ArrayList<String> cast = new ArrayList<String>();
@@ -409,9 +409,9 @@ public class MovieListingModule implements ModuleInterface {
   }
 
   /**
-   * Helper function used for the user to select the desired MovieListing
+   * Helper function used for the user to select the desired MovieListing.
    * 
-   * @return Movie Listing chosen
+   * @return Movie Listing chosen.
    */
   private Movie selectMovie() {
     ArrayList<Movie> availableMovies = new ArrayList<Movie>();
