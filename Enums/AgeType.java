@@ -12,17 +12,17 @@ package Enums;
 public enum AgeType {
 
     /**
-     * Child MovieGoer
+     * Child MovieGoer.
      */
     CHILD,
 
     /**
-     * Adult MovieGoer
+     * Adult MovieGoer.
      */
     ADULT,
 
     /**
-     * Senior MovieGoer
+     * Senior MovieGoer.
      */
     SENIOR
 }

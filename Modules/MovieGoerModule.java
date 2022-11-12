@@ -65,7 +65,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
      */
     public MovieGoerModule(Scanner sc) {
         this.sc = sc;
-        this.isLoggedIn = false; // TODO: toggle this back
+        this.isLoggedIn = false;
     }
 
     /**
@@ -209,7 +209,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     && (m.getEndOfShowingDate().compareTo(LocalDateTime.now())) > 0
                     && (m.getTitle().toLowerCase()).contains(phrase.toLowerCase())) {
                 if (detailed == false) {
-                    System.out.println("[" + (index + 1) + "] " + m.getTitle());
+                    System.out.println("(" + (index + 1) + ") " + m.getTitle());
                     index++;
                 } else {
                     System.out.println("Title: " + m.getTitle());

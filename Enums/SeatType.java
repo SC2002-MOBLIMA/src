@@ -13,22 +13,22 @@ package Enums;
 public enum SeatType {
 
     /**
-     * Regular Seats
+     * Regular Seats.
      */
     REGULAR,
 
     /**
-     * Couple Seats
+     * Couple Seats.
      */
     COUPLE,
 
     /**
-     * Elite Seats
+     * Elite Seats.
      */
     ELITE,
 
     /**
-     * Ultima Seats
+     * Ultima Seats.
      */
     ULTIMA
 }

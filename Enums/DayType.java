@@ -12,17 +12,17 @@ package Enums;
 public enum DayType {
 
     /**
-     * Weekend Showings
+     * Weekend Showings.
      */
     WEEKEND,
 
     /**
-     * Weekday Showings
+     * Weekday Showings.
      */
     WEEKDAY,
 
     /**
-     * Public Holiday Showings
+     * Public Holiday Showings.
      */
     PUBLIC_HOLIDAY
 }
