@@ -34,12 +34,12 @@ import Comparators.SortBySales;
 
 public class MovieGoerModule implements ModuleInterface, LoginInterface {
     /**
-     * Scanner to query users for inputs.
+     * Scanner to query users for inputs
      */
     private Scanner sc;
 
     /**
-     * Stores whether the MovieGoer is currently logged in.
+     * Stores whether the MovieGoer is currently logged in
      */
     private boolean isLoggedIn;
 
@@ -49,19 +49,19 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
     private MovieGoer movieGoerObj;
 
     /**
-     * List of all MovieGoers in the database.
+     * List of all MovieGoers in the database
      */
     private ArrayList<MovieGoer> movieGoerList;
 
     /**
-     * List of all Movies in the database.
+     * List of all Movies in the database
      */
     private ArrayList<Movie> allMovies;
 
     /**
-     * Creates a new MovieGoerModule for MovieGoer functionality.
+     * Creates a new MovieGoerModule for MovieGoer functionality
      * 
-     * @param sc Scanner to query for user's inputs.
+     * @param sc Scanner to query for user's inputs
      */
     public MovieGoerModule(Scanner sc) {
         this.sc = sc;
@@ -69,7 +69,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
     }
 
     /**
-     * Runs the MovieGoerModule.
+     * Runs the MovieGoerModule
      */
     public void run() {
         MovieDB movieDB = new MovieDB();
@@ -206,7 +206,8 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         System.out.println("Results: ");
         for (Movie m : allMovies) {
             if (m.getStatus() == (MovieStatusType.NOW_SHOWING)
-                    && (m.getEndOfShowingDate().compareTo(LocalDateTime.now())) > 0 && (m.getTitle().toLowerCase()).contains(phrase.toLowerCase())) {
+                    && (m.getEndOfShowingDate().compareTo(LocalDateTime.now())) > 0
+                    && (m.getTitle().toLowerCase()).contains(phrase.toLowerCase())) {
                 if (detailed == false) {
                     System.out.println("[" + (index + 1) + "] " + m.getTitle());
                     index++;
