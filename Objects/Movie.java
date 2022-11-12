@@ -300,10 +300,10 @@ public class Movie implements Serializable, Comparable<Movie> {
    * 
    * @param m Another Movie to compare this Movie with.
    * @return -1 when this Movie's Title is lexicographically less
-   *         than the provided Movie's Title (ignoring case)
-   *         0 when both Movie's Titles are equal (ignoring case)
+   *         than the provided Movie's Title (ignoring case).
+   *         0 when both Movie's Titles are equal (ignoring case).
    *         1 when this Movie's Title is lexicographically greater
-   *         than the provided Movie's Title (ignoring case)
+   *         than the provided Movie's Title (ignoring case).
    */
   @Override
   public int compareTo(Movie m) {
@@ -315,10 +315,10 @@ public class Movie implements Serializable, Comparable<Movie> {
    * Helper method to check whether 2 Movies are equal.
    * 
    * @param o Another Object to compare this Movie with.
-   * @return 1 when both Movie's Titles the same (ignoring case)
-   *         0 when the provided Object is not a Movie
-   *         0 when the provided Object is null
-   *         0 when the title of the Movies do not match
+   * @return 1 when both Movie's Titles the same (ignoring case).
+   *         0 when the provided Object is not a Movie.
+   *         0 when the provided Object is null.
+   *         0 when the title of the Movies do not match.
    */
   @Override
   public boolean equals(Object o) {

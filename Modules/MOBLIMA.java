@@ -12,15 +12,15 @@ public class MOBLIMA {
 
     /**
      * Main Function of the MOBLIMA class. Entry point of the entire MOBLIMA
-     * application
+     * application.
      * Requests for the user's target role (ie. Admin/MovieGoer) and
-     * calls the respective module (ie. AdminModule & MovieGoerModule)
+     * calls the respective module (ie. AdminModule & MovieGoerModule).
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n***********************************************");
-        // System.out.println("************* WELCOME TO MOBLIMA **************");
+
         System.out.println(" __  __  ____  ____  _      _____ __  __");
         System.out.println("|  \\/  |/ __ \\|  _ \\| |    |_   _|  \\/  |   /\\");
         System.out.println("| \\  / | |  | | |_) | |      | | | \\  / |  /  \\");

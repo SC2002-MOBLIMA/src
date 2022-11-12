@@ -12,17 +12,17 @@ package Enums;
 public enum CinemaType {
 
     /**
-     * Gold Class Cinema Type
+     * Gold Class Cinema Type.
      */
     GOLD_CLASS,
 
     /**
-     * Deluxe Cinema Type
+     * Deluxe Cinema Type.
      */
     DELUXE,
 
     /**
-     * Regular Cinema Type
+     * Regular Cinema Type.
      */
     REGULAR
 }

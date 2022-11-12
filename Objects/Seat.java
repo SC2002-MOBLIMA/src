@@ -30,8 +30,8 @@ public class Seat implements Serializable {
 
     /**
      * Creates a new Seat to be added to the layout of the Cinema, with the given id and seatType.
-     * @param id ID of the Seat. (Eg. A1, A2).
-     * @param seatType Type of the Seat. (ie. REGULAR, COUPLE, ELITE, ULTIMA).
+     * @param id        ID of the Seat. (Eg. A1, A2).
+     * @param seatType  Type of the Seat. (ie. REGULAR, COUPLE, ELITE, ULTIMA).
      */
     public Seat(String id, SeatType seatType) {
         this.id = id;
