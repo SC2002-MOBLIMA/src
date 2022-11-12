@@ -65,7 +65,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
      */
     public MovieGoerModule(Scanner sc) {
         this.sc = sc;
-        this.isLoggedIn = true; // TODO: toggle this back
+        this.isLoggedIn = false; // TODO: toggle this back
     }
 
     /**
@@ -206,7 +206,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         System.out.println("Results: ");
         for (Movie m : allMovies) {
             if (m.getStatus() == (MovieStatusType.NOW_SHOWING)
-                    && (m.getEndOfShowingDate().compareTo(LocalDateTime.now())) > 0 && m.getTitle().contains(phrase)) {
+                    && (m.getEndOfShowingDate().compareTo(LocalDateTime.now())) > 0 && (m.getTitle().toLowerCase()).contains(phrase.toLowerCase())) {
                 if (detailed == false) {
                     System.out.println("[" + (index + 1) + "] " + m.getTitle());
                     index++;
