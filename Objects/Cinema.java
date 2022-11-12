@@ -10,10 +10,10 @@ import Enums.DayType;
 import Enums.MovieStatusType;
 
 /** 
- * Represents a contructor of a Cinema object
- * @author S Jivaganesh
- * @version 1.0
- * @since 2022-11-11
+ * Represents the class of the Cinema object.
+ * @author S Jivaganesh.
+ * @version 1.0.
+ * @since 2022-11-11.
  */
 
 public class Cinema implements Serializable {
@@ -23,6 +23,12 @@ public class Cinema implements Serializable {
   private CinemaType cinemaType;
   private ArrayList<Showing> showList;
 
+  /**
+   * Constructor of the Cinema object. Once called, a new Cinema Object will be created.
+   * @param cinemaNum represents the number of the Cinema object within the cineplex.
+   * @param cinemaCode represents the unique code of the Cinema Object.
+   * @param cinemaType represents the type of cinema of the Cinema Object.
+   */
   public Cinema(int cinemaNum, String cinemaCode, CinemaType cinemaType) {
     this.cinemaNum = cinemaNum;
     this.cinemaCode = cinemaCode;
@@ -32,8 +38,8 @@ public class Cinema implements Serializable {
 
   
   /** 
-   * Returns Showing List when called
-   * @return ArrayList<Showing>
+   * Returns Showing List when called.
+   * @return ArrayList<Showing>.
    */
   public ArrayList<Showing> getShowList() {
     return this.showList;
@@ -41,8 +47,8 @@ public class Cinema implements Serializable {
 
   
   /** 
-   * Returns the Cinema Number when called
-   * @return int
+   * Returns the Cinema Number when called.
+   * @return int.
    */
   public int getCinemaNum() {
     return this.cinemaNum;
@@ -50,8 +56,8 @@ public class Cinema implements Serializable {
 
   
   /** 
-   * Returns Cinema Code when called
-   * @return String
+   * Returns Cinema Code when called.
+   * @return String.
    */
   public String getCinemaCode() {
     return this.cinemaCode;
@@ -59,15 +65,15 @@ public class Cinema implements Serializable {
 
   
   /** 
-   * Returns Cinema Type when called
-   * @return CinemaType
+   * Returns Cinema Type when called.
+   * @return CinemaType.
    */
   public CinemaType getCinemaType() {
     return this.cinemaType;
   }
 
   /** 
-   * Prints Showing List when method is called
+   * Prints Showing List when method is called.
   */
   public void displayShowList() {
     int showsAvailable = 0;
@@ -85,9 +91,9 @@ public class Cinema implements Serializable {
 
   
   /** 
-   * Prints Showing list of available showings when method is called
+   * Prints Showing list of available showings when method is called.
    */
-  public void displayAvailableShows() { // Come back to finish this
+  public void displayAvailableShows() {
     int index = 1;
     int showsAvailable = 0;
     for (Showing showing : showList) {
@@ -106,9 +112,9 @@ public class Cinema implements Serializable {
 
   
   /** 
-   * Returns Showing object corresponding to the Search Index requested 
-   * @param searchIndex represents the Search Index requested
-   * @return Showing
+   * Returns Showing object corresponding to the Search Index requested.
+   * @param searchIndex represents the Search Index requested.
+   * @return Showing.
    */
   public Showing searchShow(int searchIndex) {
     int index = 1;
@@ -127,10 +133,10 @@ public class Cinema implements Serializable {
 
   
   /** 
-   * Adds a new Showing object to the Showing List
-   * @param movie represents the Movie object for which this Showing corresponds to
-   * @param showTime represents the show time for which this Showing corresponds to
-   * @param dayType represents the type of day for which this Showing corresponds to
+   * Adds a new Showing object to the Showing List.
+   * @param movie represents the Movie object for which this Showing corresponds to.
+   * @param showTime represents the show time for which this Showing corresponds to.
+   * @param dayType represents the type of day for which this Showing corresponds to.
    */
   public void addShow(Movie movie, LocalDateTime showTime, DayType dayType) {
     Showing show;
@@ -158,8 +164,8 @@ public class Cinema implements Serializable {
 
   
   /** 
-   * Removes a Showing from the Showing List
-   * @param show represents the Showing object to be removed
+   * Removes a Showing from the Showing List.
+   * @param show represents the Showing object to be removed.
    */
   public void removeShow(Showing show) {
     showList.remove(show);
@@ -167,8 +173,8 @@ public class Cinema implements Serializable {
 
   
   /** 
-   * Removes a Showing which has the mentioned Movie object
-   * @param movie represents the Movie object to identify which Showing to remove
+   * Removes a Showing which has the mentioned Movie object.
+   * @param movie represents the Movie object to identify which Showing to remove.
    */
   public void removeMovieShowings(Movie movie) {
     Iterator<Showing> i = showList.iterator();
