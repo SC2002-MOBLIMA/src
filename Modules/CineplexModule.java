@@ -21,7 +21,7 @@ import Objects.Movie;
 import Objects.Settings;
 
 /** 
- * Represents a function in the admin module which can add/remove/update cinema showtimes and movies shown
+ * Represents a function in the admin module which can add/remove/update cinema showtimes and movies shown.
  * @author S Jivaganesh
  * @version 1.0
  * @since 2022-11-11
@@ -34,12 +34,16 @@ public class CineplexModule implements ModuleInterface {
     private ArrayList<LocalDate> holidayDates;
     private Movie movieObj;
 
+  /**
+   * Constructor of the Cineplex Module. Once called, a CineplexModule object will be created.
+   * @param sc represents the scanner object taken from the admin module so that CineplexModule can accept inputs from the user.
+   */    
     public CineplexModule(Scanner sc) {
         this.sc = sc;
     }
 
     /**
-     * Main run function of the Cineplex Module which calls the other methods required
+     * Main run function of the Cineplex Module which calls the other methods required.
      */
     public void run() {
         while (true) {
@@ -125,7 +129,7 @@ public class CineplexModule implements ModuleInterface {
     }
 
     /**
-     * Method allows user to select a Movie object based on the Movie List read from the Movie database
+     * Method allows user to select a Movie object based on the Movie List read from the Movie database.
      */
     private void selectMovie() {
         boolean main = true;
@@ -155,7 +159,7 @@ public class CineplexModule implements ModuleInterface {
     }
 
     /**
-     * Method allows user to add a Showing object to the Cinema object selected and updates the Cineplex database
+     * Method allows user to add a Showing object to the Cinema object selected and updates the Cineplex database.
      */
     private void addShow() {
         System.out.println("MOBLIMA -- Admin -- Cineplex Module (Add Showing):");
@@ -212,7 +216,7 @@ public class CineplexModule implements ModuleInterface {
     }
     
     /**
-     * Method prints the Showing List in the selected Cinema object to the user
+     * Method prints the Showing List in the selected Cinema object to the user.
      */
     private void showShow() {
         System.out.println("MOBLIMA -- Admin -- Cineplex Module (Show Showings):");
@@ -225,7 +229,7 @@ public class CineplexModule implements ModuleInterface {
     }
     
     /**
-     * Method removes a Showing object from the selected Cinema object and update the cineplex database
+     * Method removes a Showing object from the selected Cinema object and update the cineplex database.
      */
     private void removeShow() {
         System.out.println("MOBLIMA -- Admin -- Cineplex Module (Remove Showing):");
@@ -253,7 +257,7 @@ public class CineplexModule implements ModuleInterface {
     }
 
     /**
-     * Method updates Showing Object based on either Movie object or Showtime in the selected Cinema object and updates the Cineplex database
+     * Method updates Showing Object based on either Movie object or Showtime in the selected Cinema object and updates the Cineplex database.
      */
     private void updateShow() {
         System.out.println("MOBLIMA -- Admin -- Cineplex Module (Update Showing):");
