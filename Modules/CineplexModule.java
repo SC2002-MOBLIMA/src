@@ -176,10 +176,9 @@ public class CineplexModule implements ModuleInterface {
 
                 if (dateTime.compareTo(movieObj.getEndOfShowingDate()) > 0) {
                     System.out.println("Error: Date keyed in exceeds the end of showing of movie. Please try again.\n");
-                    // } // XXX: Comment out this else if block to add past showings
-                    // else if (dateTime.compareTo(LocalDateTime.now()) < 0){ //
-                    // System.out.println("Error: Date keyed in has already passed. Please try
-                    // again."); //
+                } // XXX: Comment out this else if block to add past showings
+                else if (dateTime.compareTo(LocalDateTime.now()) < 0){ //
+                System.out.println("Error: Date keyed in has already passed. Please try again.");
                 } else {
                     break;
                 }

@@ -12,17 +12,17 @@ package Enums;
 public enum MovieType {
 
 	/**
-     * Regular Movies
+     * Regular Movies.
      */
 	REGULAR,
 
     /**
-     * 3D Movies
+     * 3D Movies.
      */
 	THREE_D,
 
     /**
-     * Blockbuster Movies
+     * Blockbuster Movies.
      */
 	BLOCKBUSTER
 }

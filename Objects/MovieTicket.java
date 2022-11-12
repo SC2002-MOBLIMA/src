@@ -51,12 +51,12 @@ public class MovieTicket implements Serializable {
 
     /**
      * Creates a new MovieTicket with the necessary information about the booking.
-     * @param movieGoer MovieGoer for whom this MovieTicket belongs to.
-     * @param price Price of this MovieTicket.
-     * @param showing Showing for which this MovieTicket corresponds to.
-     * @param cineplex Cineplex for which this MovieTicket corresponds to.
-     * @param cinema Cinema within the Cineplex for which this MovieTicket corresponds to.
-     * @param seatId SeatId booked by the MovieGoer.
+     * @param movieGoer     MovieGoer for whom this MovieTicket belongs to.
+     * @param price         Price of this MovieTicket.
+     * @param showing       Showing for which this MovieTicket corresponds to.
+     * @param cineplex      Cineplex for which this MovieTicket corresponds to.
+     * @param cinema        Cinema within the Cineplex for which this MovieTicket corresponds to.
+     * @param seatId        SeatId booked by the MovieGoer.
      */
     public MovieTicket(MovieGoer movieGoer, double price, Showing showing, Cineplex cineplex, Cinema cinema, String seatId) {
         this.movieGoer = movieGoer;

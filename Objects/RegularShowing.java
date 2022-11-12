@@ -15,9 +15,9 @@ public class RegularShowing extends Showing {
 
   /** 
    * Creates a new Showing of a Movie within a REGULAR class Cinema.
-   * @param movie Movie for which this Showing corresponds to.
-   * @param showTime Timing for which this Showing will air.
-   * @param dayType Day Type for when this Showing will air (ie. WEEKDAY, WEEKEND, PUBLIC_HOLIDAY).
+   * @param movie     Movie for which this Showing corresponds to.
+   * @param showTime  Timing for which this Showing will air.
+   * @param dayType   Day Type for when this Showing will air (ie. WEEKDAY, WEEKEND, PUBLIC_HOLIDAY).
    */
   public RegularShowing(Movie movie, LocalDateTime showTime, DayType dayType) {
     super(movie, showTime, dayType);

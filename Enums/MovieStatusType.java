@@ -13,17 +13,17 @@ package Enums;
 public enum MovieStatusType {
 
     /**
-     * Movies that are Coming Soon
+     * Movies that are Coming Soon.
      */
     COMING_SOON,
 
     /**
-     * Movies that are on Preview
+     * Movies that are on Preview.
      */
     PREVIEW,
 
     /**
-     * Movies that are currently showing
+     * Movies that are currently showing.
      */
     NOW_SHOWING,
 

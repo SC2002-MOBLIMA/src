@@ -69,7 +69,7 @@ abstract public class Showing implements Serializable {
   }
 
   /**
-   * Retrieves showTime of this Showing
+   * Retrieves showTime of this Showing.
    * 
    * @return this Showing's showTime
    */
@@ -78,7 +78,7 @@ abstract public class Showing implements Serializable {
   }
 
   /**
-   * Modifies the ShowTime of this showing
+   * Modifies the ShowTime of this showing.
    * 
    * @param showTime
    */
@@ -87,7 +87,7 @@ abstract public class Showing implements Serializable {
   }
 
   /**
-   * Retrieves the Movie of this showing
+   * Retrieves the Movie of this showing.
    * 
    * @return this Showing's Movie
    */

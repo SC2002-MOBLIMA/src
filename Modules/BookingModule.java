@@ -234,7 +234,6 @@ public class BookingModule implements ModuleInterface {
         System.out.print("Please enter seat to book (eg. A1): ");
         String seatId = sc.next();
 
-        // if((int) seatId.charAt(0)<65 || (int) seatId.charAt(0)>75 || .charAt(0) )
         try {
           if (showingObj.isAvailable(seatId)) {
             Movie movie = showingObj.getMovie();
@@ -495,8 +494,6 @@ public class BookingModule implements ModuleInterface {
 
     // MovieGoer Age + DayType
     double movieGoerAgePrice = settingsObj.getAgeTypePrice(movieGoerAgeChoice);
-    // double showingDayTypePrice =
-    // settingsObj.getDayTypePrice(showingDayTypeChoice);
     DayOfWeek dow = DayOfWeek.from(showTime);
     int day = dow.getValue();
     if (showingDayType == DayType.PUBLIC_HOLIDAY) {
