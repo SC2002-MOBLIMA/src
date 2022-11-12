@@ -166,7 +166,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
     }
 
     /**
-     * Prompts the user to login as MovieGoer.
+     * Prompts the user to login as MovieGoer
      */
     public void login() {
         if (isLoggedIn) {
@@ -242,6 +242,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         }
     }
 
+    /**
+     * Method prints top 5 Movies which are NOW_SHOWING based on Review ratings
+     */
     private void printMovieListByRating() {
         System.out.println("MOBLIMA -- Movie Goer Module (Top 5 Movies Based on Rating): ");
         System.out.println();
