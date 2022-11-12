@@ -19,14 +19,34 @@ import Objects.Showing;
 import Objects.Cinema;
 import Objects.Cineplex;
 
+/**
+ * Represents the entry point for Admins to create/ update / remove
+ * movieListings
+ * 
+ * @author Ang Kai Jun
+ * @version 1.0
+ * @since 2022-11-11
+ */
 public class MovieListingModule implements ModuleInterface {
   private Scanner sc;
+
+  /**
+   * The list of Movies stored retrieved from the MovieDB
+   */
   private ArrayList<Movie> movieList;
 
+  /**
+   * Creates a new MovieListingModule with a scanner to receive user input.
+   * 
+   * @param sc The Scanner.
+   */
   public MovieListingModule(Scanner sc) {
     this.sc = sc;
   }
 
+  /**
+   * Runs the MovieListingModule
+   */
   public void run() {
     boolean running = true;
     while (running) {
@@ -88,6 +108,85 @@ public class MovieListingModule implements ModuleInterface {
     }
   }
 
+  /**
+   * Create a new Movie Listing
+   * 
+   * @param movieDB movieDB object which is used to write the new MovieList to the
+   *                movie.dat file
+   */
+  private void createNewMovieListing(MovieDB movieDB) {
+    System.out.println("***********************************************");
+    System.out.println("MOBLIMA -- Movie Listing Module (Create New Movie Listing):");
+    System.out.print("Input Movie Title: ");
+    String title = sc.nextLine();
+    int choice = 0;
+    while (true) {
+      System.out.println("\n[1] COMING SOON");
+      System.out.println("[2] PREVIEW");
+      System.out.println("[3] NOW SHOWING");
+      System.out.println("[4] END OF SHOWING");
+      System.out.print("\nInput Movie Status: ");
+      choice = sc.nextInt();
+      sc.nextLine();
+
+      if (choice <= 4 && choice >= 1) {
+        break;
+      } else {
+        System.out.println("Error: Invalid Movie Status. Please try again.\n");
+      }
+    }
+    MovieStatusType status = MovieStatusType.values()[choice - 1];
+
+    System.out.print("\nInput Movie Synopsis: ");
+    String synopsis = sc.nextLine();
+
+    System.out.print("\nInput Movie Director: ");
+    String director = sc.nextLine();
+
+    ArrayList<String> cast = getCast();
+
+    while (true) {
+      System.out.println("\n[1] Regular");
+      System.out.println("[2] 3D");
+      System.out.println("[3] Blockbuster");
+      System.out.print("\nInput Movie Type: ");
+      choice = sc.nextInt();
+      sc.nextLine();
+      if (choice <= 3 && choice >= 1) {
+        break;
+      } else {
+        System.out.println("Error: Invalid Movie Type. Please try again.");
+      }
+    }
+    MovieType type = MovieType.values()[choice - 1];
+
+    while (true) {
+      try {
+        System.out.print("\nInput Movie End Of Showing Date (dd-MM-yyyy): ");
+        String dateString = sc.nextLine();
+        DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime endOfShowingDate = LocalDateTime.parse(dateString + " 00:00", dtFormatter);
+
+        Movie newMovie = new Movie(title, status, synopsis, director, cast, type, endOfShowingDate);
+        movieList.add(newMovie);
+        movieDB.write(movieList);
+        break;
+      } catch (Exception e) {
+        System.out.println("Error: Invalid Date Format. Please try again.");
+      }
+    }
+
+    System.out.println("New Movie Listing successfully added.");
+    System.out.println("***********************************************");
+  }
+
+  /**
+   * Update infomation about the MovieListing (Status, Sale Count, Type, End Of
+   * Showing Date)
+   * 
+   * @param movieDB MovieDB object which is used to write the new MovieListing to
+   *                the movie.dat file
+   */
   private void updateMovieListing(MovieDB movieDB) {
     System.out.println("***********************************************");
     System.out.println("MOBLIMA -- Movie Listing Module (Update Existing Movie Listing):");
@@ -108,6 +207,45 @@ public class MovieListingModule implements ModuleInterface {
     System.out.println("***********************************************");
   }
 
+  /**
+   * Removes a MovieListing by updating the MovieStatus as "END_OF_SHOWING"
+   * 
+   * @param movieDB movieDB object which is used to write the new MovieList to the
+   *                movie.dat file
+   */
+  private void removeMovieListing(MovieDB movieDB) {
+    System.out.println("***********************************************");
+    System.out.println("MOBLIMA -- Movie Listing Module (Remove Movie Listing):");
+
+    Movie movieToRemove = selectMovie();
+    if (movieToRemove == null) {
+      System.out.println("No Movies Available.");
+      return;
+    }
+
+    CineplexDB cineplexDB = new CineplexDB();
+    ArrayList<Cineplex> cineplexList = cineplexDB.read();
+
+    for (Movie m : movieList) {
+      if (m.equals(movieToRemove)) {
+        m.setStatus(MovieStatusType.END_OF_SHOWING);
+        for (Cineplex c : cineplexList) {
+          c.removeMovieShowings(m);
+        }
+      }
+    }
+
+    movieDB.write(movieList);
+    cineplexDB.write(cineplexList);
+    System.out.println("Movie Listing successfully removed.");
+    System.out.println("***********************************************");
+  }
+
+  /**
+   * Helper Function to obtain the updated Movie Information
+   * 
+   * @param movie Movie object that is being updated
+   */
   private void updateMovie(Movie movie) {
     boolean run = true;
     CineplexDB cineplexDB = new CineplexDB();
@@ -239,101 +377,11 @@ public class MovieListingModule implements ModuleInterface {
     cineplexDB.write(cineplexList);
   }
 
-  // Update the status of the Movie Listing as "END_OF_SHOWING"
-  private void removeMovieListing(MovieDB movieDB) {
-    System.out.println("***********************************************");
-    System.out.println("MOBLIMA -- Movie Listing Module (Remove Movie Listing):");
-
-    Movie movieToRemove = selectMovie();
-    if (movieToRemove == null) {
-      System.out.println("No Movies Available.");
-      return;
-    }
-
-    CineplexDB cineplexDB = new CineplexDB();
-    ArrayList<Cineplex> cineplexList = cineplexDB.read();
-
-    for (Movie m : movieList) {
-      if (m.equals(movieToRemove)) {
-        m.setStatus(MovieStatusType.END_OF_SHOWING);
-        for (Cineplex c : cineplexList) {
-          c.removeMovieShowings(m);
-        }
-      }
-    }
-
-    movieDB.write(movieList);
-    cineplexDB.write(cineplexList);
-    System.out.println("Movie Listing successfully removed.");
-    System.out.println("***********************************************");
-  }
-
-  private void createNewMovieListing(MovieDB movieDB) {
-    System.out.println("***********************************************");
-    System.out.println("MOBLIMA -- Movie Listing Module (Create New Movie Listing):");
-    System.out.print("Input Movie Title: ");
-    String title = sc.nextLine();
-    int choice = 0;
-    while (true) {
-      System.out.println("\n[1] COMING SOON");
-      System.out.println("[2] PREVIEW");
-      System.out.println("[3] NOW SHOWING");
-      System.out.println("[4] END OF SHOWING");
-      System.out.print("\nInput Movie Status: ");
-      choice = sc.nextInt();
-      sc.nextLine();
-
-      if (choice <= 4 && choice >= 1) {
-        break;
-      } else {
-        System.out.println("Error: Invalid Movie Status. Please try again.\n");
-      }
-    }
-    MovieStatusType status = MovieStatusType.values()[choice - 1];
-
-    System.out.print("\nInput Movie Synopsis: ");
-    String synopsis = sc.nextLine();
-
-    System.out.print("\nInput Movie Director: ");
-    String director = sc.nextLine();
-
-    ArrayList<String> cast = getCast();
-
-    while (true) {
-      System.out.println("\n[1] Regular");
-      System.out.println("[2] 3D");
-      System.out.println("[3] Blockbuster");
-      System.out.print("\nInput Movie Type: ");
-      choice = sc.nextInt();
-      sc.nextLine();
-      if (choice <= 3 && choice >= 1) {
-        break;
-      } else {
-        System.out.println("Error: Invalid Movie Type. Please try again.");
-      }
-    }
-    MovieType type = MovieType.values()[choice - 1];
-
-    while (true) {
-      try {
-        System.out.print("\nInput Movie End Of Showing Date (dd-MM-yyyy): ");
-        String dateString = sc.nextLine();
-        DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        LocalDateTime endOfShowingDate = LocalDateTime.parse(dateString + " 00:00", dtFormatter);
-
-        Movie newMovie = new Movie(title, status, synopsis, director, cast, type, endOfShowingDate);
-        movieList.add(newMovie);
-        movieDB.write(movieList);
-        break;
-      } catch (Exception e) {
-        System.out.println("Error: Invalid Date Format. Please try again.");
-      }
-    }
-
-    System.out.println("New Movie Listing successfully added.");
-    System.out.println("***********************************************");
-  }
-
+  /**
+   * Helper function that is used when creating a new MovieListing
+   * 
+   * @return ArrayList of cast based on user input
+   */
   private ArrayList<String> getCast() {
     ArrayList<String> cast = new ArrayList<String>();
 
@@ -360,6 +408,11 @@ public class MovieListingModule implements ModuleInterface {
     return cast;
   }
 
+  /**
+   * Helper function used for the user to select the desired MovieListing
+   * 
+   * @return Movie Listing chosen
+   */
   private Movie selectMovie() {
     ArrayList<Movie> availableMovies = new ArrayList<Movie>();
     for (Movie m : movieList) {

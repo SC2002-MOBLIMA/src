@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import Enums.MovieStatusType;
 import Enums.MovieType;
 
-/** 
+/**
  * Represents a Movie that has been listed by the Admin.
+ * 
  * @author Ang Kai Jun
  * @version 1.0
  * @since 2022-11-11
@@ -20,7 +21,8 @@ public class Movie implements Serializable, Comparable<Movie> {
   private String title;
 
   /**
-   * The status of this Movie (ie. COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING).
+   * The status of this Movie (ie. COMING_SOON, PREVIEW, NOW_SHOWING,
+   * END_OF_SHOWING).
    */
   private MovieStatusType status;
 
@@ -61,12 +63,14 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Creates a new Movie listing, with information keyed in by the Admin.
-   * @param title Title of the new Movie.
-   * @param status Status of the new Movie (ie. COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING).
-   * @param synopsis Synopsis of what this new Movie is about.
-   * @param director Name of the director of the new Movie.
-   * @param cast List of the names of the cast members.
-   * @param type Type of the new Movie (ie. REGULAR, 3D, BLOCKBUSTER).
+   * 
+   * @param title            Title of the new Movie.
+   * @param status           Status of the new Movie (ie. COMING_SOON, PREVIEW,
+   *                         NOW_SHOWING, END_OF_SHOWING).
+   * @param synopsis         Synopsis of what this new Movie is about.
+   * @param director         Name of the director of the new Movie.
+   * @param cast             List of the names of the cast members.
+   * @param type             Type of the new Movie (ie. REGULAR, 3D, BLOCKBUSTER).
    * @param endOfShowingDate Date & Time when the new Movie stops airing.
    */
   public Movie(String title, MovieStatusType status, String synopsis, String director, ArrayList<String> cast,
@@ -84,6 +88,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Retrieves the title of this Movie.
+   * 
    * @return the title of this Movie.
    */
   public String getTitle() {
@@ -92,6 +97,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Modifies the title of this Movie.
+   * 
    * @param title new title of this Movie.
    */
   public void setTitle(String title) {
@@ -100,6 +106,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Retrieves the MovieStatusType of this Movie.
+   * 
    * @return this Movie's MovieStatusType.
    */
   public MovieStatusType getStatus() {
@@ -108,6 +115,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Modifies the MovieStatusType of this Movie.
+   * 
    * @param status new MovieStatusType of this Movie.
    */
   public void setStatus(MovieStatusType status) {
@@ -116,6 +124,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Retrieves the synopsis of this Movie.
+   * 
    * @return this Movie's synopsis.
    */
   public String getSynopsis() {
@@ -124,6 +133,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Modifies the synopsis of this Movie.
+   * 
    * @param synopsis new synopsis of this Movie.
    */
   public void setSynopsis(String synopsis) {
@@ -132,6 +142,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Retrieves the list of Reviews of this Movie.
+   * 
    * @return this Movie's ArrayList of Reviews.
    */
   public ArrayList<Review> getReviewList() {
@@ -140,7 +151,8 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Adds a new Review to the current list of Reviews.
-   * @param name Name of MovieGoer who provided the new Review.
+   * 
+   * @param name   Name of MovieGoer who provided the new Review.
    * @param rating Rating of the Movie provided by the MovieGoer.
    * @param review Text Review given by the MovieGoer.
    */
@@ -151,6 +163,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Retrieves this Movie's Director Name.
+   * 
    * @return the name of this Movie's Director.
    */
   public String getDirector() {
@@ -159,6 +172,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Modifies the director of this Movie.
+   * 
    * @param director new director of this Movie.
    */
   public void setDirector(String director) {
@@ -167,6 +181,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Retrieves the list of cast names of this Movie.
+   * 
    * @return the list of cast names of this Movie.
    */
   public ArrayList<String> getCast() {
@@ -175,6 +190,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Modifies the cast of this Movie.
+   * 
    * @param cast new cast of this Movie.
    */
   public void setCast(ArrayList<String> cast) {
@@ -183,6 +199,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Retrieves the MovieType of this Movie.
+   * 
    * @return this Movie's MovieType.
    */
   public MovieType getType() {
@@ -191,6 +208,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Modifies the MovieType of this Movie.
+   * 
    * @param type new MovieType of this Movie.
    */
   public void setType(MovieType type) {
@@ -199,6 +217,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Retrieves the sale count of this Movie.
+   * 
    * @return this Movie's saleCount.
    */
   public int getSaleCount() {
@@ -207,6 +226,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Modifies the sale count of this Movie.
+   * 
    * @param saleCount new saleCount of this Movie.
    */
   public void setSaleCount(int saleCount) {
@@ -215,6 +235,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Retrieves the date when this Movie stops airing.
+   * 
    * @return this Movie' endOfShowingDate.
    */
   public LocalDateTime getEndOfShowingDate() {
@@ -223,6 +244,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Modifies the date when this Movie stops airing.
+   * 
    * @param endOfShowingDate the new date when this Movie stops airing.
    */
   public void setEndOfShowingDate(LocalDateTime endOfShowingDate) {
@@ -254,6 +276,7 @@ public class Movie implements Serializable, Comparable<Movie> {
   /**
    * Computes the overall rating from all Reviews of this Movie.
    * Retrieves the computed overall rating.
+   * 
    * @return the computed overall rating of the movie.
    */
   public double getOverallRating() {
@@ -267,19 +290,20 @@ public class Movie implements Serializable, Comparable<Movie> {
     if (count == 0) {
       return 0;
     } else {
-      return (totalRating / count); 
+      return (totalRating / count);
     }
   }
 
   /**
    * Helper method to sort 2 different Movies in alphabetical order.
    * Case-Insensitive.
+   * 
    * @param m Another Movie to compare this Movie with.
-   * @return -1 when this Movie's Title is lexicographically less 
-   *            than the provided Movie's Title (ignoring case)
+   * @return -1 when this Movie's Title is lexicographically less
+   *         than the provided Movie's Title (ignoring case)
    *         0 when both Movie's Titles are equal (ignoring case)
-   *         1 when this Movie's Title is lexicographically greater 
-   *           than the provided Movie's Title (ignoring case)
+   *         1 when this Movie's Title is lexicographically greater
+   *         than the provided Movie's Title (ignoring case)
    */
   @Override
   public int compareTo(Movie m) {
@@ -289,6 +313,7 @@ public class Movie implements Serializable, Comparable<Movie> {
 
   /**
    * Helper method to check whether 2 Movies are equal.
+   * 
    * @param o Another Object to compare this Movie with.
    * @return 1 when both Movie's Titles the same (ignoring case)
    *         0 when the provided Object is not a Movie
