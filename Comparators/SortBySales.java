@@ -14,7 +14,7 @@ import Objects.Movie;
  */
 public class SortBySales implements Comparator<Movie> {
     /**
-     * Creates a new Comparator to compare two Movies based on Review Ratings
+     * Creates a new Comparator to compare two Movies based on Movie sales
      * 
      * @param m0 First Movie object to be compared
      * @param m1 Second Movie object to be compared
