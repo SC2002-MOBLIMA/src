@@ -49,7 +49,6 @@ public abstract class SerializeDB<T> {
      * Writes to the file.
      * 
      * @param data the data to be stored in the file.
-     * @return void
      */
     public void write(T data) {
         FileOutputStream fos = null;
