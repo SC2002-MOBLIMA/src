@@ -208,7 +208,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
             if (m.getStatus() == (MovieStatusType.NOW_SHOWING)
                     && (m.getEndOfShowingDate().compareTo(LocalDateTime.now())) > 0 && (m.getTitle().toLowerCase()).contains(phrase.toLowerCase())) {
                 if (detailed == false) {
-                    System.out.println("[" + (index + 1) + "] " + m.getTitle());
+                    System.out.println("(" + (index + 1) + ") " + m.getTitle());
                     index++;
                 } else {
                     System.out.println("Title: " + m.getTitle());
