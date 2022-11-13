@@ -16,6 +16,6 @@ public class MovieDB extends SerializeDB<ArrayList<Movie>> {
      * Creates a new MovieDB with the given filename.
      */
     public MovieDB() {
-        this.filename = "Databases/movie.dat";
+        this.filename = "databases/movie.dat";
     }
 }

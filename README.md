@@ -9,16 +9,16 @@ The MOBLIMA application is a CLI-based tool for MovieGoers to book Movie Tickets
 NOTE: The application is a standalone mock movie booking application, and does not interface with any external organisations / APIs.
 
 ## Entry Point
-Simply run `Modules/MOBLIMA.java` to begin.
+Simply run `modules/MOBLIMA.java` to begin.
 
 ## File Structure
 
 - `Comparators/*` : where all Custom Java Comparators are located
-- `Databases/*` : where all .dat databases & database-interacting Java classes are located
-- `Enums/*` : where all Custom Java Enums are located
-- `Interfaces/*` : where all Custom Java Interfaces are located
-- `Modules/*`: where the various Application CLI-IO Modules are located
-- `Objects/*`: where the various Application Entity Classes are located
+- `databases/*` : where all .dat databases & database-interacting Java classes are located
+- `enums/*` : where all Custom Java Enums are located
+- `interfaces/*` : where all Custom Java Interfaces are located
+- `modules/*`: where the various Application CLI-IO Modules are located
+- `objects/*`: where the various Application Entity Classes are located
 
 ## Credits
 - [Aaron Chua](https://github.com/aaronchualala)

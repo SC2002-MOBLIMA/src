@@ -2,6 +2,11 @@ package modules;
 
 import java.util.Scanner;
 
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Settings;
+import objects.Showing;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.time.LocalDate;
@@ -17,10 +22,6 @@ import enums.DayType;
 import enums.MovieType;
 import enums.SeatType;
 import interfaces.ModuleInterface;
-import objects.Cinema;
-import objects.Cineplex;
-import objects.Settings;
-import objects.Showing;
 /**
  * Represents the entry point for admin users to edit settings.
  * 
