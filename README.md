@@ -11,6 +11,15 @@ NOTE: The application is a standalone mock movie booking application, and does n
 ## Entry Point
 Simply run `Modules/MOBLIMA.java` to begin.
 
+## User Credentials
+| User Type | Username | Password | AgeType |
+| ------ | ------ | ------ | ------ |
+| MovieGoer | Jane Doe | — | ADULT |
+| MovieGoer | Thomas Wagner | — | CHILD |
+| MovieGoer | Ash Ketchum | — | SENIOR |
+| Admin | admin | password | — |
+| Admin | Ganesh | Password | — |
+
 ## File Structure
 
 - `Comparators/*` : where all Custom Java Comparators are located
