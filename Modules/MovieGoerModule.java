@@ -64,9 +64,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
      * 
      * @param sc Scanner to query for user's inputs.
      */
-    public MovieGoerModule(Scanner sc) {
+    public MovieGoerModule(Scanner sc, boolean isGuest) {
         this.sc = sc;
-        this.isLoggedIn = false;
+        this.isLoggedIn = isGuest;
     }
 
     /**
@@ -81,12 +81,22 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         movieGoerList = movieGoerDB.read();
         String keywords = "";
 
-        login();
+        if (!isLoggedIn) {
+            login();
+            System.out.println("Welcome, " + movieGoerObj.getName() + "!\n");
+        } else {
+            movieGoerObj = null;
+            System.out.println("Welcome, Guest!\n");
+        }
 
         int input = 0;
         while (input != 9) {
             System.out.println("***********************************************");
-            System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObj.getName() + "):");
+            if (movieGoerObj == null) {
+                System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: Guest):");
+            } else {
+                System.out.println("MOBLIMA -- Movie Goer Module (Movie Goer: " + movieGoerObj.getName() + "):");
+            }
             System.out.println("[1] Search Movies\n"
                     + "[2] List Movies\n"
                     + "[3] View Movie Details\n"
@@ -124,6 +134,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                         break;
 
                     case 4:
+                        if (movieGoerObj == null) {
+                            login();
+                        }
                         BookingModule bookingModule = new BookingModule(sc, movieGoerObj);
                         bookingModule.run();
                         movieGoerDB.write(movieGoerList);
@@ -132,6 +145,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                     case 5:
                         System.out.println("MOBLIMA -- Movie Goer Module (View Booking History): ");
                         System.out.println();
+                        if (movieGoerObj == null) {
+                            login();
+                        }
                         if (!movieGoerObj.getMovieTicketList().isEmpty()) {
                             ArrayList<MovieTicket> mtList = movieGoerObj.getMovieTicketList();
                             for (MovieTicket m : mtList) {
@@ -160,6 +176,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
 
                 }
             } catch (Exception e) {
+                System.out.println(e);
                 System.out.println("Error: Invalid Choice, Please try again.\n");
                 sc.nextLine();
             }
@@ -170,11 +187,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
      * Prompts the user to login as MovieGoer.
      */
     public void login() {
-        if (isLoggedIn) {
-            movieGoerObj = movieGoerList.get(0);
-        }
-
-        while (!isLoggedIn) {
+        while (movieGoerObj == null) {
             System.out.print("Please enter your username: ");
             String username = sc.nextLine();
 
@@ -192,6 +205,7 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
                 System.out.println("Error: Username not found. Please try again.");
             }
         }
+        System.out.println();
     }
 
     /**
@@ -299,6 +313,10 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
         System.out.println("MOBLIMA -- Movie Goer Module (Add Movie Review): \n");
         MovieDB movieDB = new MovieDB();
         allMovies = movieDB.read();
+
+        if (movieGoerObj == null) {
+            login();
+        }
 
         ArrayList<MovieTicket> mtList = movieGoerObj.getMovieTicketList();
         ArrayList<Movie> pastMovieList = new ArrayList<Movie>();

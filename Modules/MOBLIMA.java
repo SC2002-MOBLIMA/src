@@ -36,7 +36,8 @@ public class MOBLIMA {
             System.out.println("MOBLIMA -- Main Menu:");
             System.out.println("[1] Movie Goer");
             System.out.println("[2] Admin");
-            System.out.println("[3] Exit");
+            System.out.println("[3] Guest");
+            System.out.println("[4] Exit");
             System.out.print("Please Select Target Role: ");
             try {
                 choice = sc.nextInt();
@@ -44,7 +45,7 @@ public class MOBLIMA {
                 System.out.println("***********************************************");
                 switch (choice) {
                     case 1:
-                        MovieGoerModule movieGoerModule = new MovieGoerModule(sc);
+                        MovieGoerModule movieGoerModule = new MovieGoerModule(sc, false);
                         movieGoerModule.run();
                         break;
 
@@ -54,6 +55,11 @@ public class MOBLIMA {
                         break;
 
                     case 3:
+                        MovieGoerModule guestModule = new MovieGoerModule(sc, true);
+                        guestModule.run();
+                        break;
+
+                    case 4:
                         System.out.println("Bye Bye!");
                         running = false;
                         break;
