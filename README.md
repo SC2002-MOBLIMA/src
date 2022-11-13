@@ -22,7 +22,7 @@ Simply run `modules/MOBLIMA.java` to begin.
 
 ## File Structure
 
-- `Comparators/*` : where all Custom Java Comparators are located
+- `comparators/*` : where all Custom Java Comparators are located
 - `databases/*` : where all .dat databases & database-interacting Java classes are located
 - `enums/*` : where all Custom Java Enums are located
 - `interfaces/*` : where all Custom Java Interfaces are located
