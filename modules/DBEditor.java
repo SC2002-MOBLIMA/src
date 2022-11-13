@@ -1,6 +1,14 @@
 package modules;
 
 import java.util.Scanner;
+
+import objects.Admin;
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Movie;
+import objects.MovieGoer;
+import objects.Showing;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,12 +21,6 @@ import enums.AgeType;
 import enums.CinemaType;
 import enums.MovieStatusType;
 import enums.MovieType;
-import objects.Admin;
-import objects.Cinema;
-import objects.Cineplex;
-import objects.Movie;
-import objects.MovieGoer;
-import objects.Showing;
 
 public class DBEditor {
 
@@ -47,7 +49,12 @@ public class DBEditor {
         case 1:
           // create instance object of your DB and your local data variable
           AdminDB AdminDBInstance = new AdminDB();
-          ArrayList<Admin> adminData = (ArrayList<Admin>) AdminDBInstance.read();
+          ArrayList<Admin> adminData;
+          try {
+            adminData = AdminDBInstance.read();
+          } catch (Exception e) {
+            adminData = new ArrayList<Admin>();
+          }
           if (adminData == null) {
             adminData = new ArrayList<Admin>();
           }
