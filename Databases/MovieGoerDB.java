@@ -1,7 +1,8 @@
-package Databases;
+package databases;
 
 import java.util.ArrayList;
-import Objects.MovieGoer;
+
+import objects.MovieGoer;
 
 /**
  * Represents the concrete DB class for MovieGoer.

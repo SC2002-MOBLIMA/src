@@ -1,8 +1,8 @@
-package Comparators;
+package comparators;
 
 import java.util.Comparator;
 
-import Objects.Movie;
+import objects.Movie;
 
 /**
  * Represents the comparator class used for comparing two movies based on

@@ -1,4 +1,4 @@
-package Modules;
+package modules;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -7,18 +7,17 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.DayOfWeek;
 
-import Databases.MovieDB;
-import Databases.CineplexDB;
-import Databases.SettingsDB;
-
-import Enums.DayType;
-import Enums.MovieStatusType;
-import Interfaces.ModuleInterface;
-import Objects.Cineplex;
-import Objects.Cinema;
-import Objects.Showing;
-import Objects.Movie;
-import Objects.Settings;
+import databases.CineplexDB;
+import databases.MovieDB;
+import databases.SettingsDB;
+import enums.DayType;
+import enums.MovieStatusType;
+import interfaces.ModuleInterface;
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Movie;
+import objects.Settings;
+import objects.Showing;
 
 /** 
  * Represents a function in the admin module which can add/remove/update cinema showtimes and movies shown.

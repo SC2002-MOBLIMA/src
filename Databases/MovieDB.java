@@ -1,8 +1,8 @@
-package Databases;
+package databases;
 
 import java.util.ArrayList;
 
-import Objects.Movie;
+import objects.Movie;
 
 /**
  * Represents the concrete DB class for Movie.

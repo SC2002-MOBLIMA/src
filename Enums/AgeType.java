@@ -1,4 +1,4 @@
-package Enums;
+package enums;
 
 /**
  * Different Age Groups of MovieGoers.

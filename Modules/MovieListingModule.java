@@ -1,4 +1,4 @@
-package Modules;
+package modules;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -6,18 +6,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Databases.MovieDB;
-import Databases.CineplexDB;
-
-import Enums.MovieStatusType;
-import Enums.MovieType;
-
-import Interfaces.ModuleInterface;
-
-import Objects.Movie;
-import Objects.Showing;
-import Objects.Cinema;
-import Objects.Cineplex;
+import databases.CineplexDB;
+import databases.MovieDB;
+import enums.MovieStatusType;
+import enums.MovieType;
+import interfaces.ModuleInterface;
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Movie;
+import objects.Showing;
 
 /**
  * Represents the entry point for Admins to create/ update / remove

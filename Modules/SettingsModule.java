@@ -1,4 +1,4 @@
-package Modules;
+package modules;
 
 import java.util.Scanner;
 
@@ -9,20 +9,18 @@ import java.time.LocalDateTime;
 import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 
-import Databases.CineplexDB;
-import Databases.SettingsDB;
-
-import Enums.AgeType;
-import Enums.CinemaType;
-import Enums.DayType;
-import Enums.MovieType;
-import Enums.SeatType;
-import Interfaces.ModuleInterface;
-
-import Objects.Settings;
-import Objects.Cineplex;
-import Objects.Cinema;
-import Objects.Showing;
+import databases.CineplexDB;
+import databases.SettingsDB;
+import enums.AgeType;
+import enums.CinemaType;
+import enums.DayType;
+import enums.MovieType;
+import enums.SeatType;
+import interfaces.ModuleInterface;
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Settings;
+import objects.Showing;
 /**
  * Represents the entry point for admin users to edit settings.
  * 

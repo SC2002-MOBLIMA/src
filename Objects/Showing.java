@@ -1,13 +1,12 @@
-package Objects;
+package objects;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import Enums.DayType;
-import Enums.SeatType;
-
-import Databases.CineplexDB;
+import databases.CineplexDB;
+import enums.DayType;
+import enums.SeatType;
 
 /**
  * Represents an abstract Showing which will be inherited by specific showing

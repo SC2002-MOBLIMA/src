@@ -1,13 +1,13 @@
-package Objects;
+package objects;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Enums.CinemaType;
-import Enums.DayType;
-import Enums.MovieStatusType;
+import enums.CinemaType;
+import enums.DayType;
+import enums.MovieStatusType;
 
 /** 
  * Represents the class of the Cinema object.

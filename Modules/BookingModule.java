@@ -1,4 +1,4 @@
-package Modules;
+package modules;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -7,26 +7,23 @@ import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 
-import Databases.CineplexDB;
-import Databases.MovieDB;
-import Databases.SettingsDB;
-
-import Enums.AgeType;
-import Enums.CinemaType;
-import Enums.MovieType;
-import Enums.DayType;
-import Enums.MovieStatusType;
-import Enums.SeatType;
-
-import Interfaces.ModuleInterface;
-
-import Objects.Cinema;
-import Objects.Cineplex;
-import Objects.Movie;
-import Objects.MovieGoer;
-import Objects.MovieTicket;
-import Objects.Settings;
-import Objects.Showing;
+import databases.CineplexDB;
+import databases.MovieDB;
+import databases.SettingsDB;
+import enums.AgeType;
+import enums.CinemaType;
+import enums.DayType;
+import enums.MovieStatusType;
+import enums.MovieType;
+import enums.SeatType;
+import interfaces.ModuleInterface;
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Movie;
+import objects.MovieGoer;
+import objects.MovieTicket;
+import objects.Settings;
+import objects.Showing;
 
 /**
  * Represents the Module for MovieGoers to book seats.

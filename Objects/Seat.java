@@ -1,8 +1,8 @@
-package Objects;
+package objects;
 
 import java.io.Serializable;
 
-import Enums.SeatType;
+import enums.SeatType;
 
 /** 
  * Represents a Seat within a Cinema. 

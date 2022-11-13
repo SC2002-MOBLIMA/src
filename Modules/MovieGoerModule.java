@@ -1,4 +1,4 @@
-package Modules;
+package modules;
 
 import java.util.Scanner;
 import java.util.Collections;
@@ -7,22 +7,18 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import Databases.MovieDB;
-import Databases.MovieGoerDB;
-
-import Objects.MovieGoer;
-import Objects.Movie;
-import Objects.Review;
-import Objects.Showing;
-import Objects.MovieTicket;
-
-import Enums.MovieStatusType;
-
-import Interfaces.LoginInterface;
-import Interfaces.ModuleInterface;
-
-import Comparators.SortByRating;
-import Comparators.SortBySales;
+import comparators.SortByRating;
+import comparators.SortBySales;
+import databases.MovieDB;
+import databases.MovieGoerDB;
+import enums.MovieStatusType;
+import interfaces.LoginInterface;
+import interfaces.ModuleInterface;
+import objects.Movie;
+import objects.MovieGoer;
+import objects.MovieTicket;
+import objects.Review;
+import objects.Showing;
 
 /**
  * Represents the module for MovieGoer functions.

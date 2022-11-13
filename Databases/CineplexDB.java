@@ -1,9 +1,9 @@
-package Databases;
+package databases;
 
 import java.lang.System;
-import Objects.Cineplex;
-
 import java.util.ArrayList;
+
+import objects.Cineplex;
 
 /**
  * Represents the concrete DB class for Cineplex.

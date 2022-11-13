@@ -1,12 +1,12 @@
-package Modules;
+package modules;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import Databases.AdminDB;
-import Interfaces.LoginInterface;
-import Interfaces.ModuleInterface;
-import Objects.Admin;
+import databases.AdminDB;
+import interfaces.LoginInterface;
+import interfaces.ModuleInterface;
+import objects.Admin;
 
 /**
  * Represents the Module for Admin functions.

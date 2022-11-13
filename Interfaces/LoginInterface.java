@@ -1,4 +1,4 @@
-package Interfaces;
+package interfaces;
 
 /**
  * Represents the Interface for Modules that require login functionality.

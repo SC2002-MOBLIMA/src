@@ -1,26 +1,24 @@
-package Modules;
+package modules;
 
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import Databases.AdminDB;
-import Databases.CineplexDB;
-import Databases.MovieDB;
-
-import Databases.MovieGoerDB;
-import Objects.Admin;
-import Objects.Cineplex;
-import Objects.Cinema;
-import Objects.Movie;
-
-import Objects.MovieGoer;
-import Objects.Showing;
-import Enums.MovieStatusType;
-import Enums.MovieType;
-import Enums.CinemaType;
-import Enums.AgeType;
+import databases.AdminDB;
+import databases.CineplexDB;
+import databases.MovieDB;
+import databases.MovieGoerDB;
+import enums.AgeType;
+import enums.CinemaType;
+import enums.MovieStatusType;
+import enums.MovieType;
+import objects.Admin;
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Movie;
+import objects.MovieGoer;
+import objects.Showing;
 
 public class DBEditor {
 

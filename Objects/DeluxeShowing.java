@@ -1,9 +1,9 @@
-package Objects;
+package objects;
 
 import java.time.LocalDateTime;
 
-import Enums.DayType;
-import Enums.SeatType;
+import enums.DayType;
+import enums.SeatType;
 
 /** 
  * Represents a particular Showing of a Movie within a DELUXE class Cinema.

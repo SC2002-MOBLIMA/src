@@ -1,4 +1,4 @@
-package Enums;
+package enums;
 
 /**
  * Different Day Types when Showings are aired.

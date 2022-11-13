@@ -1,10 +1,11 @@
-package Objects;
+package objects;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import Enums.MovieStatusType;
-import Enums.MovieType;
+
+import enums.MovieStatusType;
+import enums.MovieType;
 
 /**
  * Represents a Movie that has been listed by the Admin.

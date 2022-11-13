@@ -1,6 +1,6 @@
-package Databases;
+package databases;
 
-import Objects.Settings;
+import objects.Settings;
 
 /**
  * Represents the concrete DB class for Settings.

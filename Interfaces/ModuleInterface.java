@@ -1,4 +1,4 @@
-package Interfaces;
+package interfaces;
 
 /**
  * Represents the Interface for all Modules.

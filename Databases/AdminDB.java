@@ -1,8 +1,8 @@
-package Databases;
+package databases;
 
 import java.util.ArrayList;
 
-import Objects.Admin;
+import objects.Admin;
 
 /**
  * Represents the concrete DB class for Admin.

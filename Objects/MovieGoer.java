@@ -1,9 +1,9 @@
-package Objects;
+package objects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import Enums.AgeType;
+import enums.AgeType;
 
 /**
  * Represents a MovieGoer user account.
