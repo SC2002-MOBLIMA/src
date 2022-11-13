@@ -4,6 +4,15 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Movie;
+import objects.MovieGoer;
+import objects.MovieTicket;
+import objects.Settings;
+import objects.Showing;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,13 +26,6 @@ import enums.MovieStatusType;
 import enums.MovieType;
 import enums.SeatType;
 import interfaces.ModuleInterface;
-import objects.Cinema;
-import objects.Cineplex;
-import objects.Movie;
-import objects.MovieGoer;
-import objects.MovieTicket;
-import objects.Settings;
-import objects.Showing;
 
 /**
  * Represents the Module for MovieGoers to book seats.

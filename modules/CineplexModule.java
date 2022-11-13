@@ -1,6 +1,13 @@
 package modules;
 
 import java.util.Scanner;
+
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Movie;
+import objects.Settings;
+import objects.Showing;
+
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -13,11 +20,6 @@ import databases.SettingsDB;
 import enums.DayType;
 import enums.MovieStatusType;
 import interfaces.ModuleInterface;
-import objects.Cinema;
-import objects.Cineplex;
-import objects.Movie;
-import objects.Settings;
-import objects.Showing;
 
 /** 
  * Represents a function in the admin module which can add/remove/update cinema showtimes and movies shown.
@@ -168,11 +170,17 @@ public class CineplexModule implements ModuleInterface {
             }
             System.out.print("Please key in the number of the movie that you would like: ");
             int selection = sc.nextInt();
-            if (!(selection < 1 || selection > currentMovies.size())) {
-                main = false;
-                movieObj = currentMovies.get(selection - 1);
-            } else {
-                System.out.println("Error: Invalid value keyed in. Please try again.\n");
+            try {
+                if (!(selection < 1 || selection > currentMovies.size())) {
+                    main = false;
+                    movieObj = currentMovies.get(selection - 1);
+                } else {
+                    System.out.println("Error: Invalid value keyed in. Please try again.\n");
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("FUCK");
+                movieObj = currentMovies.get(0);
             }
         }
     }
@@ -195,8 +203,9 @@ public class CineplexModule implements ModuleInterface {
 
                 if (dateTime.compareTo(movieObj.getEndOfShowingDate()) > 0) {
                     System.out.println("Error: Date keyed in exceeds the end of showing of movie. Please try again.\n");
-                } else if (dateTime.compareTo(LocalDateTime.now()) < 0){
-                System.out.println("Error: Date keyed in has already passed. Please try again.");
+                // } 
+                // else if (dateTime.compareTo(LocalDateTime.now()) < 0){
+                // System.out.println("Error: Date keyed in has already passed. Please try again.");
                 } else {
                     break;
                 }

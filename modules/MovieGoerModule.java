@@ -1,6 +1,13 @@
 package modules;
 
 import java.util.Scanner;
+
+import objects.Movie;
+import objects.MovieGoer;
+import objects.MovieTicket;
+import objects.Review;
+import objects.Showing;
+
 import java.util.Collections;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
@@ -14,11 +21,6 @@ import databases.MovieGoerDB;
 import enums.MovieStatusType;
 import interfaces.LoginInterface;
 import interfaces.ModuleInterface;
-import objects.Movie;
-import objects.MovieGoer;
-import objects.MovieTicket;
-import objects.Review;
-import objects.Showing;
 
 /**
  * Represents the module for MovieGoer functions.

@@ -18,7 +18,7 @@ public class CineplexDB extends SerializeDB<ArrayList<Cineplex>> {
      * Creates a new CineplexDB with the given filename.
      */
     public CineplexDB() {
-        this.filename = "Databases/cineplex.dat";
+        this.filename = "databases/cineplex.dat";
     }
 
     /**

@@ -6,15 +6,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import objects.Cinema;
+import objects.Cineplex;
+import objects.Movie;
+import objects.Showing;
+
 import databases.CineplexDB;
 import databases.MovieDB;
 import enums.MovieStatusType;
 import enums.MovieType;
 import interfaces.ModuleInterface;
-import objects.Cinema;
-import objects.Cineplex;
-import objects.Movie;
-import objects.Showing;
 
 /**
  * Represents the entry point for Admins to create/ update / remove

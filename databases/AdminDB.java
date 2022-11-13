@@ -17,6 +17,6 @@ public class AdminDB extends SerializeDB<ArrayList<Admin>> {
      * Creates a new AdminDB with the given filename.
      */
     public AdminDB() {
-        this.filename = "Databases/admin.dat";
+        this.filename = "databases/admin.dat";
     }
 }

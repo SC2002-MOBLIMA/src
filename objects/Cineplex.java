@@ -24,7 +24,7 @@ public class Cineplex implements Serializable {
     /**
      * Constructor of the Cineplex object. Once called, a new Cineplex Object will be created.
      * @param cineplexName represents the name of the Cineplex object.
-     * @param cinemaList represents the list of Cinema Objects in the Cineplex Object.
+     * @param cinemaList represents the list of Cinema objects in the Cineplex Object.
      */
     public Cineplex(String cineplexName, ArrayList<Cinema> cinemaList) {
         this.cineplexName = cineplexName;
