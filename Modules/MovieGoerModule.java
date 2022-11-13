@@ -62,7 +62,9 @@ public class MovieGoerModule implements ModuleInterface, LoginInterface {
     /**
      * Creates a new MovieGoerModule for MovieGoer functionality.
      * 
-     * @param sc Scanner to query for user's inputs.
+     * @param sc        Scanner to query for user's inputs.
+     * @param isGuest   boolean on whether to initialise the 
+     *                  MovieGoerModule with guest account.
      */
     public MovieGoerModule(Scanner sc, boolean isGuest) {
         this.sc = sc;
