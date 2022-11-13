@@ -99,10 +99,9 @@ abstract public class Showing implements Serializable {
      * Modifies the Movie of this Showing.
      * 
      * @param movie new Movie of this Showing.
-     * @return this Showing's Movie.
      */
-    public Movie setMovie(Movie movie) {
-        return this.movie = movie;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
     /**
@@ -118,10 +117,9 @@ abstract public class Showing implements Serializable {
      * Modifies the DayType of this Showing.
      * 
      * @param dayType new DayType of this Showing.
-     * @return this Showing's DayType.
      */
-    public DayType setDayType(DayType dayType) {
-        return this.dayType = dayType;
+    public void setDayType(DayType dayType) {
+        this.dayType = dayType;
     }
 
     /**
