@@ -170,17 +170,11 @@ public class CineplexModule implements ModuleInterface {
             }
             System.out.print("Please key in the number of the movie that you would like: ");
             int selection = sc.nextInt();
-            try {
-                if (!(selection < 1 || selection > currentMovies.size())) {
-                    main = false;
-                    movieObj = currentMovies.get(selection - 1);
-                } else {
-                    System.out.println("Error: Invalid value keyed in. Please try again.\n");
-                }
-            } catch (Exception e) {
-                // TODO: handle exception
-                System.out.println("FUCK");
-                movieObj = currentMovies.get(0);
+            if (!(selection < 1 || selection > currentMovies.size())) {
+                main = false;
+                movieObj = currentMovies.get(selection - 1);
+            } else {
+                System.out.println("Error: Invalid value keyed in. Please try again.\n");
             }
         }
     }
